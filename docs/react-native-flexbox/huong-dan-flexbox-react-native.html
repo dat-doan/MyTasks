@@ -1,0 +1,928 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Hướng dẫn Flexbox trong React Native bằng tiếng Việt với hình ảnh sơ đồ mô phỏng và mã Expo chạy được"><title>Hiểu và thực hành Flexbox trong React Native</title><style>:root{color-scheme:light;--ink:#142338;--muted:#53657b;--teal:#0f766e;--line:#dce4ec;--paper:#fff;--wash:#f5f8fa;--navy:#13243a;--blue:#2563eb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.8}a{color:#12665f;text-underline-offset:3px}button,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,select:focus-visible,summary:focus-visible,pre:focus-visible{outline:3px solid #62b9ad;outline-offset:3px}button{background:#fff;border:1px solid #ccd8e3;border-radius:7px;color:var(--ink);padding:7px 13px;font-size:13px;font-weight:600}button:hover{background:#edf5f3}.skip-link{position:absolute;left:12px;top:-100px;z-index:50;background:#fff;padding:10px}.skip-link:focus{top:10px}.reading-track{height:3px;background:#eaf0f3;position:fixed;left:0;right:0;top:0;z-index:40}#reading-progress{height:100%;width:0;background:var(--teal)}.topbar{height:83px;padding:0 40px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px;background:#fff;position:sticky;top:0;z-index:20}.brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);font-weight:700;font-size:18px;line-height:1.2}.brand small{display:block;font-size:10px;letter-spacing:1.6px;color:var(--muted);margin-top:6px;font-weight:500}.brand-mark{background:var(--navy);color:#fff;width:39px;height:39px;display:grid;place-items:center;border-radius:10px;font-size:16px}.top-actions{display:flex;gap:10px}.page-shell{max-width:1430px;margin:auto;display:grid;grid-template-columns:260px minmax(0,1fr);gap:60px;padding:0 44px}.sidebar{position:sticky;top:107px;align-self:start;max-height:calc(100vh - 130px);overflow:auto;padding:18px 12px 16px 0}.toc-heading{font-size:10px;letter-spacing:1.8px;font-weight:700;color:var(--muted);margin-bottom:13px}nav{display:flex;flex-direction:column;gap:3px}nav a{font-size:13px;color:#526176;text-decoration:none;display:flex;align-items:baseline;gap:10px;padding:6px 8px;border-radius:6px;line-height:1.55}nav a span{font-size:10px;font-variant-numeric:tabular-nums;color:#7b8b9a;min-width:17px}nav a.active{color:#095c54;background:#eaf5f1;font-weight:600}nav a:hover{background:var(--wash)}.sidebar-note{font-size:11px;line-height:1.8;color:var(--muted);border-top:1px solid var(--line);margin:22px 8px 0;padding-top:16px}main{min-width:0;max-width:990px;padding-bottom:70px}.hero{padding:68px 0 48px;border-bottom:1px solid var(--line)}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--teal);font-weight:700;margin:0 0 18px}h1{font-size:clamp(39px,4.5vw,64px);letter-spacing:-2.2px;line-height:1.12;margin:0 0 22px;font-weight:750;color:#142338}h1 span{color:var(--teal)}.hero-intro{font-size:20px;line-height:1.7;max-width:690px;color:#40526a;margin:0 0 24px}.version-row{display:flex;flex-wrap:wrap;gap:8px}.version-row span{background:var(--wash);border:1px solid #e6edf2;border-radius:5px;padding:3px 9px;font-size:11px;color:#43536b}.hero-actions{display:flex;align-items:center;gap:24px;margin:30px 0 20px;flex-wrap:wrap}.primary-action{display:inline-block;background:var(--teal);color:#fff;padding:10px 17px;border-radius:7px;font-size:14px;font-weight:600;text-decoration:none}.primary-action:hover{background:#0a615a}.text-action{font-size:13px;font-weight:600;text-decoration:none}.scope{font-size:12px;max-width:740px;color:var(--muted);line-height:1.75}.mobile-toc{display:none}section{padding:44px 0 12px;scroll-margin-top:90px}h2{font-size:29px;line-height:1.35;letter-spacing:-.7px;margin:0 0 19px;font-weight:700;color:#142338}h2 .section-number{font-size:12px;letter-spacing:1px;color:var(--teal);display:block;margin-bottom:8px;font-weight:600}h3{font-size:20px;line-height:1.45;letter-spacing:-.2px;margin:31px 0 13px}h4{font-size:16px;margin:25px 0 8px}p{margin:0 0 16px}section>p,section>ul,section>ol{max-width:820px}ul,ol{padding-left:25px;margin:12px 0 22px}li{padding-left:4px;margin:6px 0}strong{font-weight:650}p code,li code,td code,.scope code{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:.87em;background:#eff4f7;border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}figure{margin:27px 0 30px;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--wash)}.figure-art{line-height:0}.figure-art svg{display:block;width:100%;height:auto}figcaption{background:#fff;display:flex;justify-content:space-between;align-items:center;gap:15px;padding:13px 16px;border-top:1px solid var(--line);font-size:12px;line-height:1.6;color:var(--muted)}figcaption button{white-space:nowrap;font-size:11px;padding:5px 9px;flex:none}.table-wrap{overflow:auto;margin:20px 0 25px;border:1px solid var(--line);border-radius:8px}table{border-collapse:collapse;width:100%;font-size:13px;line-height:1.65}th{text-align:left;background:#eef4f6;color:#20364d;font-weight:650}td,th{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}td:first-child{font-weight:500}table code{font-size:11px}.code-block{margin:18px 0 23px;border-radius:9px;overflow:hidden;background:var(--navy);color:#e7eff8;min-width:0}.code-head{padding:9px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #314358;font-size:11px;color:#b9cbdc;line-height:1.5}.code-head>span{overflow-wrap:anywhere}.copy-code{background:#253b52;border:1px solid #456078;color:#e9f2fb;font-size:11px;font-weight:500;padding:4px 9px;flex:none}.copy-code:hover{background:#36516b}pre{margin:0;padding:18px 20px;overflow:auto;tab-size:2;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:12px;line-height:1.7}pre code{font:inherit;color:inherit}details.source-file{border:1px solid var(--line);border-radius:8px;margin:12px 0;overflow:hidden}details.source-file summary{padding:13px 15px;font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere;background:#f5f8fa;cursor:pointer;line-height:1.6}details.source-file .code-block{margin:0;border-radius:0}details.answer{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:12px 0 25px;padding:10px 0}details.answer summary{font-size:13px;color:#12665f;cursor:pointer;font-weight:600}details.answer p{font-size:14px;padding:12px 0 0;margin:0}.source-note{font-size:11px;color:var(--muted);line-height:1.75;margin-top:18px}.source-note a{color:#526d7a}.reading-path{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:22px 0}.reading-path>div{border-top:2px solid #9bbbae;padding-top:14px}.reading-path h3{margin:0 0 9px;font-size:17px}.reading-path p{font-size:14px;line-height:1.8}.reading-path a{font-size:13px}.practice{padding:23px 25px;border:1px solid #bed8cf;border-radius:10px;background:#f4faf7;margin:24px 0}.practice h3{margin:0 0 13px;font-size:18px}.practice .caption{font-size:12px;color:var(--muted)}.control-row{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.control-row button{font-family:Consolas,monospace;font-size:11px}.stack-display{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:7px;min-height:170px;padding:16px;background:#fff;border:1px solid #d7e7df;border-radius:7px}.stack-screen{padding:6px 13px;background:#eaf2fa;border:1px solid #d5e2ef;border-radius:5px;font-family:Consolas,monospace;font-size:12px;min-width:70%;max-width:100%;overflow-wrap:anywhere}.stack-screen:last-child{background:#0f766e;color:#fff;border-color:#0f766e}.sim-result{font-size:12px;line-height:1.8;margin:13px 0 0}.route-controls label{font-size:13px;display:block;font-weight:600;margin-bottom:7px}.route-controls select{width:100%;background:#fff;border:1px solid #afc9bc;border-radius:6px;padding:10px;font-family:Consolas,monospace;font-size:12px}.route-result{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:15px}.route-result>div{min-width:0}.route-result dt{font-size:11px;color:var(--muted);margin-bottom:6px}.route-result dd{margin:0;font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.checklist{list-style:none;padding-left:0}.checklist li:before{content:"□";font-size:20px;color:var(--teal);padding-right:10px}.download-panel{display:flex;gap:15px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);border-top:1px solid var(--line);padding:20px 0;margin:24px 0}.download-panel p{font-size:13px;margin:0;color:var(--muted)}.download-panel button{background:var(--teal);border-color:var(--teal);color:#fff;white-space:nowrap}.source-list{font-size:13px}.source-list li{margin:10px 0}.document-footer{margin-top:55px;border-top:1px solid var(--line);padding-top:24px;font-size:12px;color:var(--muted)}.document-footer strong{color:var(--ink)}.document-footer p{margin:7px 0 12px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}dialog{border:1px solid #b8c7d4;border-radius:12px;padding:0;width:min(1250px,96vw);max-width:96vw;color:var(--ink);background:#fff}dialog::backdrop{background:#142338aa}.dialog-head{display:flex;justify-content:space-between;align-items:center;padding:12px 17px;border-bottom:1px solid var(--line);font-size:13px}.zoom-stage{overflow:auto;max-height:80vh;line-height:0}.zoom-stage svg{width:max(100%,1000px);height:auto;display:block}
+.dialog-head small{display:block;font-size:11px;color:var(--muted);line-height:1.6;margin-top:3px}
+@media(max-width:1100px){.page-shell{gap:30px;padding:0 25px;grid-template-columns:220px minmax(0,1fr)}.topbar{padding:0 25px}nav a{font-size:12px}.hero{padding-top:50px}h1{font-size:50px}}
+@media(max-width:800px){.page-shell{display:block;padding:0 22px}.sidebar{display:none}.mobile-toc{display:block;margin-top:24px;border:1px solid var(--line);border-radius:8px;padding:12px 15px}.mobile-toc>summary{font-size:14px;cursor:pointer;font-weight:600}.mobile-toc nav{margin-top:10px}.topbar{height:73px;padding:0 20px}.hero{padding-top:39px}.hero-intro{font-size:18px}h1{font-size:47px}.hero-actions{gap:18px}.scope{font-size:12px}h2{font-size:26px}.reading-path{gap:20px}section{padding-top:37px}.top-actions #print-guide{display:none}.top-actions button{font-size:11px;padding:7px 9px}.brand{font-size:16px}.brand small{font-size:8px}.brand-mark{width:33px;height:33px;font-size:13px}body{font-size:15px}.practice{padding:19px}.route-result{grid-template-columns:1fr}}
+@media(max-width:420px){.page-shell{padding:0 16px}.topbar{padding:0 14px;gap:8px}.brand{gap:7px}.brand small{letter-spacing:.7px}.brand-mark{width:29px;height:29px}.top-actions button{padding:6px 7px;font-size:10px}h1{font-size:41px;letter-spacing:-1.4px}.hero-intro{font-size:17px}.reading-path{grid-template-columns:1fr;gap:20px}pre{font-size:11px;padding:16px}.code-head{padding:9px 10px;gap:5px;font-size:10px}.copy-code{font-size:10px;padding:4px 7px}figcaption{padding:11px;gap:8px;font-size:11px}.download-panel{align-items:flex-start;flex-direction:column}.practice{padding:16px}.control-row button{font-size:10px;padding:7px}.stack-screen{min-width:90%}h2{font-size:25px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.topbar,.sidebar,.mobile-toc,.hero-actions,.copy-code,.zoom-figure,.control-row,.reading-track,.skip-link{display:none!important}.page-shell{display:block;max-width:none;padding:0}main{max-width:none;padding:0}.hero{padding:0 0 25px}.hero-intro{font-size:15px}h1{font-size:36px}body{font-size:10pt;color:#111}h2{font-size:20pt;break-after:avoid}h3{font-size:14pt;break-after:avoid}section{padding-top:26px}figure,.code-block{break-inside:avoid}pre{white-space:pre-wrap;overflow:visible;font-size:8pt;background:#f4f5f7;color:#111}.code-block{background:#f4f5f7;color:#111;border:1px solid #ccd2d9}.code-head{background:#edf1f4;color:#111}.table-wrap{overflow:visible}a{color:#111}details.source-file:not([open]){display:none}dialog{display:none}}
+
+.hero h1{font-size:clamp(38px,4.1vw,58px);line-height:1.13}.model{border:1px solid #b9d7d0;border-radius:10px;padding:22px;background:#f3faf7;margin:25px 0}.model h3{margin:0 0 10px;font-size:19px}.model-note{font-size:12px;color:#53657b;line-height:1.8}.model-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0 20px}.model-controls label{font-size:12px;font-weight:600;display:flex;flex-direction:column;gap:6px;min-width:0}.model-controls select,.model-controls input[type=range]{width:100%;min-width:0}.model-controls select{border:1px solid #adc7be;border-radius:6px;background:#fff;color:#142338;padding:8px 9px;font-family:Consolas,monospace;font-size:12px}.axis-stage{background:#fff;border:1px solid #c5d8d0;border-radius:8px;overflow:hidden;padding:16px}.axis-labels{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;margin-bottom:14px}.main-axis-label{color:#0f766e;font-weight:650}.cross-axis-label{color:#2563eb;font-weight:650}.axis-canvas{height:276px;display:flex;gap:8px;border:1px dashed #b5c7d2;background:#f5f8fc;padding:10px;direction:ltr}.axis-child{flex:0 0 auto;width:46px;height:46px;background:#d9ede6;border:1px solid #9ec7ba;color:#145347;display:flex;align-items:center;justify-content:center;border-radius:5px;font-size:15px;font-weight:700}.axis-child:nth-child(2){background:#e1ecfa;color:#244c85;border-color:#b2cae9}.axis-child:nth-child(3){background:#eae7f7;color:#574684;border-color:#c6bddf}.model-output{font-family:Consolas,monospace;font-size:11px;line-height:1.8;overflow-wrap:anywhere;margin-top:15px;color:#213b4f}.model pre{background:#13243a;color:#e7eff8;border-radius:7px;font-size:11px;white-space:pre-wrap;padding:14px;margin:13px 0 0}.calc-results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:16px 0}.calc-results p{margin:0;font-size:12px}.calc-results strong{display:block;font-size:18px;font-variant-numeric:tabular-nums;color:#13243a}.calc-bar-shell{background:#fff;padding:14px;border:1px solid #c5d8d0;border-radius:8px}.calc-bar{height:70px;display:flex;gap:12px;max-width:100%;background:#f4f6f9}.calc-item{height:70px;min-width:0;display:grid;place-items:center;align-content:center;background:#d5ece4;color:#145347;font-size:12px;border-radius:4px;overflow:hidden}.calc-item span{display:block}.calc-item:nth-child(2){background:#dfebfa;color:#244c85}.calc-item:nth-child(3){background:#eee8fa;color:#574684}.calc-empty{color:#6b7c8d;font-size:11px;display:flex;align-items:center;justify-content:center;overflow:hidden}.wrap-stage{display:flex;flex-direction:row;flex-wrap:wrap;height:260px;width:264px;max-width:100%;gap:10px;padding:10px;background:#fff;border:1px dashed #adc7be;border-radius:7px;box-sizing:border-box;direction:ltr}.wrap-item{width:68px;height:42px;flex:0 0 auto;display:grid;place-items:center;background:#dcebe6;border-radius:4px;color:#155d4f;font-size:14px;font-weight:600}.wrap-stage-wrapper{display:flex;justify-content:center;overflow:hidden}.formula{font-family:Consolas,monospace;font-size:12px;padding:13px 0;border-top:1px solid #d8e5de;border-bottom:1px solid #d8e5de;line-height:1.9;overflow-wrap:anywhere}.checklist{padding-left:0}.line-example{color:#53657b;font-size:13px}.model-controls input[type=range]{accent-color:#0f766e}.model-controls output{font-variant-numeric:tabular-nums;color:#0f766e}kbd{font-family:Consolas,monospace;border:1px solid #cdd7df;border-radius:4px;padding:1px 5px;font-size:.85em;background:#f5f8fa}.dialog-head small{font-size:11px;display:block;color:#53657b}.note-link{font-size:13px}.mini-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:23px 0}.mini-steps div{border-top:2px solid #aacbbf;padding-top:12px}.mini-steps b{font-size:13px;display:block;color:#0f766e;margin-bottom:5px}.mini-steps p{font-size:13px;line-height:1.8;margin:0}
+@media(max-width:800px){.model{padding:18px}.model-controls{grid-template-columns:1fr 1fr}.hero h1{font-size:45px}.calc-results{gap:10px}.mini-steps{grid-template-columns:1fr}}
+@media(max-width:420px){.hero h1{font-size:37px}.topbar .brand{font-size:13px}.brand small{font-size:8px}.model{padding:14px}.model-controls{gap:10px}.model-controls select{font-size:10px;padding:8px 5px}.axis-stage{padding:10px}.axis-canvas{height:250px;padding:8px;gap:8px}.calc-bar-shell{padding:9px}.calc-results strong{font-size:16px}.calc-results p{font-size:11px}.calc-item{font-size:10px}.wrap-stage{width:240px}.wrap-item{width:62px}.model h3{font-size:17px}.hero-intro{font-size:17px}}
+@media print{.model-controls{display:none}.axis-canvas,.wrap-stage,.calc-bar{print-color-adjust:exact}.model{break-inside:avoid}.hero h1{font-size:34px}}
+</style></head><body>
+<a href="#noi-dung" class="skip-link">Đến nội dung</a><div class="reading-track"><div id="reading-progress"></div></div>
+<header class="topbar"><a class="brand" href="#dau-trang"><span class="brand-mark">FX</span><span>React Native Flexbox<small>SỔ TAY THỰC HÀNH</small></span></a><div class="top-actions"><button type="button" class="download-lab">Tải mã mẫu ZIP</button><button type="button" id="print-guide">In tài liệu</button></div></header>
+<div class="page-shell"><aside class="sidebar"><div class="toc-heading">TRONG TÀI LIỆU NÀY</div><nav aria-label="Mục lục"><a href="#lo-trinh"><span>01</span>Mục tiêu và cách học</a><a href="#rang-buoc"><span>02</span>Kích thước cha và không gian còn lại</a><a href="#truc"><span>03</span>Trục chính và trục chéo</a><a href="#can-chinh"><span>04</span>Justify alignItems và alignSelf</a><a href="#grow"><span>05</span>Flex basis và flexGrow</a><a href="#shrink"><span>06</span>FlexShrink và xử lý thiếu chỗ</a><a href="#khoang-cach"><span>07</span>Padding margin gap và box model</a><a href="#xuong-dong"><span>08</span>FlexWrap và alignContent</a><a href="#text-dai"><span>09</span>Text dài và hàng có nút cố định</a><a href="#cuon"><span>10</span>ScrollView FlatList và viewport</a><a href="#safe-area-ban-phim"><span>11</span>Safe area và bàn phím</a><a href="#thich-ung"><span>12</span>Responsive aspectRatio và absolute</a><a href="#my-tasks"><span>13</span>Đọc layout của app My Tasks</a><a href="#thuc-hanh"><span>14</span>Bộ mã mẫu thực hành</a><a href="#chan-doan"><span>15</span>Debug và bài tập tự làm</a><a href="#tra-cuu"><span>16</span>Bảng tra nhanh và nguồn</a></nav><p class="sidebar-note">Đọc offline · Ví dụ có thể sao chép<br>React Native 0.86 · Expo SDK 57<br>Ngày biên soạn 19 10 2026</p></aside><main id="noi-dung">
+<div class="hero" id="dau-trang"><p class="eyebrow">TỪ TRỤC ĐẾN BỐ CỤC MÀN HÌNH</p><h1>Hiểu và thực hành<br><span>Flexbox</span><br>trong React Native</h1><p class="hero-intro">Đọc được một cây layout, tính được phần không gian còn lại và tự dựng giao diện thích ứng với màn hình cùng nội dung thực tế.</p><div class="version-row"><span>React Native 0.86.3</span><span>Expo SDK 57</span><span>Yoga layout</span><span>TypeScript</span></div><div class="hero-actions"><a class="primary-action" href="#thuc-hanh">Chạy bộ mẫu thực hành</a><a class="text-action" href="#truc">Khám phá các trục →</a></div><p class="scope">Cùng cách trình bày với sổ tay Expo Router. Sáu hình minh hoạ, ba mô hình tương tác và bộ code độc lập. Source app hiện tại được giữ nguyên.</p></div>
+<details class="mobile-toc"><summary>Mục lục tài liệu</summary><nav aria-label="Mục lục trên điện thoại"><a href="#lo-trinh"><span>01</span>Mục tiêu và cách học</a><a href="#rang-buoc"><span>02</span>Kích thước cha và không gian còn lại</a><a href="#truc"><span>03</span>Trục chính và trục chéo</a><a href="#can-chinh"><span>04</span>Justify alignItems và alignSelf</a><a href="#grow"><span>05</span>Flex basis và flexGrow</a><a href="#shrink"><span>06</span>FlexShrink và xử lý thiếu chỗ</a><a href="#khoang-cach"><span>07</span>Padding margin gap và box model</a><a href="#xuong-dong"><span>08</span>FlexWrap và alignContent</a><a href="#text-dai"><span>09</span>Text dài và hàng có nút cố định</a><a href="#cuon"><span>10</span>ScrollView FlatList và viewport</a><a href="#safe-area-ban-phim"><span>11</span>Safe area và bàn phím</a><a href="#thich-ung"><span>12</span>Responsive aspectRatio và absolute</a><a href="#my-tasks"><span>13</span>Đọc layout của app My Tasks</a><a href="#thuc-hanh"><span>14</span>Bộ mã mẫu thực hành</a><a href="#chan-doan"><span>15</span>Debug và bài tập tự làm</a><a href="#tra-cuu"><span>16</span>Bảng tra nhanh và nguồn</a></nav></details><section id="lo-trinh" data-title="Mục tiêu và cách học">
+<h2><span class="section-number">01 · BẮT ĐẦU</span>Học để dự đoán được bố cục</h2>
+<p>Flexbox là cơ chế chia không gian và sắp xếp các phần tử con theo một trục chính. Trong React Native, Yoga tính kích thước và vị trí từ cây View, style, nội dung cần đo và các ràng buộc do cha cung cấp. Viết layout tốt bắt đầu từ việc biết vùng cha rộng cao thế nào và phần tử nào được phép lớn hoặc nhỏ đi.</p>
+<p>Tài liệu này giúp bạn nhìn một giao diện, tách thành các hàng cột, chọn đúng thuộc tính và giải thích được kết quả. Bạn sẽ dựng màn hình danh sách có ô nhập, nút cố định, text dài và footer; đồng thời xử lý trường hợp cuộn, bàn phím và màn hình hẹp.</p>
+<div class="reading-path"><div><h3>Muốn làm ngay</h3><p>Tải lab ở mục 14. Chạy bộ thí nghiệm trục, màn hình công việc và form. Quay lại các mục tính grow/shrink để giải thích kết quả.</p><a href="#thuc-hanh">Mở bài thực hành →</a></div><div><h3>Muốn hiểu từ nền tảng</h3><p>Đọc ràng buộc kích thước, trục, căn chỉnh rồi mới tới chia không gian và text. Dùng mô hình tương tác để kiểm tra dự đoán trước khi copy code.</p><a href="#rang-buoc">Bắt đầu từ kích thước cha →</a></div></div>
+<p><strong>Phạm vi phiên bản:</strong> React Native 0.86.3 và Expo SDK 57, tương ứng project hiện tại. Flexbox không phải tính năng riêng của Expo Router. Router cung cấp vùng screen; layout bên trong vùng đó do React Native và Yoga xử lý.</p>
+<div class="table-wrap"><table><thead><tr><th>Mặc định cần nhớ</th><th>React Native</th><th>CSS Flexbox thông thường trên web</th></tr></thead><tbody><tr><td>Hướng của container flex</td><td><code>column</code></td><td><code>row</code></td></tr><tr><td>Cho child thu khi thiếu chỗ</td><td><code>flexShrink: 0</code></td><td><code>flex-shrink: 1</code></td></tr><tr><td>Phân bố các dòng wrap</td><td><code>alignContent: 'flex-start'</code></td><td><code>stretch</code></td></tr><tr><td>Flex shorthand</td><td>Một giá trị số</td><td>Có thể là nhiều thành phần</td></tr><tr><td>Tham gia flex layout</td><td>View bố trí con theo Flexbox mặc định</td><td>Thường phải tạo flex container bằng display</td></tr></tbody></table></div>
+<p>Các khác biệt này khiến ví dụ CSS trên web có thể cho kết quả khác khi chuyển nguyên sang React Native. Trong phần tính toán chính xác, tài liệu khai báo <code>flexBasis</code>, <code>flexGrow</code> và <code>flexShrink</code> tách riêng.</p>
+<p class="source-note">Đối chiếu: <a href="https://reactnative.dev/docs/0.86/flexbox" target="_blank" rel="noopener">Layout with Flexbox 0.86</a>, <a href="https://docs.expo.dev/versions/v57.0.0/" target="_blank" rel="noopener">Expo SDK 57 reference</a>.</p>
+</section>
+<section id="rang-buoc" data-title="Kích thước cha và không gian còn lại">
+<h2><span class="section-number">02 · ĐỌC VÙNG LAYOUT</span>Hỏi cha cấp cho con bao nhiêu chỗ</h2>
+<p>Một View có thể vừa là child của cha, vừa là container của những child bên trong. <code>flex: 1</code> của View nói về cách nó nhận chỗ trong cha. <code>flexDirection</code>, <code>justifyContent</code> và <code>alignItems</code> của chính View đó nói về cách nó bố trí các con trực tiếp.</p>
+<p>Trước khi căn giữa hay chia tỷ lệ, cần xác định kích thước của container. Nếu một vùng không có chiều cao xác định và cũng không nhận chiều cao từ chuỗi cha, bạn chưa có một vùng dư ổn định để chia. Thêm <code>flex: 1</code> vào child không tự tạo ra một chiều cao viewport ở bất kỳ vị trí nào.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-labelledby="f1-title f1-desc"><title id="f1-title">Chia phần chiều cao còn lại bằng flex: 1</title><desc id="f1-desc">Viewport cao 640, padding trên dưới mỗi bên 20, header cao 80, footer cao 60, hai gap mỗi gap 12. Body flex 1 nhận 436 đơn vị layout.</desc><defs><marker id="f1-teal" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#0f766e"/></marker><marker id="f1-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#2563eb"/></marker><marker id="f1-navy" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#172554"/></marker></defs><rect width="1000" height="700" fill="#f4f8fb"/><g font-family="Arial, Helvetica, sans-serif"><text x="36" y="49" font-size="30" fill="#172554" font-weight="700" text-anchor="start" >flex: 1 nhận phần không gian còn lại</text><text x="36" y="83" font-size="19" fill="#52647b" font-weight="400" text-anchor="start" >Điều kiện: chuỗi cha phải cung cấp kích thước hữu hạn cho vùng đang chia.</text><rect x="36" y="116" width="432" height="544" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><rect x="490" y="116" width="474" height="544" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="60" y="154" font-size="25" fill="#172554" font-weight="700" text-anchor="start" >Một viewport cao 640</text><text x="60" y="183" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Đơn vị layout, không phải pixel vật lý</text><rect x="110" y="224" width="252" height="384" rx="16" fill="#f8fafc" stroke="#172554" stroke-width="2"/><rect x="122" y="236" width="228" height="48" rx="8" fill="#eaf1ff" stroke="#2563eb" stroke-width="1.5"/><text x="236.0" y="266" font-size="20" fill="#2563eb" font-weight="700" text-anchor="middle" >Header · 80</text><rect x="122" y="291.2" width="228" height="261.6" rx="8" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="236.0" y="409" font-size="25" fill="#0f766e" font-weight="700" text-anchor="middle" >Body</text><text x="236.0" y="440" font-size="21" fill="#0f766e" font-weight="600" text-anchor="middle" >flex: 1 → 436</text><rect x="122" y="560" width="228" height="36" rx="8" fill="#eaf1ff" stroke="#2563eb" stroke-width="1.5"/><text x="236.0" y="585" font-size="19" fill="#2563eb" font-weight="700" text-anchor="middle" >Footer · 60</text><line x1="82" y1="224" x2="82" y2="608" stroke="#172554" stroke-width="2"/><line x1="75" y1="224" x2="89" y2="224" stroke="#172554" stroke-width="2"/><line x1="75" y1="608" x2="89" y2="608" stroke="#172554" stroke-width="2"/><text x="63" y="421" font-size="20" fill="#172554" font-weight="700" text-anchor="middle" transform="rotate(-90 63 421)">640</text><text x="377" y="240" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >20</text><text x="377" y="287" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >12</text><text x="377" y="558" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >12</text><text x="377" y="607" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >20</text><text x="514" y="154" font-size="25" fill="#172554" font-weight="700" text-anchor="start" >Chia ngân sách chiều cao</text><text x="514" y="207" font-size="21" fill="#52647b" font-weight="400" text-anchor="start" >Chiều cao container</text><text x="936" y="207" font-size="23" fill="#142338" font-weight="600" text-anchor="end" >640</text><text x="514" y="262" font-size="21" fill="#52647b" font-weight="400" text-anchor="start" >Padding trên + dưới</text><text x="936" y="262" font-size="23" fill="#142338" font-weight="600" text-anchor="end" >− 40</text><text x="514" y="317" font-size="21" fill="#52647b" font-weight="400" text-anchor="start" >Header + footer</text><text x="936" y="317" font-size="23" fill="#142338" font-weight="600" text-anchor="end" >− 140</text><text x="514" y="372" font-size="21" fill="#52647b" font-weight="400" text-anchor="start" >Hai khoảng gap: 12 × 2</text><text x="936" y="372" font-size="23" fill="#142338" font-weight="600" text-anchor="end" >− 24</text><line x1="514" y1="399" x2="938" y2="399" stroke="#dbe4ed" stroke-width="2"/><text x="514" y="444" font-size="22" fill="#0f766e" font-weight="700" text-anchor="start" >Phần còn lại cho body</text><text x="936" y="482" font-size="42" fill="#0f766e" font-weight="700" text-anchor="end" >436</text><rect x="514" y="516" width="424" height="112" rx="14" fill="#e5f5ef" stroke="none" stroke-width="1.5"/><text x="534" y="549" font-size="18" fill="#0f766e" font-weight="600" text-anchor="start" >Cha: flex: 1, padding: 20, gap: 12</text><text x="534" y="581" font-size="18" fill="#0f766e" font-weight="600" text-anchor="start" >Con: header 80 · body flex: 1 · footer 60</text><text x="534" y="611" font-size="19" fill="#0f766e" font-weight="700" text-anchor="start" >640 − 40 − 80 − 60 − 24 = 436</text></g></svg></div><figcaption><span>Hình 1 · Tính phần chiều cao còn lại trong một vùng cha đã xác định</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<p>Hình dùng một ví dụ số: vùng layout cao 640, padding trên dưới tổng 40, header 80, footer 60 và hai gap tổng 24. Phần body còn <code>640 − 40 − 80 − 60 − 24 = 436</code>. Đây là mô hình không có border, safe area hay ràng buộc min/max bổ sung.</p>
+<div class="code-block"><div class="code-head"><span>Màn hình chia header nội dung và footer</span><button class="copy-code" type="button" aria-label="Sao chép Màn hình chia header nội dung và footer">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text, StyleSheet } from &#x27;react-native&#x27;;
+
+export default function PageSkeleton() {
+  return (
+    &lt;View style={styles.screen}&gt;
+      &lt;Text style={styles.header}&gt;Tiêu đề cao theo nội dung&lt;/Text&gt;
+      &lt;View style={styles.body}&gt;
+        &lt;Text&gt;Nội dung nhận phần chiều cao còn lại&lt;/Text&gt;
+      &lt;/View&gt;
+      &lt;Text style={styles.footer}&gt;Thông tin cuối màn hình&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, padding: 20, gap: 12 },
+  header: { fontSize: 24, fontWeight: &#x27;700&#x27; },
+  body: { flex: 1, backgroundColor: &#x27;#e6f2ed&#x27; },
+  footer: { paddingVertical: 12 },
+});</code></pre></div>
+<p>Trong screen được navigator cấp chiều cao, root <code>flex: 1</code> nhận vùng screen. Header và footer cao theo nội dung; body nhận phần còn lại. Khi header có thêm dòng hoặc chữ hệ thống lớn hơn, body có thể nhỏ đi. Nếu tổng nội dung tối thiểu vượt vùng cha, cần quyết định phần nào cuộn hoặc được thu.</p>
+<h3>Đơn vị và kích thước theo phần trăm</h3>
+<p>Giá trị số như <code>width: 100</code> là đơn vị layout độc lập mật độ, không phải 100 pixel vật lý trên mọi thiết bị. Phần trăm như <code>width: '50%'</code> liên quan kích thước tham chiếu của cha. Đừng lấy chiều rộng màn hình làm mẫu số nếu View thực tế nằm trong một card có padding và chiều rộng khác.</p>
+<p>Với height phần trăm, cần một chiều cao tham chiếu đủ xác định. Một child <code>height: '100%'</code> trong cha cao theo nội dung dễ tạo kỳ vọng sai. Hãy đo vùng cha hoặc dùng cơ chế flex phù hợp thay vì thêm phần trăm một cách thử ngẫu nhiên.</p>
+<div class="code-block"><div class="code-head"><span>Phần trăm dựa vào kích thước đã xác định của cha</span><button class="copy-code" type="button" aria-label="Sao chép Phần trăm dựa vào kích thước đã xác định của cha">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View } from &#x27;react-native&#x27;;
+
+export default function PercentageDemo() {
+  return (
+    &lt;View style={{ width: &#x27;100%&#x27;, height: 240, padding: 16 }}&gt;
+      &lt;View style={{ width: &#x27;50%&#x27;, height: &#x27;50%&#x27;, backgroundColor: &#x27;#0f766e&#x27; }} /&gt;
+    &lt;/View&gt;
+  );
+}
+// Để tính chính xác, xét vùng kích thước mà Yoga dùng cho percentage
+// cùng padding/boxSizing. Đừng coi width:&#x27;50%&#x27; là nửa chiều rộng thiết bị.</code></pre></div>
+<p class="source-note">Đối chiếu: <a href="https://reactnative.dev/docs/0.86/height-and-width" target="_blank" rel="noopener">Height and Width</a>, <a href="https://reactnative.dev/docs/0.86/layout-props" target="_blank" rel="noopener">Layout Props</a>. Các phép tính trong hình là ví dụ giới hạn do tài liệu dựng.</p>
+</section>
+<section id="truc" data-title="Trục chính và trục chéo">
+<h2><span class="section-number">03 · HAI TRỤC</span>Chọn hướng trước rồi mới chọn cách căn</h2>
+<p><code>flexDirection</code> xác định trục chính của container. Trục chéo vuông góc với nó. Với layout LTR trong các ví dụ: <code>row</code> có trục chính ngang từ trái sang phải; <code>column</code> có trục chính dọc từ trên xuống dưới.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-labelledby="f2-title f2-desc"><title id="f2-title">Hai trục trong React Native Flexbox</title><desc id="f2-desc">Hai container row và column trong hướng LTR. Trục chính màu xanh lục, trục chéo màu xanh lam. justifyContent tác động trên trục chính và alignItems trên trục chéo.</desc><defs><marker id="f2-teal" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#0f766e"/></marker><marker id="f2-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#2563eb"/></marker><marker id="f2-navy" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#172554"/></marker></defs><rect width="1000" height="700" fill="#f4f8fb"/><g font-family="Arial, Helvetica, sans-serif"><text x="36" y="49" font-size="30" fill="#172554" font-weight="700" text-anchor="start" >Hai trục quyết định cách căn chỉnh</text><text x="36" y="83" font-size="19" fill="#52647b" font-weight="400" text-anchor="start" >Ví dụ theo hướng chữ LTR. flexDirection đổi hướng của trục chính.</text><rect x="36" y="114" width="446" height="414" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><rect x="518" y="114" width="446" height="414" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="62" y="155" font-size="26" fill="#172554" font-weight="700" text-anchor="start" >flexDirection: &quot;row&quot;</text><text x="62" y="184" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Các con xếp theo chiều ngang</text><text x="544" y="155" font-size="26" fill="#172554" font-weight="700" text-anchor="start" >flexDirection: &quot;column&quot;</text><text x="544" y="184" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Mặc định của React Native</text><text x="260" y="227" font-size="19" fill="#0f766e" font-weight="700" text-anchor="middle" >Trục chính</text><path d="M108 247 L404 247" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#f2-teal)"/><rect x="104" y="270" width="310" height="218" rx="14" fill="#fbfdfd" stroke="#dbe4ed" stroke-width="1.5"/><path d="M80 284 L80 478" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#f2-blue)"/><text x="61" y="381" font-size="18" fill="#2563eb" font-weight="700" text-anchor="middle" transform="rotate(-90 61 381)">Trục chéo</text><rect x="123" y="342" width="72" height="72" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="159.0" y="385.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >1</text><rect x="223" y="342" width="72" height="72" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="259.0" y="385.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >2</text><rect x="323" y="342" width="72" height="72" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="359.0" y="385.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >3</text><text x="741" y="227" font-size="19" fill="#2563eb" font-weight="700" text-anchor="middle" >Trục chéo</text><path d="M606 247 L898 247" fill="none" stroke="#2563eb" stroke-width="3" marker-end="url(#f2-blue)"/><rect x="600" y="270" width="310" height="218" rx="14" fill="#fbfdfd" stroke="#dbe4ed" stroke-width="1.5"/><path d="M575 285 L575 478" fill="none" stroke="#0f766e" stroke-width="3" marker-end="url(#f2-teal)"/><text x="556" y="381" font-size="18" fill="#0f766e" font-weight="700" text-anchor="middle" transform="rotate(-90 556 381)">Trục chính</text><rect x="724" y="281" width="62" height="58" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="755.0" y="317.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >1</text><rect x="724" y="351" width="62" height="58" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="755.0" y="387.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >2</text><rect x="724" y="421" width="62" height="58" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="755.0" y="457.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >3</text><rect x="36" y="550" width="928" height="112" rx="18" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><rect x="58" y="570" width="254" height="34" rx="10" fill="#e5f5ef" stroke="none" stroke-width="1.5"/><text x="185.0" y="593" font-size="18" fill="#0f766e" font-weight="600" text-anchor="middle" >justifyContent → trục chính</text><rect x="528" y="570" width="254" height="34" rx="10" fill="#eaf1ff" stroke="none" stroke-width="1.5"/><text x="655.0" y="593" font-size="18" fill="#2563eb" font-weight="600" text-anchor="middle" >alignItems → trục chéo</text><text x="58" y="638" font-size="19" fill="#52647b" font-weight="400" text-anchor="start" >“Ngang” và “dọc” phụ thuộc vào flexDirection, không cố định theo tên thuộc tính.</text></g></svg></div><figcaption><span>Hình 2 · Hai trục đổi vai trò khi chuyển từ row sang column trong ví dụ LTR</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<div class="table-wrap"><table><thead><tr><th>flexDirection</th><th>Trục chính trong ví dụ LTR</th><th>Trục chéo</th></tr></thead><tbody><tr><td><code>row</code></td><td>Ngang, đầu ở trái</td><td>Dọc</td></tr><tr><td><code>column</code></td><td>Dọc, đầu ở trên</td><td>Ngang</td></tr><tr><td><code>row-reverse</code></td><td>Ngang, đầu ở phải</td><td>Dọc</td></tr><tr><td><code>column-reverse</code></td><td>Dọc, đầu ở dưới</td><td>Ngang</td></tr></tbody></table></div>
+<p><strong>Quy tắc:</strong> <code>justifyContent</code> làm việc trên trục chính; <code>alignItems</code> làm việc trên trục chéo. Vì thế <code>justifyContent: 'center'</code> không luôn có nghĩa căn ngang. Khi cha là column, thuộc tính đó căn theo chiều dọc.</p>
+<div class="model" id="axis-model"><h3>Thử đổi trục và căn chỉnh</h3><p class="model-note">Mô phỏng trong trình duyệt cho một container có kích thước xác định, LTR, ba child không grow/shrink và gap 8. Đây là tập hành vi giới hạn, không phải toàn bộ engine Yoga. Khi chọn stretch, kích thước trục chéo của child được bỏ.</p><div class="model-controls"><label>flexDirection<select id="axis-direction"><option>column</option><option>row</option><option>column-reverse</option><option>row-reverse</option></select></label><label>justifyContent<select id="axis-justify"><option>flex-start</option><option>center</option><option>flex-end</option><option>space-between</option><option>space-around</option><option>space-evenly</option></select></label><label>alignItems<select id="axis-align"><option>flex-start</option><option>center</option><option>flex-end</option><option>stretch</option></select></label></div><div class="axis-stage"><div class="axis-labels"><span id="axis-main" class="main-axis-label"></span><span id="axis-cross" class="cross-axis-label"></span></div><div class="axis-canvas" id="axis-canvas"><div class="axis-child">A</div><div class="axis-child">B</div><div class="axis-child">C</div></div></div><p class="model-output" id="axis-result" role="status" aria-live="polite"></p><pre id="axis-code"></pre></div>
+<div class="code-block"><div class="code-head"><span>Cùng hai style căn giữa nhưng trục khác nhau</span><button class="copy-code" type="button" aria-label="Sao chép Cùng hai style căn giữa nhưng trục khác nhau">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text } from &#x27;react-native&#x27;;
+
+export default function AxesDemo() {
+  return (
+    &lt;View style={{ flex: 1, padding: 20, gap: 20 }}&gt;
+      &lt;View style={{ height: 160, flexDirection: &#x27;row&#x27;,
+        justifyContent: &#x27;center&#x27;, alignItems: &#x27;flex-start&#x27;, gap: 8 }}&gt;
+        &lt;Text&gt;A&lt;/Text&gt;&lt;Text&gt;B&lt;/Text&gt;&lt;Text&gt;C&lt;/Text&gt;
+      &lt;/View&gt;
+      &lt;View style={{ height: 160, flexDirection: &#x27;column&#x27;,
+        justifyContent: &#x27;center&#x27;, alignItems: &#x27;flex-start&#x27;, gap: 8 }}&gt;
+        &lt;Text&gt;A&lt;/Text&gt;&lt;Text&gt;B&lt;/Text&gt;&lt;Text&gt;C&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<h3>Reverse và RTL giải quyết hai việc khác nhau</h3>
+<p>Reverse đổi hướng xếp item trên trục chính. RTL liên quan hướng layout theo ngôn ngữ và ý nghĩa của cạnh <code>start</code>, <code>end</code>. Hình và mô hình dùng LTR để dễ đọc; ứng dụng có thể kế thừa hướng từ hệ thống hoặc cấu hình. Không dùng <code>row-reverse</code> như giải pháp thay thế toàn bộ hỗ trợ RTL.</p>
+<p class="source-note">Đối chiếu: <a href="https://reactnative.dev/docs/0.86/flexbox#flex-direction" target="_blank" rel="noopener">Flex Direction</a>, <a href="https://reactnative.dev/docs/0.86/flexbox#layout-direction" target="_blank" rel="noopener">Layout Direction</a>.</p>
+</section>
+<section id="can-chinh" data-title="Justify alignItems và alignSelf">
+<h2><span class="section-number">04 · CĂN CHỈNH</span>Phân bố chỗ dư trên đúng trục</h2>
+<p><code>justifyContent</code> dùng không gian còn lại trên trục chính để căn cả nhóm child hoặc phân bố khoảng cách. Nếu child có grow và đã dùng hết phần dư, bạn có thể không nhìn thấy khác biệt giữa các giá trị justify. Trước khi hỏi “vì sao space-between không chạy”, hãy kiểm tra container có còn chỗ trống không.</p>
+<div class="table-wrap"><table><thead><tr><th>justifyContent</th><th>Chỗ trống được đặt ở đâu</th></tr></thead><tbody><tr><td><code>flex-start</code></td><td>Nhóm ở đầu trục; phần dư ở cuối</td></tr><tr><td><code>center</code></td><td>Phần dư chia hai đầu nhóm</td></tr><tr><td><code>flex-end</code></td><td>Nhóm ở cuối trục; phần dư ở đầu</td></tr><tr><td><code>space-between</code></td><td>Phần dư vào các khoảng giữa item; không thêm ở hai đầu</td></tr><tr><td><code>space-around</code></td><td>Khoảng trống ở mỗi đầu bằng nửa khoảng giữa hai item</td></tr><tr><td><code>space-evenly</code></td><td>Khoảng trống phân phối thêm ở hai đầu và giữa các item bằng nhau</td></tr></tbody></table></div>
+<p>Những mô tả trên nói về phần chỗ dư được phân phối. Padding và gap cố định vẫn là thành phần riêng. Ví dụ có gap 12, <code>space-between</code> có thể khiến khoảng nhìn thấy giữa các item lớn hơn 12.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-labelledby="f3-title f3-desc"><title id="f3-title">Phân biệt justifyContent, alignItems và alignSelf</title><desc id="f3-desc">Ba ví dụ hàng: justifyContent space-between phân phối chỗ trống theo chiều ngang; alignItems stretch kéo giãn chiều cao tự động; alignSelf flex-end đặt riêng item 2 xuống đáy.</desc><defs><marker id="f3-teal" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#0f766e"/></marker><marker id="f3-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#2563eb"/></marker><marker id="f3-navy" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#172554"/></marker></defs><rect width="1000" height="700" fill="#f4f8fb"/><g font-family="Arial, Helvetica, sans-serif"><text x="36" y="49" font-size="30" fill="#172554" font-weight="700" text-anchor="start" >justifyContent và alignItems làm hai việc khác nhau</text><text x="36" y="83" font-size="19" fill="#52647b" font-weight="400" text-anchor="start" >Cùng một hàng: trục chính ngang, trục chéo dọc. alignSelf chỉ đổi một item.</text><rect x="36" y="116" width="296" height="428" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><rect x="352" y="116" width="296" height="428" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><rect x="668" y="116" width="296" height="428" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="56" y="156" font-size="25" fill="#0f766e" font-weight="700" text-anchor="start" >justifyContent</text><text x="56" y="187" font-size="20" fill="#0f766e" font-weight="600" text-anchor="start" >&quot;space-between&quot;</text><text x="56" y="218" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Chia chỗ trống theo trục chính</text><rect x="56" y="253" width="256" height="224" rx="12" fill="#fbfdfd" stroke="#dbe4ed" stroke-width="1.5"/><rect x="68" y="331" width="42" height="66" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="89.0" y="371.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >1</text><rect x="163" y="331" width="42" height="66" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="184.0" y="371.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >2</text><rect x="258" y="331" width="42" height="66" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="279.0" y="371.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >3</text><path d="M120 364 L153 364" fill="none" stroke="#0f766e" stroke-width="2.5" marker-end="url(#f3-teal)"/><path d="M215 364 L248 364" fill="none" stroke="#0f766e" stroke-width="2.5" marker-end="url(#f3-teal)"/><text x="184" y="512" font-size="18" fill="#52647b" font-weight="400" text-anchor="middle" >alignItems: &quot;center&quot;</text><text x="372" y="156" font-size="25" fill="#2563eb" font-weight="700" text-anchor="start" >alignItems</text><text x="372" y="187" font-size="20" fill="#2563eb" font-weight="600" text-anchor="start" >&quot;stretch&quot;</text><text x="372" y="218" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Kéo giãn theo trục chéo</text><rect x="372" y="253" width="256" height="224" rx="12" fill="#fbfdfd" stroke="#dbe4ed" stroke-width="1.5"/><rect x="386" y="265" width="68" height="200" rx="12" fill="#eaf1ff" stroke="#2563eb" stroke-width="1.5"/><text x="420.0" y="372.0" font-size="22" fill="#2563eb" font-weight="700" text-anchor="middle" >1</text><rect x="466" y="265" width="68" height="200" rx="12" fill="#eaf1ff" stroke="#2563eb" stroke-width="1.5"/><text x="500.0" y="372.0" font-size="22" fill="#2563eb" font-weight="700" text-anchor="middle" >2</text><rect x="546" y="265" width="68" height="200" rx="12" fill="#eaf1ff" stroke="#2563eb" stroke-width="1.5"/><text x="580.0" y="372.0" font-size="22" fill="#2563eb" font-weight="700" text-anchor="middle" >3</text><text x="500" y="512" font-size="18" fill="#52647b" font-weight="400" text-anchor="middle" >Con không đặt height</text><text x="688" y="156" font-size="25" fill="#2563eb" font-weight="700" text-anchor="start" >alignSelf</text><text x="688" y="187" font-size="20" fill="#2563eb" font-weight="600" text-anchor="start" >&quot;flex-end&quot; cho item 2</text><text x="688" y="218" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Ghi đè alignItems của cha</text><rect x="688" y="253" width="256" height="224" rx="12" fill="#fbfdfd" stroke="#dbe4ed" stroke-width="1.5"/><rect x="702" y="265" width="68" height="66" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="736.0" y="305.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >1</text><rect x="782" y="399" width="68" height="66" rx="12" fill="#eaf1ff" stroke="#2563eb" stroke-width="1.5"/><text x="816.0" y="439.0" font-size="22" fill="#2563eb" font-weight="700" text-anchor="middle" >2</text><rect x="862" y="265" width="68" height="66" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="896.0" y="305.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >3</text><text x="816" y="512" font-size="18" fill="#52647b" font-weight="400" text-anchor="middle" >Cha: alignItems: &quot;flex-start&quot;</text><rect x="36" y="567" width="928" height="95" rx="18" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="58" y="601" font-size="21" fill="#172554" font-weight="700" text-anchor="start" >Lưu ý về stretch</text><text x="58" y="633" font-size="19" fill="#52647b" font-weight="400" text-anchor="start" >Chỉ giãn khi kích thước trục chéo là auto; height cố định trong row sẽ không giãn.</text></g></svg></div><figcaption><span>Hình 3 · Căn nhóm theo trục chính và căn từng item theo trục chéo</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<h3>alignItems đặt quy tắc chung cho các con</h3>
+<p><code>alignItems</code> căn child trên trục chéo với các lựa chọn như <code>flex-start</code>, <code>center</code>, <code>flex-end</code>, <code>stretch</code> hoặc <code>baseline</code>. Mặc định stretch mở rộng child trên trục chéo khi kích thước trục đó còn auto và ràng buộc cho phép.</p>
+<div class="code-block"><div class="code-head"><span>Stretch chỉ có tác dụng khi kích thước trục chéo còn tự động</span><button class="copy-code" type="button" aria-label="Sao chép Stretch chỉ có tác dụng khi kích thước trục chéo còn tự động">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text } from &#x27;react-native&#x27;;
+
+export default function StretchDemo() {
+  return (
+    &lt;View style={{ padding: 20, gap: 12, alignItems: &#x27;stretch&#x27; }}&gt;
+      &lt;View style={{ height: 48, backgroundColor: &#x27;#d8eee5&#x27; }}&gt;
+        &lt;Text&gt;Không đặt width nên được stretch theo chiều ngang&lt;/Text&gt;
+      &lt;/View&gt;
+      &lt;View style={{ width: 120, height: 48, backgroundColor: &#x27;#dfebfa&#x27; }}&gt;
+        &lt;Text&gt;width 120 được giữ&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<p>Trong cha column, trục chéo là ngang nên width quyết định stretch có còn tác dụng không. Trong cha row, hãy nhìn height. Min/max và aspect ratio cũng có thể ảnh hưởng kết quả. Baseline hữu ích khi căn các text có cỡ chữ khác nhau; nó căn theo đường cơ sở chữ, không đơn giản là đáy hộp.</p>
+<h3>alignSelf là quyết định của một child</h3>
+<div class="code-block"><div class="code-head"><span>Một child tự đổi cách căn trên trục chéo</span><button class="copy-code" type="button" aria-label="Sao chép Một child tự đổi cách căn trên trục chéo">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text } from &#x27;react-native&#x27;;
+
+export default function AlignSelfDemo() {
+  return (
+    &lt;View style={{ height: 220, padding: 16, gap: 12,
+      flexDirection: &#x27;column&#x27;, alignItems: &#x27;flex-start&#x27; }}&gt;
+      &lt;Text&gt;A theo alignItems của cha&lt;/Text&gt;
+      &lt;Text style={{ alignSelf: &#x27;flex-end&#x27; }}&gt;B tự về cuối trục ngang&lt;/Text&gt;
+      &lt;Text&gt;C theo alignItems của cha&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<p>Ở đây cha column căn các con về đầu trục ngang; riêng B đổi sang cuối trục ngang. <code>alignSelf</code> không điều khiển cách B sắp xếp các con bên trong nó, cũng không thay <code>justifyContent</code> trên trục chính.</p>
+<div class="code-block"><div class="code-head"><span>Ví dụ tối thiểu có kích thước cha xác định</span><button class="copy-code" type="button" aria-label="Sao chép Ví dụ tối thiểu có kích thước cha xác định">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text } from &#x27;react-native&#x27;;
+
+export default function CenterDemo() {
+  return (
+    &lt;View style={{ flex: 1 }}&gt;
+      &lt;View style={{ height: 260, justifyContent: &#x27;center&#x27;, alignItems: &#x27;center&#x27; }}&gt;
+        &lt;Text&gt;Ở giữa vùng cao 260&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<p>Ví dụ căn giữa có vùng cao 260, nên “giữa” được xác định theo vùng đó. Nếu màn hình còn header hoặc safe area, điểm giữa của vùng nội dung có thể khác điểm giữa toàn bộ màn hình vật lý.</p>
+<p class="source-note">Đối chiếu: <a href="https://reactnative.dev/docs/0.86/flexbox#justify-content" target="_blank" rel="noopener">Justify Content</a>, <a href="https://reactnative.dev/docs/0.86/flexbox#align-items" target="_blank" rel="noopener">Align Items</a>, <a href="https://reactnative.dev/docs/0.86/flexbox#align-self" target="_blank" rel="noopener">Align Self</a>.</p>
+</section>
+<section id="grow" data-title="Flex basis và flexGrow">
+<h2><span class="section-number">05 · KHI CÒN CHỖ</span>Phân biệt kích thước gốc với phần được thêm</h2>
+<p><code>flexBasis</code> là kích thước cơ sở theo trục chính trước khi chia phần dư hoặc phần thiếu. Trong row, nó tương ứng hướng ngang; trong column, hướng dọc. <code>flexGrow</code> mô tả mức tham gia nhận phần dư. Grow không tự bảo đảm các item có kích thước cuối bằng nhau.</p>
+<div class="mini-steps"><div><b>1 Tính vùng có thể chia</b><p>Xét kích thước container sau các ràng buộc, padding, border và gap liên quan.</p></div><div><b>2 Xác định basis</b><p>Mỗi item có kích thước gốc từ basis, dimension hoặc nội dung đo được.</p></div><div><b>3 Chia phần dư</b><p>Phân bổ phần dư cho grow, rồi xử lý các giới hạn min/max nếu có.</p></div></div>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-labelledby="f4-title f4-desc"><title id="f4-title">Cách flexGrow và flexShrink chia kích thước</title><desc id="f4-desc">Ví dụ grow: container 360, ba basis 60, hai gap 12, phần dư 156 chia grow 1:2:3 thành 26,52,78; kết quả 86,112,138. Ví dụ shrink: rộng 300, hai basis 200, gap 20, thiếu 120; trọng số shrink nhân basis 200:400, giảm 40:80, còn 160:120.</desc><defs><marker id="f4-teal" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#0f766e"/></marker><marker id="f4-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#2563eb"/></marker><marker id="f4-navy" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#172554"/></marker></defs><rect width="1000" height="700" fill="#f4f8fb"/><g font-family="Arial, Helvetica, sans-serif"><text x="36" y="49" font-size="30" fill="#172554" font-weight="700" text-anchor="start" >flexGrow và flexShrink phân phối khoảng chênh lệch</text><text x="36" y="83" font-size="19" fill="#52647b" font-weight="400" text-anchor="start" >Ví dụ đặt rõ basis, grow, shrink; bỏ qua padding, border và ràng buộc min/max.</text><rect x="36" y="116" width="446" height="546" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><rect x="518" y="116" width="446" height="546" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="60" y="155" font-size="25" fill="#0f766e" font-weight="700" text-anchor="start" >Còn dư → flexGrow</text><text x="542" y="155" font-size="25" fill="#2563eb" font-weight="700" text-anchor="start" >Thiếu chỗ → flexShrink</text><text x="60" y="188" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Rộng 360 · 3 item basis 60 · 2 gap 12</text><text x="542" y="188" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Rộng 300 · 2 item basis 200 · gap 20</text><rect x="60" y="208" width="397" height="34" rx="10" fill="#e5f5ef" stroke="none" stroke-width="1.5"/><text x="258.5" y="231" font-size="18" fill="#0f766e" font-weight="600" text-anchor="middle" >Dư = 360 − 180 − 24 = 156</text><rect x="542" y="208" width="397" height="34" rx="10" fill="#eaf1ff" stroke="none" stroke-width="1.5"/><text x="740.5" y="231" font-size="18" fill="#2563eb" font-weight="600" text-anchor="middle" >Thiếu = 400 + 20 − 300 = 120</text><text x="60" y="280" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >grow</text><text x="144" y="280" font-size="20" fill="#0f766e" font-weight="700" text-anchor="start" >1</text><text x="256" y="280" font-size="20" fill="#0f766e" font-weight="700" text-anchor="start" >2</text><text x="392" y="280" font-size="20" fill="#0f766e" font-weight="700" text-anchor="start" >3</text><rect x="60" y="301" width="86" height="82" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="103.0" y="349.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >86</text><rect x="158" y="301" width="112" height="82" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="214.0" y="349.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >112</text><rect x="282" y="301" width="138" height="82" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="351.0" y="349.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >138</text><line x1="120" y1="305" x2="120" y2="379" stroke="#0f766e" stroke-width="1.5" stroke-dasharray="4 4"/><line x1="218" y1="305" x2="218" y2="379" stroke="#0f766e" stroke-width="1.5" stroke-dasharray="4 4"/><line x1="342" y1="305" x2="342" y2="379" stroke="#0f766e" stroke-width="1.5" stroke-dasharray="4 4"/><text x="60" y="418" font-size="21" fill="#142338" font-weight="600" text-anchor="start" >Tỉ lệ: 1 : 2 : 3 → tổng 6</text><text x="60" y="451" font-size="20" fill="#52647b" font-weight="400" text-anchor="start" >Mỗi phần: 156 ÷ 6 = 26</text><text x="60" y="484" font-size="20" fill="#52647b" font-weight="400" text-anchor="start" >Tăng thêm: 26 · 52 · 78</text><text x="60" y="517" font-size="18" fill="#0f766e" font-weight="700" text-anchor="start" >Kết quả: 86 + 112 + 138 + 24 = 360</text><rect x="60" y="553" width="397" height="77" rx="12" fill="#e5f5ef" stroke="none" stroke-width="1.5"/><text x="78" y="582" font-size="19" fill="#0f766e" font-weight="600" text-anchor="start" >grow chia phần dư theo tỉ lệ.</text><text x="78" y="611" font-size="18" fill="#0f766e" font-weight="400" text-anchor="start" >Vạch đứt: basis ban đầu = 60.</text><text x="542" y="280" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >shrink × basis</text><text x="744" y="280" font-size="19" fill="#2563eb" font-weight="700" text-anchor="start" >1 × 200</text><text x="871" y="280" font-size="19" fill="#2563eb" font-weight="700" text-anchor="start" >2 × 200</text><rect x="590" y="301" width="160" height="82" rx="12" fill="#eaf1ff" stroke="#2563eb" stroke-width="1.5"/><text x="670.0" y="349.0" font-size="22" fill="#2563eb" font-weight="700" text-anchor="middle" >160</text><rect x="770" y="301" width="120" height="82" rx="12" fill="#eaf1ff" stroke="#2563eb" stroke-width="1.5"/><text x="830.0" y="349.0" font-size="22" fill="#2563eb" font-weight="700" text-anchor="middle" >120</text><text x="542" y="418" font-size="21" fill="#142338" font-weight="600" text-anchor="start" >Trọng số: 200 : 400 = 1 : 2</text><text x="542" y="451" font-size="19" fill="#52647b" font-weight="400" text-anchor="start" >Giảm: 120 × ⅓ = 40; × ⅔ = 80</text><text x="542" y="484" font-size="20" fill="#52647b" font-weight="400" text-anchor="start" >Kết quả: 200 − 40; 200 − 80</text><text x="542" y="517" font-size="20" fill="#2563eb" font-weight="700" text-anchor="start" >160 + 120 + 20 = 300</text><rect x="542" y="553" width="397" height="77" rx="12" fill="#eaf1ff" stroke="none" stroke-width="1.5"/><text x="560" y="582" font-size="19" fill="#2563eb" font-weight="600" text-anchor="start" >shrink tính theo cả basis của item.</text><text x="560" y="611" font-size="18" fill="#2563eb" font-weight="400" text-anchor="start" >Không chỉ chia theo số shrink.</text></g></svg></div><figcaption><span>Hình 4 · Tính grow và shrink bằng số với các thuộc tính khai báo tách riêng</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<p>Ở nửa grow: chiều rộng trong hàng là 360, hai gap tổng 24, ba basis tổng 180. Phần dư là 156. Grow 1, 2, 3 có tổng 6, nên mỗi phần bằng 26. Kích thước cuối là <strong>86, 112, 138</strong>. Các kích thước đó cộng gap trở lại 360.</p>
+<p class="formula">Phần thêm của item = phần dư × grow của item ÷ tổng grow<br>Áp dụng ví dụ: không min/max, tổng grow ≥ 1, không phát sinh giới hạn mới.</p>
+<div class="code-block"><div class="code-head"><span>Tính grow với basis có sẵn và gap rõ ràng</span><button class="copy-code" type="button" aria-label="Sao chép Tính grow với basis có sẵn và gap rõ ràng">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text } from &#x27;react-native&#x27;;
+
+export default function GrowDemo() {
+  return (
+    &lt;View style={{ padding: 12 }}&gt;
+      &lt;View style={{ width: 360, maxWidth: &#x27;100%&#x27;, flexDirection: &#x27;row&#x27;, gap: 12 }}&gt;
+        &lt;View style={{ flexBasis: 60, flexGrow: 1, flexShrink: 0, height: 60,
+          backgroundColor: &#x27;#d8eee5&#x27; }}&gt;&lt;Text&gt;A&lt;/Text&gt;&lt;/View&gt;
+        &lt;View style={{ flexBasis: 60, flexGrow: 2, flexShrink: 0, height: 60,
+          backgroundColor: &#x27;#dfebfa&#x27; }}&gt;&lt;Text&gt;B&lt;/Text&gt;&lt;/View&gt;
+        &lt;View style={{ flexBasis: 60, flexGrow: 3, flexShrink: 0, height: 60,
+          backgroundColor: &#x27;#ece6fa&#x27; }}&gt;&lt;Text&gt;C&lt;/Text&gt;&lt;/View&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}
+// Kết quả 86, 112, 138 chỉ đúng khi hàng thực sự rộng 360.
+// maxWidth cho phép ví dụ hẹp lại trên thiết bị nhỏ; số đo sẽ đổi theo.</code></pre></div>
+<h3>Grow bằng nhau chưa chắc rộng bằng nhau</h3>
+<div class="code-block"><div class="code-head"><span>Hai cách chia chỗ còn lại với basis khác nhau</span><button class="copy-code" type="button" aria-label="Sao chép Hai cách chia chỗ còn lại với basis khác nhau">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">// Các style dùng trong hai hàng có cùng chiều rộng 360, không gap.
+const withOriginalSize = {
+  first: { flexBasis: 60, flexGrow: 1, flexShrink: 0 },
+  second: { flexBasis: 120, flexGrow: 1, flexShrink: 0 },
+};
+// Dư 180 → mỗi item thêm 90 → kết quả 150 và 210.
+
+const fromZero = {
+  first: { flexBasis: 0, flexGrow: 1, flexShrink: 1 },
+  second: { flexBasis: 0, flexGrow: 1, flexShrink: 1 },
+};
+// Dư 360 → mỗi item thêm 180 → kết quả 180 và 180.</code></pre></div>
+<p>Hai item basis 60 và 120 nhận cùng phần thêm 90, nhưng kết quả vẫn là 150 và 210. Muốn chia đều theo không gian, cần hiểu basis và cả các giới hạn của nội dung; đặt grow bằng nhau chỉ là một phần của bài toán.</p>
+<h3>Hiểu flex 1 trong code thường ngày</h3>
+<p><code>flex: 1</code> thường dùng để nhận phần không gian còn lại và tiện cho root screen, nội dung chính hoặc wrapper text. Với một giá trị dương N, Yoga của bản native đang đối chiếu dùng nó để resolve grow và basis bằng 0 khi basis chưa được khai báo rõ. Nó không có nghĩa “width 100%” hay “height 100%” độc lập với cha.</p>
+<p><strong>Khi cần chắc hành vi thu:</strong> hãy khai báo <code>flexShrink</code> rõ ràng. Mô tả shorthand giữa tài liệu API và implementation Yoga có điểm khác nhau; bài tính trong tài liệu dùng ba thuộc tính riêng để tránh dựa vào suy đoán về shorthand.</p>
+<p>Trường hợp nâng cao: tổng grow nhỏ hơn 1 có thể để lại một phần chỗ dư. Ví dụ hai grow 0.2 và 0.3 với basis 0 trong vùng 360 cho 72 và 108, còn 180 chưa dùng. Vì vậy công thức tỷ lệ đơn giản ở trên đã ghi điều kiện áp dụng.</p>
+<p class="source-note">Đối chiếu: <a href="https://www.yogalayout.dev/docs/styling/flex-basis-grow-shrink" target="_blank" rel="noopener">Yoga basis grow shrink</a>. Đặc tính flex dương và các phép tính đã được đối chiếu với Yoga đi kèm React Native 0.86.3 bằng phép đo cục bộ.</p>
+</section>
+<section id="shrink" data-title="FlexShrink và xử lý thiếu chỗ">
+<h2><span class="section-number">06 · KHI THIẾU CHỖ</span>Thu theo trọng số và kích thước cơ sở</h2>
+<p>Khi tổng kích thước cần thiết lớn hơn vùng cha, Flexbox phải xử lý thiếu chỗ. Trong React Native, mặc định <code>flexShrink: 0</code> khiến child không tự thu theo cơ chế này. Kết quả có thể tràn khỏi container dù bạn đã đặt row và alignItems đúng.</p>
+<p>Với các ví dụ không bị min/max chặn, mức thu dựa trên trọng số <strong>shrink × basis</strong>. Nếu hai item cùng shrink 1 nhưng basis 200 và 100, item lớn hơn chịu phần thu lớn hơn. Đây là lý do không nên chỉ nhìn con số shrink rồi chia phần thiếu đều cho từng item.</p>
+<p class="formula">Thiếu = tổng basis + tổng gap − chiều rộng trong container<br>Trọng số thu của item = flexShrink × basis<br>Phần thu = phần thiếu × trọng số của item ÷ tổng trọng số</p>
+<p>Ở nửa shrink của Hình 4, hàng rộng 300, hai basis 200, gap 20. Thiếu 120. Shrink 1 và 2 tạo trọng số 200 và 400. Hai item mất 40 và 80, nên còn <strong>160 và 120</strong>.</p>
+<div class="code-block"><div class="code-head"><span>Khai báo rõ item nào được thu lại</span><button class="copy-code" type="button" aria-label="Sao chép Khai báo rõ item nào được thu lại">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text } from &#x27;react-native&#x27;;
+
+export default function ShrinkDemo() {
+  return (
+    &lt;View style={{ width: 300, maxWidth: &#x27;100%&#x27;, flexDirection: &#x27;row&#x27;, gap: 20 }}&gt;
+      &lt;View style={{ flexBasis: 200, flexGrow: 0, flexShrink: 1,
+        minWidth: 0, height: 64, backgroundColor: &#x27;#d8eee5&#x27; }}&gt;
+        &lt;Text&gt;A&lt;/Text&gt;
+      &lt;/View&gt;
+      &lt;View style={{ flexBasis: 200, flexGrow: 0, flexShrink: 2,
+        minWidth: 0, height: 64, backgroundColor: &#x27;#dfebfa&#x27; }}&gt;
+        &lt;Text&gt;B&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}
+// Khi hàng thực sự rộng 300: A = 160, B = 120, gap = 20.</code></pre></div>
+<div class="model" id="calc-model"><h3>Tính chia chỗ với một mô hình giới hạn</h3><p class="model-note">Mô hình số học không có min/max, padding, border, text hay wrapping. Grow dùng basis 60 và tỷ lệ 1:2:3. Shrink dùng basis 200 và trọng số 1:2. Kích thước hiển thị được thu theo tỷ lệ để vừa trang; con số mới là đơn vị của bài tính.</p><div class="model-controls"><label>Trường hợp<select id="calc-mode"><option value="grow">Chia phần dư</option><option value="shrink">Thu khi thiếu chỗ</option></select></label><label>Chiều rộng trong hàng <output id="calc-width-value">360</output><input id="calc-width" type="range" min="240" max="480" step="10" value="360"></label></div><div class="calc-results"><p>Tổng basis<strong id="calc-bases"></strong></p><p>Tổng gap<strong id="calc-gaps"></strong></p><p>Dư hoặc thiếu<strong id="calc-space"></strong></p></div><div class="calc-bar-shell"><div id="calc-bar" class="calc-bar" aria-label="Kích thước cuối của các item"></div></div><p id="calc-result" class="model-output" role="status" aria-live="polite"></p><pre id="calc-code"></pre></div>
+<h3>Giới hạn có thể làm bài tính đổi</h3>
+<p>Nếu một item chạm <code>minWidth</code>, <code>maxWidth</code> hoặc giới hạn khác, engine cần chốt phần đó và phân bố lại cho những item còn có thể thay đổi. Công thức một lần chia không đủ để giải thích mọi layout. Hãy bắt đầu từ ví dụ giới hạn, sau đó bổ sung từng ràng buộc.</p>
+<div class="code-block"><div class="code-head"><span>Giữ nội dung tự nhiên và cho phép nó thu khi thiếu chỗ</span><button class="copy-code" type="button" aria-label="Sao chép Giữ nội dung tự nhiên và cho phép nó thu khi thiếu chỗ">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">// Style của wrapper text trong một hàng có icon và nút cố định.
+const copyStyle = {
+  flexGrow: 1,
+  flexShrink: 1,
+  flexBasis: &#x27;auto&#x27; as const,
+};
+
+// Nếu muốn bắt đầu chia chỗ từ basis bằng 0, ghi rõ:
+const equalSpaceStyle = {
+  flexGrow: 1,
+  flexShrink: 1,
+  flexBasis: 0,
+};</code></pre></div>
+<p>Không áp dụng nguyên quy tắc CSS <code>min-width: 0</code> như một phép chữa bắt buộc cho mọi text native. Cấu trúc wrapper, basis, shrink và phép đo text mới là những thứ cần xem. Bạn có thể đặt minWidth 0 rõ ràng trong một bài tính; đừng mặc định native có cùng automatic minimum với trình duyệt.</p>
+<p class="source-note">Đối chiếu: <a href="https://reactnative.dev/docs/0.86/flexbox#flex-basis-grow-and-shrink" target="_blank" rel="noopener">Flex Basis Grow and Shrink</a>, <a href="https://www.yogalayout.dev/docs/styling/flex-basis-grow-shrink" target="_blank" rel="noopener">Yoga flex sizing</a>. Trọng số và ví dụ đã được đo với Yoga native đi kèm project.</p>
+</section>
+<section id="khoang-cach" data-title="Padding margin gap và box model">
+<h2><span class="section-number">07 · KHOẢNG CÁCH</span>Chọn nơi sở hữu khoảng trống</h2>
+<p><code>padding</code> là khoảng đệm bên trong hộp. <code>margin</code> là khoảng ngoài của item. <code>gap</code> đặt khoảng giữa các con hoặc các dòng trong container. Nếu các item ngang hàng cần khoảng cách thống nhất, gap thường giúp đọc ý định rõ hơn việc gắn margin vào từng item rồi xử lý riêng item đầu cuối.</p>
+<div class="code-block"><div class="code-head"><span>Khoảng cách giữa các item và khoảng đệm bao quanh</span><button class="copy-code" type="button" aria-label="Sao chép Khoảng cách giữa các item và khoảng đệm bao quanh">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text } from &#x27;react-native&#x27;;
+
+export default function SpacingDemo() {
+  return (
+    &lt;View style={{ padding: 20, flexDirection: &#x27;row&#x27;, gap: 12,
+      backgroundColor: &#x27;#eef4f6&#x27; }}&gt;
+      &lt;Text style={{ padding: 12, backgroundColor: &#x27;#d8eee5&#x27; }}&gt;A&lt;/Text&gt;
+      &lt;Text style={{ padding: 12, backgroundColor: &#x27;#dfebfa&#x27; }}&gt;B&lt;/Text&gt;
+      &lt;Text style={{ padding: 12, backgroundColor: &#x27;#ece6fa&#x27; }}&gt;C&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<div class="table-wrap"><table><thead><tr><th>Thuộc tính</th><th>Thuộc về</th><th>Ví dụ nên dùng</th></tr></thead><tbody><tr><td><code>padding: 20</code></td><td>Vùng bên trong container</td><td>Nội dung cách mép card 20</td></tr><tr><td><code>gap: 12</code></td><td>Quan hệ giữa các con</td><td>Các ô trong cùng hàng cách nhau tối thiểu 12</td></tr><tr><td><code>marginBottom: 20</code></td><td>Khoảng ngoài một item</td><td>Một khối cách khối tiếp theo 20</td></tr><tr><td><code>marginTop: 'auto'</code></td><td>Margin tự nhận phần dư dương</td><td>Đẩy footer xuống khi content ngắn</td></tr><tr><td><code>columnGap</code></td><td>Khoảng giữa cột</td><td>Các item trong hàng row</td></tr><tr><td><code>rowGap</code></td><td>Khoảng giữa hàng</td><td>Các item dọc trong column hoặc các dòng wrap</td></tr></tbody></table></div>
+<p>Gap không tự thêm đệm ở mép ngoài cùng. Khi vừa dùng gap vừa dùng justify để chia chỗ dư, khoảng nhìn thấy có thể lớn hơn gap. Auto margin cũng tiêu thụ phần dư, nên có thể làm thay đổi kết quả bạn đang chờ từ justify.</p>
+<h3>Box sizing quyết định kích thước bao gồm gì</h3>
+<p>React Native 0.86 hỗ trợ <code>boxSizing</code>, mặc định <code>border-box</code>. Với <code>width: 200</code>, padding hai bên 20 và border hai bên 2, phần content còn <code>200 − 40 − 4 = 156</code>. Margin nằm ngoài chiều rộng 200 này. Với content-box, chiều rộng ngoài cùng trong ví dụ sẽ thành <code>200 + 40 + 4 = 244</code>.</p>
+<p><strong>Chính sách của ví dụ:</strong> dùng giá trị gap dạng số cho dễ tính và ổn định. Percentage gap được hỗ trợ trên kiến trúc tương ứng nhưng cần thận trọng khi kích thước container chưa xác định; không giả định nó hành xử giống mọi trường hợp CSS trên web.</p>
+<p class="source-note">Đối chiếu: <a href="https://www.yogalayout.dev/docs/styling/margin-padding-border" target="_blank" rel="noopener">Yoga margin padding border</a>, <a href="https://www.yogalayout.dev/docs/styling/gap" target="_blank" rel="noopener">Yoga gap</a>, <a href="https://reactnative.dev/docs/0.86/layout-props#boxsizing" target="_blank" rel="noopener">React Native boxSizing</a>. Các số đo hộp là ví dụ do tài liệu tự tính.</p>
+</section>
+<section id="xuong-dong" data-title="FlexWrap và alignContent">
+<h2><span class="section-number">08 · NHIỀU DÒNG</span>Phân biệt item và cả nhóm dòng</h2>
+<p><code>flexWrap: 'wrap'</code> cho phép các item chuyển sang dòng flex tiếp theo khi thiếu chỗ trên trục chính. Mặc định nowrap giữ một dòng flex; tùy shrink và kích thước, item có thể thu hoặc tràn. Wrap không tự biến layout thành grid với các cột cố định.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-labelledby="f5-title f5-desc"><title id="f5-title">flexWrap và sự khác nhau giữa alignItems và alignContent</title><desc id="f5-desc">Hai container row wrap cùng sáu item chia ba item mỗi dòng. alignContent flex-start gom hai dòng về đầu. alignContent space-between đưa hai dòng về đầu và cuối. alignItems căn từng item trong dòng, alignContent phân phối các dòng.</desc><defs><marker id="f5-teal" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#0f766e"/></marker><marker id="f5-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#2563eb"/></marker><marker id="f5-navy" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#172554"/></marker></defs><rect width="1000" height="700" fill="#f4f8fb"/><g font-family="Arial, Helvetica, sans-serif"><text x="36" y="49" font-size="30" fill="#172554" font-weight="700" text-anchor="start" >Khi xuống dòng: item và cả nhóm dòng là hai cấp khác nhau</text><text x="36" y="83" font-size="19" fill="#52647b" font-weight="400" text-anchor="start" >row + flexWrap: &quot;wrap&quot; · mỗi item rộng 78, cao 44 · container có chiều cao hữu hạn.</text><rect x="36" y="116" width="446" height="430" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><rect x="518" y="116" width="446" height="430" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="60" y="156" font-size="25" fill="#172554" font-weight="700" text-anchor="start" >alignContent: &quot;flex-start&quot;</text><text x="542" y="156" font-size="25" fill="#172554" font-weight="700" text-anchor="start" >alignContent: &quot;space-between&quot;</text><text x="60" y="188" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Các dòng nằm gần đầu trục chéo</text><text x="542" y="188" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Phân phối chỗ dư giữa các dòng</text><rect x="102" y="222" width="312" height="266" rx="12" fill="#fbfdfd" stroke="#dbe4ed" stroke-width="1.5"/><rect x="584" y="222" width="312" height="266" rx="12" fill="#fbfdfd" stroke="#dbe4ed" stroke-width="1.5"/><rect x="111" y="231" width="294" height="50" rx="7" fill="none" stroke="#b2c3d5" stroke-width="1"/><rect x="114" y="234" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="153.0" y="263.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >1</text><rect x="210" y="234" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="249.0" y="263.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >2</text><rect x="306" y="234" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="345.0" y="263.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >3</text><rect x="111" y="287" width="294" height="50" rx="7" fill="none" stroke="#b2c3d5" stroke-width="1"/><rect x="114" y="290" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="153.0" y="319.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >4</text><rect x="210" y="290" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="249.0" y="319.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >5</text><rect x="306" y="290" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="345.0" y="319.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >6</text><rect x="593" y="231" width="294" height="50" rx="7" fill="none" stroke="#b2c3d5" stroke-width="1"/><rect x="596" y="234" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="635.0" y="263.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >1</text><rect x="692" y="234" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="731.0" y="263.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >2</text><rect x="788" y="234" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="827.0" y="263.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >3</text><rect x="593" y="429" width="294" height="50" rx="7" fill="none" stroke="#b2c3d5" stroke-width="1"/><rect x="596" y="432" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="635.0" y="461.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >4</text><rect x="692" y="432" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="731.0" y="461.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >5</text><rect x="788" y="432" width="78" height="44" rx="12" fill="#e5f5ef" stroke="#0f766e" stroke-width="1.5"/><text x="827.0" y="461.0" font-size="22" fill="#0f766e" font-weight="700" text-anchor="middle" >6</text><text x="258" y="521" font-size="19" fill="#52647b" font-weight="400" text-anchor="middle" >Chỗ dư còn lại ở cuối</text><text x="740" y="521" font-size="19" fill="#52647b" font-weight="400" text-anchor="middle" >Chỗ dư nằm giữa hai dòng</text><path d="M82 237 L82 475" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#f5-blue)"/><path d="M564 237 L564 475" fill="none" stroke="#2563eb" stroke-width="2.5" marker-end="url(#f5-blue)"/><rect x="36" y="568" width="928" height="94" rx="18" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="58" y="602" font-size="20" fill="#2563eb" font-weight="600" text-anchor="start" >alignItems: căn từng item bên trong dòng của nó.</text><text x="58" y="633" font-size="19" fill="#52647b" font-weight="400" text-anchor="start" >alignContent: phân bố các dòng. gap là khoảng tối thiểu; chỗ dư có thể làm xa hơn.</text></g></svg></div><figcaption><span>Hình 5 · AlignItems xử lý item trong dòng còn alignContent phân bố các dòng</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<p><code>alignItems</code> căn từng item trong dòng của nó. <code>alignContent</code> bố trí các dòng flex trên trục chéo của container wrap. Để quan sát rõ alignContent, hãy dùng nhiều dòng và một kích thước trục chéo có phần chỗ dư. Nếu container tự cao vừa đủ nội dung, thường không có nhiều chỗ để phân phối.</p>
+<div class="model" id="wrap-model"><h3>Thử phân bố hai dòng flex</h3><p class="model-note">Mô hình HTML giới hạn: row LTR, sáu item có kích thước cố định, gap 10, không shrink. Khi wrap sẽ có hai dòng. Chọn nowrap để thấy phần tràn; khung minh hoạ cắt phần vượt khỏi vùng nhìn.</p><div class="model-controls"><label>flexWrap<select id="wrap-enabled"><option>wrap</option><option>nowrap</option></select></label><label>alignContent<select id="wrap-content"><option>flex-start</option><option>center</option><option>flex-end</option><option>space-between</option><option>space-around</option><option>space-evenly</option><option>stretch</option></select></label></div><div class="wrap-stage-wrapper"><div class="wrap-stage" id="wrap-stage"><div class="wrap-item">1</div><div class="wrap-item">2</div><div class="wrap-item">3</div><div class="wrap-item">4</div><div class="wrap-item">5</div><div class="wrap-item">6</div></div></div><p class="model-output" id="wrap-result" role="status" aria-live="polite"></p><pre id="wrap-code"></pre></div>
+<div class="code-block"><div class="code-head"><span>Các chip xuống dòng theo chiều rộng thực tế</span><button class="copy-code" type="button" aria-label="Sao chép Các chip xuống dòng theo chiều rộng thực tế">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text } from &#x27;react-native&#x27;;
+
+export default function TagsDemo() {
+  const tags = [&#x27;React Native&#x27;, &#x27;Flexbox&#x27;, &#x27;Yoga&#x27;, &#x27;Layout&#x27;, &#x27;Mobile&#x27;];
+  return (
+    &lt;View style={{ padding: 20 }}&gt;
+      &lt;View style={{ flexDirection: &#x27;row&#x27;, flexWrap: &#x27;wrap&#x27;,
+        gap: 10, alignItems: &#x27;flex-start&#x27;, alignContent: &#x27;flex-start&#x27; }}&gt;
+        {tags.map((tag) =&gt; (
+          &lt;View key={tag} style={{ paddingHorizontal: 14, paddingVertical: 10,
+            borderRadius: 20, backgroundColor: &#x27;#e6f2ed&#x27;, maxWidth: &#x27;100%&#x27; }}&gt;
+            &lt;Text&gt;{tag}&lt;/Text&gt;
+          &lt;/View&gt;
+        ))}
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<h3>Vì sao hai cột 50 phần trăm vẫn xuống dòng</h3>
+<p>Hai item mỗi cái 50% đã dùng hết chiều rộng tham chiếu. Thêm gap làm tổng vượt quá vùng có sẵn. Nếu cần grid hai cột với gap chính xác, đo chiều rộng container nội dung thực tế, rồi tính <code>(contentWidth − gap) / 2</code>. Nếu đo một wrapper còn padding, trừ phần padding trước. Một tỷ lệ như 48% chỉ là heuristic của một thiết kế cụ thể.</p>
+<p><strong>Stretch của dòng khác stretch của item.</strong> <code>alignContent: 'stretch'</code> có thể tăng kích thước vùng dòng, nhưng item có chiều cao cố định vẫn có thể giữ chiều cao đó. Muốn item giãn bên trong dòng còn phải xét alignItems, alignSelf và kích thước trục chéo của item.</p>
+<p class="source-note">Đối chiếu: <a href="https://www.yogalayout.dev/docs/styling/flex-wrap" target="_blank" rel="noopener">Yoga flex wrap</a>, <a href="https://www.yogalayout.dev/docs/styling/align-content" target="_blank" rel="noopener">Yoga align content</a>, <a href="https://reactnative.dev/docs/0.86/view#onlayout" target="_blank" rel="noopener">View onLayout</a>.</p>
+</section>
+<section id="text-dai" data-title="Text dài và hàng có nút cố định">
+<h2><span class="section-number">09 · NỘI DUNG THẬT</span>Cấp chiều rộng cho text trước khi cắt dòng</h2>
+<p>Một lỗi thường gặp là hàng gồm icon, text và nút cuối: text dài đẩy nút ra khỏi màn hình. Chỉ thêm <code>numberOfLines</code> chưa giải quyết đúng nguyên nhân nếu khối text không được cấp chiều rộng có giới hạn.</p>
+<p>Hãy tách hàng thành ba phần. Icon có kích thước nhỏ ổn định. Wrapper text nhận phần chiều rộng còn lại. Nút cuối giữ kích thước theo nội dung hoặc theo thiết kế. Bên trong wrapper, Text tự được đo trong chiều rộng đã cấp và có thể xuống dòng.</p>
+<div class="code-block"><div class="code-head"><span>Hàng có icon text dài và một hành động cố định</span><button class="copy-code" type="button" aria-label="Sao chép Hàng có icon text dài và một hành động cố định">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text, Pressable, StyleSheet } from &#x27;react-native&#x27;;
+
+export default function TaskRowDemo() {
+  return (
+    &lt;View style={styles.row}&gt;
+      &lt;View style={styles.icon}&gt;&lt;Text&gt;✓&lt;/Text&gt;&lt;/View&gt;
+      &lt;View style={styles.copy}&gt;
+        &lt;Text style={styles.title} numberOfLines={2}&gt;
+          Một tiêu đề dài để kiểm tra cách text xuống dòng trên điện thoại nhỏ
+        &lt;/Text&gt;
+        &lt;Text style={styles.note}&gt;Ghi chú có thể tự tăng chiều cao theo nội dung.&lt;/Text&gt;
+      &lt;/View&gt;
+      &lt;Pressable accessibilityRole=&quot;button&quot; style={styles.action} onPress={() =&gt; {}}&gt;
+        &lt;Text&gt;Xem&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  row: { flexDirection: &#x27;row&#x27;, alignItems: &#x27;center&#x27;, gap: 12, padding: 16 },
+  icon: { width: 36, height: 36, alignItems: &#x27;center&#x27;, justifyContent: &#x27;center&#x27; },
+  copy: { flex: 1, gap: 4 },
+  title: { fontSize: 16, fontWeight: &#x27;600&#x27; },
+  note: { color: &#x27;#53657b&#x27; },
+  action: { flexShrink: 0, minHeight: 44, justifyContent: &#x27;center&#x27;, padding: 8 },
+});</code></pre></div>
+<p>Ở ví dụ này <code>copy: { flex: 1 }</code> cấp vùng ngang cho khối text. Nút có <code>flexShrink: 0</code>, nên không bị ưu tiên thu để nhường một tiêu đề vô hạn. Mọi item vẫn phải cùng chịu giới hạn của màn hình; nếu nút có nhãn quá dài, thiết kế cần đổi cách bố trí hoặc cho phép nhãn xuống dòng.</p>
+<h3>Xuống dòng tự nhiên hay cắt bớt là lựa chọn sản phẩm</h3>
+<p>Không đặt <code>numberOfLines</code> thì text có thể tăng chiều cao theo nội dung. Đặt 1 hoặc 2 dòng giới hạn lượng nội dung hiển thị. Đừng đặt một height cố định nhỏ cho toàn hàng nếu bạn cần hỗ trợ nội dung dài và cỡ chữ hệ thống lớn.</p>
+<p><code>textAlign: 'center'</code> căn chữ bên trong hộp Text. Nó không căn chính hộp Text giữa cha. <code>alignItems: 'center'</code> của cha tác động tới hộp child. Hai thao tác có thể tạo hình ảnh tương tự trong một ví dụ nhỏ nhưng khác nhau khi chiều rộng và nội dung thay đổi.</p>
+<h3>Text lồng trong Text dùng text layout</h3>
+<p>Các đoạn Text con bên trong một Text cha được xử lý như nội dung văn bản, không nên nghĩ mỗi đoạn là một View flex item độc lập. Muốn các nhãn thực sự thành các item trong hàng, đặt chúng dưới View container thích hợp.</p>
+<p class="source-note">Đối chiếu: <a href="https://reactnative.dev/docs/0.86/text" target="_blank" rel="noopener">Text 0.86</a>. Cấu trúc icon–wrapper–action và chính sách cắt dòng là ví dụ thực hành của tài liệu.</p>
+</section>
+<section id="cuon" data-title="ScrollView FlatList và viewport">
+<h2><span class="section-number">10 · KHUNG NHÌN VÀ NỘI DUNG</span>Scroll cần viewport có chiều cao hữu hạn</h2>
+<p>ScrollView có một viewport để nhìn vào nội dung có thể dài hơn viewport. Toàn chuỗi cha cần truyền xuống một chiều cao bị giới hạn. Nếu viewport lớn theo tất cả nội dung, bạn có thể không có một khung đúng nghĩa để cuộn bên trong.</p>
+<div class="table-wrap"><table><thead><tr><th>Vị trí style</th><th>Tác động</th><th>Ví dụ</th></tr></thead><tbody><tr><td><code>style</code></td><td>Hộp ScrollView trong cha</td><td><code>flex: 1</code> nhận phần viewport còn lại</td></tr><tr><td><code>contentContainerStyle</code></td><td>Container chứa nội dung cuộn</td><td>Padding, gap và <code>flexGrow: 1</code></td></tr><tr><td>Child trong nội dung</td><td>Các vùng bên trong luồng cuộn</td><td>Form cao tự nhiên, footer phía cuối</td></tr></tbody></table></div>
+<div class="code-block"><div class="code-head"><span>ScrollView có viewport được ràng buộc và nội dung có thể dài</span><button class="copy-code" type="button" aria-label="Sao chép ScrollView có viewport được ràng buộc và nội dung có thể dài">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { ScrollView, View, Text, StyleSheet } from &#x27;react-native&#x27;;
+
+export default function ScrollPage() {
+  return (
+    &lt;View style={styles.screen}&gt;
+      &lt;Text style={styles.header}&gt;Nội dung có thể cuộn&lt;/Text&gt;
+      &lt;ScrollView style={styles.viewport} contentContainerStyle={styles.content}&gt;
+        &lt;Text&gt;Thêm các đoạn nội dung ở đây.&lt;/Text&gt;
+        &lt;Text style={styles.bottom}&gt;Nằm cuối nội dung khi trang ngắn.&lt;/Text&gt;
+      &lt;/ScrollView&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1 },
+  header: { padding: 20, fontSize: 24 },
+  viewport: { flex: 1 },
+  content: { flexGrow: 1, padding: 20, gap: 16 },
+  bottom: { marginTop: &#x27;auto&#x27;, paddingTop: 16 },
+});</code></pre></div>
+<p><code>flexGrow: 1</code> trên content giúp trang ngắn nhận phần chiều cao đủ lấp viewport, đồng thời vẫn có thể dài theo nội dung. Footer nhận khoảng dư bằng <code>marginTop: 'auto'</code>. Khi nội dung đủ dài, khoảng dư dương không còn và footer nằm sau nội dung trong luồng cuộn.</p>
+<p>Không thay mọi <code>flexGrow: 1</code> ở content bằng <code>flex: 1</code> một cách máy móc. Basis bằng 0 và các ràng buộc khác có thể làm content bị ép hoặc chồng trong cấu trúc cụ thể. Hãy thử cả trạng thái content ngắn và dài, không chỉ một màn hình mẫu.</p>
+<h3>Footer cuộn theo nội dung hay ở ngoài danh sách</h3>
+<p>Nếu footer là phần kết của bài viết hoặc form, đặt nó trong content. Nếu footer là bộ đếm luôn hiện trong vùng màn hình, có thể đặt nó sau FlatList, làm sibling của list. FlatList nhận phần còn lại bằng flex; footer cao theo nội dung.</p>
+<p>Danh sách nhiều item nên dùng FlatList với key ổn định và cách render thích hợp. ScrollView dựng toàn bộ con nên hợp với nội dung ngắn hoặc form có cấu trúc hữu hạn. Không bọc một danh sách dài cùng chiều cuộn trong ScrollView chỉ để chữa một constraint chưa rõ.</p>
+<p class="source-note">Đối chiếu: <a href="https://reactnative.dev/docs/0.86/scrollview" target="_blank" rel="noopener">ScrollView</a>, <a href="https://reactnative.dev/docs/0.86/flatlist" target="_blank" rel="noopener">FlatList</a>. Cấu trúc footer là lựa chọn minh hoạ được thể hiện trong bộ lab.</p>
+</section>
+<section id="safe-area-ban-phim" data-title="Safe area và bàn phím">
+<h2><span class="section-number">11 · VÙNG THỰC TẾ TRÊN MOBILE</span>Chừa vùng hệ thống rồi xử lý bàn phím</h2>
+<p>Vùng screen của navigator, safe area và vùng bị bàn phím chiếm không nhất thiết bằng toàn bộ chiều cao thiết bị. Một phép tính layout dựa trên “chiều cao màn hình” cố định có thể sai khi có header, tab bar, xoay màn hình hoặc mở bàn phím.</p>
+<p>Trong lab, root Stack tắt header native và mỗi screen tự vẽ phần đầu. SafeAreaView từ <code>react-native-safe-area-context</code> xử lý các cạnh. Khi tích hợp vào Stack có header, cần tránh cộng safe area trên hai lần và kiểm tra lại vùng mà screen thực sự nhận.</p>
+<div class="code-block"><div class="code-head"><span>Form tự quản safe area và bàn phím khi không có navigation header</span><button class="copy-code" type="button" aria-label="Sao chép Form tự quản safe area và bàn phím khi không có navigation header">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { KeyboardAvoidingView, Platform, ScrollView,
+  Text, TextInput, View, Button } from &#x27;react-native&#x27;;
+import { SafeAreaView } from &#x27;react-native-safe-area-context&#x27;;
+
+export default function FormDemo() {
+  return (
+    &lt;SafeAreaView style={{ flex: 1 }}&gt;
+      &lt;KeyboardAvoidingView style={{ flex: 1 }}
+        behavior={Platform.OS === &#x27;ios&#x27; ? &#x27;padding&#x27; : undefined}&gt;
+        &lt;ScrollView style={{ flex: 1 }} keyboardShouldPersistTaps=&quot;handled&quot;
+          contentContainerStyle={{ flexGrow: 1, padding: 20, gap: 16 }}&gt;
+          &lt;Text style={{ fontSize: 24 }}&gt;Tạo công việc&lt;/Text&gt;
+          &lt;TextInput placeholder=&quot;Tiêu đề&quot; style={{ borderWidth: 1, padding: 14 }} /&gt;
+          &lt;TextInput multiline placeholder=&quot;Ghi chú dài&quot; style={{ borderWidth: 1,
+            minHeight: 150, padding: 14, textAlignVertical: &#x27;top&#x27; }} /&gt;
+          &lt;View style={{ marginTop: &#x27;auto&#x27;, paddingTop: 16 }}&gt;
+            &lt;Button title=&quot;Lưu&quot; onPress={() =&gt; {}} /&gt;
+          &lt;/View&gt;
+        &lt;/ScrollView&gt;
+      &lt;/KeyboardAvoidingView&gt;
+    &lt;/SafeAreaView&gt;
+  );
+}
+// Cần SafeAreaProvider phía trên. Expo Router cung cấp provider nội bộ.
+// Nếu có navigation header, cần kiểm tra keyboardVerticalOffset riêng.</code></pre></div>
+<p>Ví dụ này dành cho màn hình không có navigation header; provider safe area phải có phía trên. Bản lab đầy đủ dùng KeyboardAvoidingView ở gốc, còn SafeAreaView và ScrollView ở bên trong để bạn thử trực tiếp. Không trộn nhiều cơ chế bù bàn phím cùng lúc trước khi biết phần nào đã xử lý insets.</p>
+<h3>KeyboardAvoidingView điều chỉnh không gian khả dụng</h3>
+<p>Trên iOS ví dụ dùng <code>behavior: 'padding'</code>. Nếu có navigation header hoặc vùng offset khác, cần đánh giá <code>keyboardVerticalOffset</code>. Android chịu ảnh hưởng cấu hình resize của cửa sổ và runtime. Một cấu hình chạy đúng trên Simulator chưa đủ để khẳng định đã đúng trên mọi thiết bị.</p>
+<ul><li>Mở bàn phím ở ô đầu và ô cuối; kiểm tra có thể cuộn tới input và nút hành động.</li><li>Thử content ngắn rồi content dài. Footer không được đè lên text.</li><li>Thử chữ hệ thống lớn và màn hình hẹp; chừa kích thước tối thiểu cho vùng chạm, thay vì đóng đinh height theo một dòng chữ.</li><li>Với <code>keyboardShouldPersistTaps="handled"</code>, kiểm tra đúng ý định tương tác khi bấm nút trong vùng cuộn.</li></ul>
+<p class="source-note">Đối chiếu: <a href="https://reactnative.dev/docs/0.86/keyboardavoidingview" target="_blank" rel="noopener">KeyboardAvoidingView</a>, <a href="https://docs.expo.dev/versions/v57.0.0/sdk/safe-area-context/" target="_blank" rel="noopener">Safe area context SDK 57</a>, <a href="https://docs.expo.dev/develop/user-interface/safe-areas/" target="_blank" rel="noopener">Safe areas</a>.</p>
+</section>
+<section id="thich-ung" data-title="Responsive aspectRatio và absolute">
+<h2><span class="section-number">12 · THÍCH ỨNG VỚI KHÔNG GIAN</span>Dùng ràng buộc trước khi dùng tọa độ</h2>
+<p>Flexbox giúp nội dung nhận chỗ còn lại, nhưng thiết kế còn cần giới hạn hợp lý. Một sidebar có thể có chiều rộng cố định ở tablet và chuyển lên đầu ở điện thoại. Một card hình có thể giữ tỷ lệ thay vì cố định đồng thời cả width và height.</p>
+<div class="code-block"><div class="code-head"><span>Thay đổi bố cục khi chiều rộng cửa sổ thay đổi</span><button class="copy-code" type="button" aria-label="Sao chép Thay đổi bố cục khi chiều rộng cửa sổ thay đổi">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text, useWindowDimensions } from &#x27;react-native&#x27;;
+
+export default function ResponsiveDemo() {
+  const { width } = useWindowDimensions();
+  const wide = width &gt;= 700; // breakpoint của thiết kế ví dụ
+  return (
+    &lt;View style={{ flex: 1, flexDirection: wide ? &#x27;row&#x27; : &#x27;column&#x27;, padding: 20, gap: 16 }}&gt;
+      &lt;View style={wide ? { width: 240 } : undefined}&gt;
+        &lt;Text&gt;Bộ lọc&lt;/Text&gt;
+      &lt;/View&gt;
+      &lt;View style={{ flex: 1 }}&gt;
+        &lt;Text&gt;Danh sách&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<p><code>useWindowDimensions</code> cập nhật khi kích thước cửa sổ và thông tin liên quan thay đổi. Breakpoint 700 ở đây là lựa chọn của ví dụ, không phải chuẩn bắt buộc. Nếu bố cục nằm trong panel có kích thước nhỏ hơn cửa sổ, đo chính panel bằng <code>onLayout</code> sẽ diễn đạt constraint rõ hơn.</p>
+<div class="code-block"><div class="code-head"><span>Khung vuông tự thích ứng và badge absolute</span><button class="copy-code" type="button" aria-label="Sao chép Khung vuông tự thích ứng và badge absolute">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text } from &#x27;react-native&#x27;;
+
+export default function PreviewDemo() {
+  return (
+    &lt;View style={{ width: &#x27;100%&#x27;, aspectRatio: 1, position: &#x27;relative&#x27;,
+      backgroundColor: &#x27;#e6f2ed&#x27;, justifyContent: &#x27;center&#x27;, alignItems: &#x27;center&#x27; }}&gt;
+      &lt;Text&gt;Khung vuông&lt;/Text&gt;
+      &lt;View style={{ position: &#x27;absolute&#x27;, top: 12, end: 12,
+        backgroundColor: &#x27;#0f766e&#x27;, padding: 8, borderRadius: 8 }}&gt;
+        &lt;Text style={{ color: &#x27;#fff&#x27; }}&gt;Mới&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<p><code>aspectRatio</code> bằng width chia height. Ví dụ đặt width rồi để chiều cao được suy ra theo tỷ lệ vuông. Badge absolute không góp phần chiếm chỗ trong normal flow, nên không làm card tự cao thêm. Đừng dùng absolute để dựng toàn bộ form hay danh sách chỉ vì muốn cố định một vị trí trên ảnh thiết kế.</p>
+<h3>Absolute tính theo containing block</h3>
+<p>Cha <code>position: 'relative'</code> trong ví dụ thể hiện rõ mốc của badge. Không khẳng định mọi absolute luôn dựa vào cha trực tiếp: trên kiến trúc hiện đại có position static và những điều kiện khác liên quan containing block. Khi overlay đi sai vị trí, hãy kiểm tra ancestor làm mốc thay vì chỉ đổi top/left.</p>
+<p><strong>Để hỗ trợ nhiều ngôn ngữ:</strong> cân nhắc các cạnh logical như start/end khi ý định là đầu/cuối theo hướng đọc. Luôn kiểm tra thực tế với RTL; row-reverse không thay thế việc kiểm tra ngôn ngữ, icon và thứ tự tương tác.</p>
+<p class="source-note">Đối chiếu: <a href="https://reactnative.dev/docs/0.86/usewindowdimensions" target="_blank" rel="noopener">useWindowDimensions</a>, <a href="https://www.yogalayout.dev/docs/styling/aspect-ratio" target="_blank" rel="noopener">Yoga aspect ratio</a>, <a href="https://www.yogalayout.dev/docs/styling/position" target="_blank" rel="noopener">Yoga position</a>, <a href="https://reactnative.dev/docs/0.86/flexbox#the-containing-block" target="_blank" rel="noopener">Containing block</a>.</p>
+</section>
+<section id="my-tasks" data-title="Đọc layout của app My Tasks">
+<h2><span class="section-number">13 · PHÂN TÍCH PROJECT HIỆN TẠI</span>Tách màn hình công việc thành cây không gian</h2>
+<p>Màn hình Home hiện tại có SafeAreaView root, khối tiêu đề, card tiến độ, hàng nhập việc, FlatList và link Tìm hiểu ở cuối. Phân tích layout không bắt đầu từ màu sắc; hãy đánh dấu mỗi node là row hay column và node nào nhận không gian còn lại.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700" role="img" aria-labelledby="f6-title f6-desc"><title id="f6-title">Cây layout màn hình công việc trong React Native</title><desc id="f6-desc">Minh họa điện thoại chứa header cao tự nhiên, hàng nhập ngang với TextInput flex 1 và nút rộng 52, FlatList flex 1 chiếm vùng còn lại và footer cao tự nhiên. Bên cạnh là cây cha con của layout.</desc><defs><marker id="f6-teal" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#0f766e"/></marker><marker id="f6-blue" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#2563eb"/></marker><marker id="f6-navy" markerWidth="9" markerHeight="9" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#172554"/></marker></defs><rect width="1000" height="700" fill="#f4f8fb"/><g font-family="Arial, Helvetica, sans-serif"><text x="36" y="49" font-size="30" fill="#172554" font-weight="700" text-anchor="start" >Đọc layout như một cây chia không gian</text><text x="36" y="83" font-size="19" fill="#52647b" font-weight="400" text-anchor="start" >Ví dụ màn hình công việc: danh sách nhận phần còn lại, hàng nhập chia chiều ngang.</text><rect x="36" y="116" width="398" height="548" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><rect x="456" y="116" width="508" height="548" rx="16" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><rect x="93" y="137" width="284" height="506" rx="34" fill="#172554" stroke="#172554" stroke-width="2"/><rect x="104" y="149" width="262" height="482" rx="24" fill="#f8fafc" stroke="none" stroke-width="1.5"/><rect x="194" y="158" width="82" height="9" rx="5" fill="#172554" stroke="none" stroke-width="1.5"/><text x="123" y="202" font-size="22" fill="#172554" font-weight="700" text-anchor="start" >Công việc hôm nay</text><text x="123" y="230" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >3 việc cần hoàn thành</text><rect x="120" y="249" width="174" height="47" rx="10" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="132" y="279" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Nhập công việc…</text><rect x="306" y="249" width="44" height="47" rx="10" fill="#0f766e" stroke="none" stroke-width="1.5"/><text x="328" y="280" font-size="27" fill="white" font-weight="700" text-anchor="middle" >+</text><rect x="120" y="310" width="230" height="251" rx="12" fill="#e5f5ef" stroke="#b5dbcf" stroke-width="1.5"/><rect x="135" y="324" width="200" height="34" rx="10" fill="#e5f5ef" stroke="none" stroke-width="1.5"/><text x="235.0" y="347" font-size="18" fill="#0f766e" font-weight="600" text-anchor="middle" >FlatList · flex: 1</text><rect x="135" y="374" width="200" height="43" rx="8" fill="white" stroke="#c9ded7" stroke-width="1"/><rect x="146" y="386" width="18" height="18" rx="4" fill="white" stroke="#8aa9a2" stroke-width="1.5"/><text x="173" y="402" font-size="18" fill="#142338" font-weight="400" text-anchor="start" >Học Flexbox</text><rect x="135" y="428" width="200" height="43" rx="8" fill="white" stroke="#c9ded7" stroke-width="1"/><rect x="146" y="440" width="18" height="18" rx="4" fill="white" stroke="#8aa9a2" stroke-width="1.5"/><text x="173" y="456" font-size="18" fill="#142338" font-weight="400" text-anchor="start" >Luyện layout</text><rect x="135" y="482" width="200" height="43" rx="8" fill="white" stroke="#c9ded7" stroke-width="1"/><rect x="146" y="494" width="18" height="18" rx="4" fill="white" stroke="#8aa9a2" stroke-width="1.5"/><text x="173" y="510" font-size="18" fill="#142338" font-weight="400" text-anchor="start" >Chạy trên iOS</text><text x="235" y="602" font-size="18" fill="#52647b" font-weight="400" text-anchor="middle" >Đã đồng bộ</text><text x="480" y="155" font-size="25" fill="#172554" font-weight="700" text-anchor="start" >Cây layout tương ứng</text><rect x="480" y="177" width="460" height="52" rx="12" fill="#e5f5ef" stroke="none" stroke-width="1.5"/><text x="498" y="210" font-size="21" fill="#0f766e" font-weight="700" text-anchor="start" >SafeAreaView · flex: 1 · column</text><line x1="504" y1="237" x2="504" y2="582" stroke="#b6c7d9" stroke-width="2"/><line x1="504" y1="264" x2="526" y2="264" stroke="#b6c7d9" stroke-width="2"/><line x1="504" y1="324" x2="526" y2="324" stroke="#b6c7d9" stroke-width="2"/><line x1="504" y1="499" x2="526" y2="499" stroke="#b6c7d9" stroke-width="2"/><line x1="504" y1="574" x2="526" y2="574" stroke="#b6c7d9" stroke-width="2"/><rect x="526" y="242" width="414" height="44" rx="10" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="542" y="271" font-size="20" fill="#142338" font-weight="600" text-anchor="start" >Header · chiều cao tự nhiên</text><rect x="526" y="302" width="414" height="44" rx="10" fill="#eaf1ff" stroke="none" stroke-width="1.5"/><text x="542" y="331" font-size="20" fill="#2563eb" font-weight="600" text-anchor="start" >InputRow · flexDirection: &quot;row&quot;</text><line x1="550" y1="353" x2="550" y2="438" stroke="#b6c7d9" stroke-width="2"/><line x1="550" y1="377" x2="570" y2="377" stroke="#b6c7d9" stroke-width="2"/><line x1="550" y1="427" x2="570" y2="427" stroke="#b6c7d9" stroke-width="2"/><rect x="570" y="357" width="370" height="40" rx="9" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="586" y="384" font-size="20" fill="#142338" font-weight="600" text-anchor="start" >TextInput · flex: 1</text><rect x="570" y="407" width="370" height="40" rx="9" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="586" y="434" font-size="20" fill="#142338" font-weight="600" text-anchor="start" >Button · width: 52</text><rect x="526" y="477" width="414" height="44" rx="10" fill="#e5f5ef" stroke="none" stroke-width="1.5"/><text x="542" y="506" font-size="20" fill="#0f766e" font-weight="700" text-anchor="start" >FlatList · flex: 1</text><rect x="526" y="552" width="414" height="44" rx="10" fill="white" stroke="#dbe4ed" stroke-width="1.5"/><text x="542" y="581" font-size="20" fill="#142338" font-weight="600" text-anchor="start" >Footer · chiều cao tự nhiên</text><text x="480" y="635" font-size="18" fill="#52647b" font-weight="400" text-anchor="start" >Trong hàng: vùng chữ linh hoạt; nút giữ kích thước.</text></g></svg></div><figcaption><span>Hình 6 · Sơ đồ khái niệm của một màn hình task và cây layout tương ứng</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<p>Hình là minh hoạ cấu trúc task screen, không phải ảnh chụp chính xác app. Trong source My Tasks hiện tại, còn có card tiến độ giữa tiêu đề và hàng nhập. Root layout của Router cung cấp header riêng, nên SafeAreaView của Home chỉ dùng các cạnh bottom, left và right.</p>
+<div class="code-block"><div class="code-head"><span>Các style then chốt trong màn hình My Tasks hiện tại</span><button class="copy-code" type="button" aria-label="Sao chép Các style then chốt trong màn hình My Tasks hiện tại">Sao chép</button></div><pre tabindex="0"><code class="language-text">container: { flex: 1, padding: 20 },
+
+inputRow: { flexDirection: &#x27;row&#x27;, gap: 10, marginBottom: 20 },
+input: { flex: 1 },
+addButton: { width: 52, height: 52, alignItems: &#x27;center&#x27;, justifyContent: &#x27;center&#x27; },
+
+list: { flex: 1 },
+
+todoItem: { flexDirection: &#x27;row&#x27;, alignItems: &#x27;center&#x27;, padding: 14 },
+todoContent: { flex: 1, flexDirection: &#x27;row&#x27;, alignItems: &#x27;center&#x27;, gap: 12 },
+todoText: { flex: 1 },</code></pre></div>
+<h3>Vì sao TextInput và FlatList đều flex 1 nhưng khác chiều</h3>
+<p>TextInput là con của <code>inputRow</code> có flexDirection row, nên nó nhận phần ngang còn lại sau nút cộng rộng 52 và gap 10. FlatList là con của root column, nên flex của nó tham gia chia phần dọc còn lại sau các khối trước và link cuối.</p>
+<p>Với một inputRow rộng trong vùng nội dung W và không thêm border/padding ở container hàng, phần ngang minh hoạ của input là <code>W − 52 − 10</code>. W ở đây là chiều rộng hàng sau ràng buộc root, không phải chiều rộng thiết bị. Border/padding bên trong input tiếp tục quyết định vùng đặt chữ.</p>
+<h3>Hai hàng lồng nhau trong một todo</h3>
+<p><code>todoItem</code> là row chứa Pressable <code>todoContent</code> và nút Xóa. Bên trong todoContent lại có row chứa checkbox và Text. Wrapper todoContent dùng flex 1 để nhận chỗ trước nút Xóa; Text bên trong tiếp tục nhận chỗ sau checkbox và gap. Mỗi cấp chỉ bố trí các con trực tiếp của chính nó.</p>
+<p><strong>Bài thử gần nhất:</strong> thêm một task có tiêu đề dài ba dòng, đổi cỡ chữ hệ thống rồi kiểm tra nút Xóa còn chạm được không. Nếu có lỗi, đọc lần lượt root → todoItem → todoContent → Text. Không sửa hàng loạt justifyContent khi chưa xác định chiều rộng của wrapper.</p>
+<p class="source-note">Căn cứ source project ở thời điểm biên soạn: <code>src/app/index.tsx</code> và <code>src/app/_layout.tsx</code>. Các phép tính là phân tích từ style của chính app; tài liệu không thay đổi source này.</p>
+</section>
+<section id="thuc-hanh" data-title="Bộ mã mẫu thực hành">
+<h2><span class="section-number">14 · TỪ LÝ THUYẾT TỚI APP</span>Chạy ba bài thực hành độc lập</h2>
+<p>ZIP chứa project Expo SDK 57 độc lập với menu và ba màn hình. Source đã qua TypeScript typecheck và export iOS/Hermes bằng bộ dependency tương ứng. Chưa chạy UI lab trên Simulator trong quá trình biên soạn; các bước thử bàn phím và chữ lớn dưới đây là phần bạn nên thực hiện trên thiết bị đích.</p>
+<div class="download-panel"><div><strong>React Native Flexbox Lab</strong><p>Trục và căn chỉnh · Danh sách task · Form cuộn</p></div><button type="button" class="download-lab">Tải project mẫu ZIP</button></div>
+<p>Giải nén vào thư mục mới, mở Terminal tại nơi có package.json. Không chép đè source My Tasks. Cần Node tương thích SDK 57, npm và môi trường Expo Go/Simulator đang hoạt động.</p>
+<div class="code-block"><div class="code-head"><span>Chạy lab ở thư mục riêng sau khi giải nén</span><button class="copy-code" type="button" aria-label="Sao chép Chạy lab ở thư mục riêng sau khi giải nén">Sao chép</button></div><pre tabindex="0"><code class="language-bash">npm install
+npm run typecheck
+npm run ios
+
+# Hoặc npm run android / npm run web khi môi trường tương ứng sẵn sàng.
+# Nếu Metro project cũ đang chiếm cổng, dừng server cũ hoặc chọn cổng mới.
+# Khi bổ sung package mới: npx expo install &lt;tên-package&gt;</code></pre></div>
+<h3>Bài A Trục và stretch</h3>
+<p>Đổi direction rồi dự đoán tác dụng của justify và align. Chọn stretch khi ô vẫn có kích thước cố định, sau đó bật ô kiểm bỏ kích thước trục chéo. Kết quả này phân biệt thiếu ràng buộc đúng với lỗi “thuộc tính không hoạt động”.</p>
+<details class="source-file" open><summary>src/app/axes.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/axes.tsx</span><button class="copy-code" type="button" aria-label="Sao chép src/app/axes.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { useState } from &quot;react&quot;;
+import { Link } from &quot;expo-router&quot;;
+import { Pressable, ScrollView, StyleSheet, Text, View, type ViewStyle } from &quot;react-native&quot;;
+import { SafeAreaView } from &quot;react-native-safe-area-context&quot;;
+
+const directions = [&quot;column&quot;, &quot;row&quot;, &quot;column-reverse&quot;, &quot;row-reverse&quot;] as const;
+const justifies = [&quot;flex-start&quot;, &quot;center&quot;, &quot;flex-end&quot;, &quot;space-between&quot;, &quot;space-around&quot;, &quot;space-evenly&quot;] as const;
+const aligns = [&quot;flex-start&quot;, &quot;center&quot;, &quot;flex-end&quot;, &quot;stretch&quot;] as const;
+
+export default function AxesScreen() {
+  const [direction, setDirection] = useState&lt;(typeof directions)[number]&gt;(&quot;column&quot;);
+  const [justify, setJustify] = useState&lt;(typeof justifies)[number]&gt;(&quot;flex-start&quot;);
+  const [align, setAlign] = useState&lt;(typeof aligns)[number]&gt;(&quot;center&quot;);
+  const [freeCrossSize, setFreeCrossSize] = useState(false);
+  const isRow = direction.startsWith(&quot;row&quot;);
+  const tileSize: ViewStyle = isRow
+    ? { width: 48, height: freeCrossSize ? undefined : 48 }
+    : { height: 48, width: freeCrossSize ? undefined : 48 };
+
+  return (
+    &lt;SafeAreaView style={styles.screen}&gt;
+      &lt;ScrollView contentContainerStyle={styles.content}&gt;
+        &lt;Link href=&quot;/&quot; style={styles.back}&gt;← Về bài thực hành&lt;/Link&gt;
+        &lt;Text style={styles.title}&gt;Trục chính và trục chéo&lt;/Text&gt;
+        &lt;Text style={styles.note}&gt;
+          Trục chính: {isRow ? &quot;ngang&quot; : &quot;dọc&quot;}. justifyContent theo trục chính;
+          alignItems theo trục chéo. Số trên ô là thứ tự trong JSX.
+        &lt;/Text&gt;
+        &lt;Text style={styles.label}&gt;flexDirection&lt;/Text&gt;
+        &lt;View style={styles.options}&gt;
+          {directions.map((value) =&gt; (
+            &lt;Pressable key={value} onPress={() =&gt; setDirection(value)}
+              accessibilityRole=&quot;button&quot; accessibilityState={{ selected: direction === value }}
+              style={[styles.chip, direction === value &amp;&amp; styles.active]}&gt;
+              &lt;Text style={[styles.chipText, direction === value &amp;&amp; styles.activeText]}&gt;{value}&lt;/Text&gt;
+            &lt;/Pressable&gt;
+          ))}
+        &lt;/View&gt;
+        &lt;Text style={styles.label}&gt;justifyContent&lt;/Text&gt;
+        &lt;View style={styles.options}&gt;
+          {justifies.map((value) =&gt; (
+            &lt;Pressable key={value} onPress={() =&gt; setJustify(value)}
+              accessibilityRole=&quot;button&quot; accessibilityState={{ selected: justify === value }}
+              style={[styles.chip, justify === value &amp;&amp; styles.active]}&gt;
+              &lt;Text style={[styles.chipText, justify === value &amp;&amp; styles.activeText]}&gt;{value}&lt;/Text&gt;
+            &lt;/Pressable&gt;
+          ))}
+        &lt;/View&gt;
+        &lt;Text style={styles.label}&gt;alignItems&lt;/Text&gt;
+        &lt;View style={styles.options}&gt;
+          {aligns.map((value) =&gt; (
+            &lt;Pressable key={value} onPress={() =&gt; setAlign(value)}
+              accessibilityRole=&quot;button&quot; accessibilityState={{ selected: align === value }}
+              style={[styles.chip, align === value &amp;&amp; styles.active]}&gt;
+              &lt;Text style={[styles.chipText, align === value &amp;&amp; styles.activeText]}&gt;{value}&lt;/Text&gt;
+            &lt;/Pressable&gt;
+          ))}
+        &lt;/View&gt;
+        &lt;Pressable style={styles.toggle} onPress={() =&gt; setFreeCrossSize((value) =&gt; !value)}
+          accessibilityRole=&quot;checkbox&quot; accessibilityState={{ checked: freeCrossSize }}&gt;
+          &lt;Text style={styles.note}&gt;{freeCrossSize ? &quot;☑&quot; : &quot;☐&quot;} Bỏ kích thước cố định trên trục chéo&lt;/Text&gt;
+        &lt;/Pressable&gt;
+        &lt;View style={[styles.frame, { flexDirection: direction, justifyContent: justify, alignItems: align }]}&gt;
+          {[&quot;#007C78&quot;, &quot;#3068DB&quot;, &quot;#BE5828&quot;].map((color, index) =&gt; (
+            &lt;View key={color} style={[styles.tile, tileSize, { backgroundColor: color }]}&gt;
+              &lt;Text style={styles.tileText}&gt;{index + 1}&lt;/Text&gt;
+            &lt;/View&gt;
+          ))}
+        &lt;/View&gt;
+        &lt;Text style={styles.note}&gt;
+          Khung cao 260, padding 12, gap 8; ô mặc định 48 × 48 và flexShrink: 0.
+          Stretch chỉ có thể kéo theo trục chéo khi kích thước trên trục đó để tự động.
+          Khi chọn stretch, hãy bật ô kiểm phía trên.
+        &lt;/Text&gt;
+        &lt;View style={styles.code}&gt;
+          &lt;Text selectable style={styles.codeText}&gt;
+            {`{ flexDirection: &quot;${direction}&quot;,\n  justifyContent: &quot;${justify}&quot;,\n  alignItems: &quot;${align}&quot;,\n  height: 260, padding: 12, gap: 8 }`}
+          &lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/ScrollView&gt;
+    &lt;/SafeAreaView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: &quot;#F4F7FB&quot; },
+  content: { padding: 20, gap: 12 },
+  back: { color: &quot;#007C78&quot;, fontSize: 16, paddingVertical: 8 },
+  title: { color: &quot;#10243A&quot;, fontSize: 26, fontWeight: &quot;800&quot; },
+  label: { color: &quot;#10243A&quot;, fontSize: 16, fontWeight: &quot;700&quot;, marginTop: 8 },
+  note: { color: &quot;#42566C&quot;, fontSize: 15, lineHeight: 23 },
+  options: { flexDirection: &quot;row&quot;, flexWrap: &quot;wrap&quot;, gap: 8 },
+  chip: { minHeight: 44, paddingHorizontal: 12, paddingVertical: 10, justifyContent: &quot;center&quot;, borderRadius: 10, backgroundColor: &quot;#E2EAF3&quot; },
+  active: { backgroundColor: &quot;#007C78&quot; },
+  chipText: { color: &quot;#273D54&quot;, fontSize: 14 },
+  activeText: { color: &quot;white&quot;, fontWeight: &quot;700&quot; },
+  toggle: { minHeight: 44, justifyContent: &quot;center&quot; },
+  frame: { height: 260, padding: 12, gap: 8, borderWidth: 2, borderColor: &quot;#8DA7BC&quot;, backgroundColor: &quot;white&quot;, borderRadius: 12 },
+  tile: { flexShrink: 0, justifyContent: &quot;center&quot;, alignItems: &quot;center&quot;, borderRadius: 6 },
+  tileText: { color: &quot;white&quot;, fontSize: 18, fontWeight: &quot;800&quot; },
+  code: { backgroundColor: &quot;#10243A&quot;, padding: 16, borderRadius: 12 },
+  codeText: { color: &quot;#D7E9F6&quot;, fontSize: 13, lineHeight: 21, fontFamily: &quot;monospace&quot; },
+});</code></pre></div></details>
+<h3>Bài B Task list nhận phần chiều cao còn lại</h3>
+<p>Screen có root KeyboardAvoidingView, SafeAreaView, header tự cao, hàng input, FlatList flex 1 và footer ngoài list. Mỗi task có wrapper text linh hoạt và một nút kiểm cố định. Nội dung dài tự tăng chiều cao, chưa bị cắt bằng numberOfLines.</p>
+<details class="source-file" open><summary>src/app/tasks.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/tasks.tsx</span><button class="copy-code" type="button" aria-label="Sao chép src/app/tasks.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { useRef, useState } from &quot;react&quot;;
+import { Link } from &quot;expo-router&quot;;
+import { FlatList, KeyboardAvoidingView, Platform, Pressable, StyleSheet, Text, TextInput, View } from &quot;react-native&quot;;
+import { SafeAreaView } from &quot;react-native-safe-area-context&quot;;
+
+type Task = { id: string; title: string; done: boolean };
+const initialTasks: Task[] = [
+  { id: &quot;1&quot;, title: &quot;Đọc trục chính trước khi chọn justifyContent&quot;, done: false },
+  { id: &quot;2&quot;, title: &quot;Thử một tiêu đề rất dài để kiểm tra khối text được cấp chiều rộng còn lại và tự xuống dòng mà không đẩy nút thao tác ra ngoài màn hình&quot;, done: false },
+  { id: &quot;3&quot;, title: &quot;Quan sát FlatList chiếm phần chiều cao còn lại&quot;, done: true },
+];
+
+export default function TasksScreen() {
+  const [tasks, setTasks] = useState(initialTasks);
+  const [draft, setDraft] = useState(&quot;&quot;);
+  const nextId = useRef(4);
+  const doneCount = tasks.filter((task) =&gt; task.done).length;
+
+  function addTask() {
+    const title = draft.trim();
+    if (!title) return;
+    const task: Task = { id: String(nextId.current++), title, done: false };
+    setTasks((current) =&gt; [...current, task]);
+    setDraft(&quot;&quot;);
+  }
+
+  function toggleTask(id: string) {
+    setTasks((current) =&gt; current.map((task) =&gt; task.id === id ? { ...task, done: !task.done } : task));
+  }
+
+  return (
+    &lt;KeyboardAvoidingView style={styles.screen} behavior={Platform.OS === &quot;ios&quot; ? &quot;padding&quot; : undefined}&gt;
+      &lt;SafeAreaView style={styles.safeArea}&gt;
+        &lt;View style={styles.header}&gt;
+          &lt;Link href=&quot;/&quot; style={styles.back}&gt;← Về bài thực hành&lt;/Link&gt;
+          &lt;Text style={styles.heading}&gt;Việc cần làm&lt;/Text&gt;
+          &lt;Text style={styles.hint}&gt;Header tự cao · list flex: 1 · footer tự cao&lt;/Text&gt;
+        &lt;/View&gt;
+        &lt;View style={styles.inputRow}&gt;
+          &lt;TextInput value={draft} onChangeText={setDraft} onSubmitEditing={addTask}
+            placeholder=&quot;Nhập một việc mới&quot; accessibilityLabel=&quot;Tên việc cần làm&quot;
+            returnKeyType=&quot;done&quot; style={styles.input} /&gt;
+          &lt;Pressable onPress={addTask} accessibilityRole=&quot;button&quot; style={styles.addButton}&gt;
+            &lt;Text style={styles.addText}&gt;Thêm&lt;/Text&gt;
+          &lt;/Pressable&gt;
+        &lt;/View&gt;
+        &lt;FlatList style={styles.list} contentContainerStyle={styles.listContent}
+          keyboardShouldPersistTaps=&quot;handled&quot; data={tasks} keyExtractor={(item) =&gt; item.id}
+          renderItem={({ item }) =&gt; (
+            &lt;View style={styles.taskRow}&gt;
+              &lt;View style={styles.taskBody}&gt;
+                &lt;Text style={[styles.taskTitle, item.done &amp;&amp; styles.doneTitle]}&gt;{item.title}&lt;/Text&gt;
+                &lt;Text style={styles.hint}&gt;id: {item.id} · khối text dùng flex: 1&lt;/Text&gt;
+              &lt;/View&gt;
+              &lt;Pressable onPress={() =&gt; toggleTask(item.id)} accessibilityRole=&quot;checkbox&quot;
+                accessibilityLabel={`Hoàn thành: ${item.title}`} accessibilityState={{ checked: item.done }}
+                style={[styles.check, item.done &amp;&amp; styles.checked]}&gt;
+                &lt;Text style={[styles.checkText, item.done &amp;&amp; styles.checkedText]}&gt;{item.done ? &quot;✓&quot; : &quot;○&quot;}&lt;/Text&gt;
+              &lt;/Pressable&gt;
+            &lt;/View&gt;
+          )} /&gt;
+        &lt;View style={styles.footer}&gt;
+          &lt;Text style={styles.footerTitle}&gt;{doneCount}/{tasks.length} việc hoàn thành&lt;/Text&gt;
+          &lt;Text style={styles.hint}&gt;Thêm nhiều việc để list cuộn. Footer ở ngoài list nên vẫn nằm trong viewport.&lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/SafeAreaView&gt;
+    &lt;/KeyboardAvoidingView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: &quot;#F4F7FB&quot; },
+  safeArea: { flex: 1 },
+  header: { paddingHorizontal: 20, paddingTop: 8, paddingBottom: 16, gap: 8 },
+  back: { color: &quot;#007C78&quot;, fontSize: 16, paddingVertical: 8 },
+  heading: { color: &quot;#10243A&quot;, fontSize: 28, fontWeight: &quot;800&quot; },
+  hint: { color: &quot;#53687D&quot;, fontSize: 13, lineHeight: 20 },
+  inputRow: { flexDirection: &quot;row&quot;, alignItems: &quot;center&quot;, gap: 12, paddingHorizontal: 20, paddingBottom: 16 },
+  input: { flex: 1, minHeight: 48, paddingHorizontal: 12, paddingVertical: 10, borderWidth: 1, borderColor: &quot;#B8C9D7&quot;, borderRadius: 10, backgroundColor: &quot;white&quot;, fontSize: 16, color: &quot;#10243A&quot; },
+  addButton: { flexShrink: 0, minHeight: 48, justifyContent: &quot;center&quot;, paddingHorizontal: 16, borderRadius: 10, backgroundColor: &quot;#007C78&quot; },
+  addText: { color: &quot;white&quot;, fontSize: 16, fontWeight: &quot;700&quot; },
+  list: { flex: 1 },
+  listContent: { paddingHorizontal: 20, paddingBottom: 16, gap: 12 },
+  taskRow: { flexDirection: &quot;row&quot;, alignItems: &quot;center&quot;, gap: 12, padding: 16, borderRadius: 14, backgroundColor: &quot;white&quot; },
+  taskBody: { flex: 1, gap: 6 },
+  taskTitle: { color: &quot;#10243A&quot;, fontSize: 16, lineHeight: 24 },
+  doneTitle: { textDecorationLine: &quot;line-through&quot;, color: &quot;#6F8293&quot; },
+  check: { flexShrink: 0, minWidth: 48, minHeight: 48, padding: 8, alignItems: &quot;center&quot;, justifyContent: &quot;center&quot;, borderRadius: 12, borderWidth: 1, borderColor: &quot;#B8C9D7&quot; },
+  checked: { backgroundColor: &quot;#007C78&quot;, borderColor: &quot;#007C78&quot; },
+  checkText: { color: &quot;#007C78&quot;, fontSize: 24 },
+  checkedText: { color: &quot;white&quot; },
+  footer: { paddingHorizontal: 20, paddingVertical: 16, gap: 4, borderTopWidth: 1, borderColor: &quot;#DDE6EF&quot;, backgroundColor: &quot;#E6F3EF&quot; },
+  footerTitle: { color: &quot;#10243A&quot;, fontSize: 16, fontWeight: &quot;700&quot; },
+});</code></pre></div></details>
+<ol><li>Mở danh sách và đọc task dài. Kiểm tra nút bên cạnh vẫn nằm trong hàng.</li><li>Thêm nhiều task để list phải cuộn; footer vẫn ở ngoài vùng list.</li><li>Thử nhập một chuỗi dài và mở bàn phím. Quan sát viewport của list thay đổi.</li><li>Tăng cỡ chữ hệ thống. Kiểm tra chiều cao row có tăng tự nhiên.</li><li>Thử thêm numberOfLines 2 vào taskTitle rồi so sánh với mặc định tự xuống dòng.</li></ol>
+<h3>Bài C Form ngắn dài và bàn phím</h3>
+<p>Chuyển qua lại giữa ít nội dung và nhiều đoạn văn. Footer nằm thấp khi trang ngắn nhờ auto margin; khi dài, footer nằm cuối luồng cuộn. Nhập tên và bấm Lưu thử chỉ cập nhật state, không ghi storage.</p>
+<details class="source-file" open><summary>src/app/form.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/form.tsx</span><button class="copy-code" type="button" aria-label="Sao chép src/app/form.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { useState } from &quot;react&quot;;
+import { Link } from &quot;expo-router&quot;;
+import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from &quot;react-native&quot;;
+import { SafeAreaView } from &quot;react-native-safe-area-context&quot;;
+
+export default function FormScreen() {
+  const [longContent, setLongContent] = useState(false);
+  const [name, setName] = useState(&quot;&quot;);
+  const [saved, setSaved] = useState(false);
+
+  return (
+    &lt;KeyboardAvoidingView style={styles.screen} behavior={Platform.OS === &quot;ios&quot; ? &quot;padding&quot; : undefined}&gt;
+      &lt;SafeAreaView style={styles.safeArea}&gt;
+        &lt;View style={styles.header}&gt;
+          &lt;Link href=&quot;/&quot; style={styles.back}&gt;← Về bài thực hành&lt;/Link&gt;
+          &lt;Text style={styles.title}&gt;Form ngắn và dài&lt;/Text&gt;
+        &lt;/View&gt;
+        &lt;ScrollView style={styles.viewport} contentContainerStyle={styles.content}
+          keyboardShouldPersistTaps=&quot;handled&quot;&gt;
+          &lt;View style={styles.body}&gt;
+            &lt;Text style={styles.description}&gt;
+              ScrollView là viewport có flex: 1. Khối content bên trong dùng flexGrow: 1 để ít nhất
+              lấp đầy viewport, nhưng vẫn có thể dài hơn để cuộn.
+            &lt;/Text&gt;
+            &lt;Text style={styles.label}&gt;Tên hiển thị&lt;/Text&gt;
+            &lt;TextInput style={styles.input} value={name} onChangeText={(value) =&gt; { setName(value); setSaved(false); }}
+              placeholder=&quot;Tên của bạn&quot; accessibilityLabel=&quot;Tên hiển thị&quot; /&gt;
+            &lt;Pressable onPress={() =&gt; setLongContent((value) =&gt; !value)} style={styles.toggle} accessibilityRole=&quot;button&quot;&gt;
+              &lt;Text style={styles.toggleText}&gt;{longContent ? &quot;Ẩn&quot; : &quot;Thêm&quot;} nội dung dài&lt;/Text&gt;
+            &lt;/Pressable&gt;
+            {longContent &amp;&amp; Array.from({ length: 8 }, (_, index) =&gt; (
+              &lt;Text key={index} style={styles.description}&gt;
+                Đoạn {index + 1}: Content tự tăng chiều cao theo nội dung. Footer tham gia normal flow,
+                nên khi nội dung dài nó nằm cuối phần cuộn, không đè lên chữ.
+              &lt;/Text&gt;
+            ))}
+          &lt;/View&gt;
+          &lt;View style={styles.footer}&gt;
+            &lt;Text style={styles.description}&gt;Footer dùng marginTop: &quot;auto&quot; để nhận khoảng trống khi form ngắn.&lt;/Text&gt;
+            &lt;Pressable onPress={() =&gt; setSaved(true)} style={styles.save} accessibilityRole=&quot;button&quot;&gt;
+              &lt;Text style={styles.saveText}&gt;Lưu thử&lt;/Text&gt;
+            &lt;/Pressable&gt;
+            {saved &amp;&amp; &lt;Text accessibilityLiveRegion=&quot;polite&quot; style={styles.result}&gt;
+              Đã nhận: {name.trim() || &quot;Chưa có tên&quot;}. Đây là state tạm, không lưu xuống ổ đĩa.
+            &lt;/Text&gt;}
+          &lt;/View&gt;
+        &lt;/ScrollView&gt;
+      &lt;/SafeAreaView&gt;
+    &lt;/KeyboardAvoidingView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: &quot;#F4F7FB&quot; },
+  safeArea: { flex: 1 },
+  header: { paddingHorizontal: 20, paddingVertical: 8, gap: 8 },
+  back: { color: &quot;#007C78&quot;, fontSize: 16, paddingVertical: 8 },
+  title: { color: &quot;#10243A&quot;, fontSize: 26, fontWeight: &quot;800&quot; },
+  viewport: { flex: 1 },
+  content: { flexGrow: 1, padding: 20 },
+  body: { gap: 16 },
+  description: { color: &quot;#42566C&quot;, fontSize: 16, lineHeight: 24 },
+  label: { color: &quot;#10243A&quot;, fontSize: 16, fontWeight: &quot;700&quot; },
+  input: { minHeight: 48, padding: 12, backgroundColor: &quot;white&quot;, borderWidth: 1, borderColor: &quot;#B8C9D7&quot;, borderRadius: 10, color: &quot;#10243A&quot;, fontSize: 16 },
+  toggle: { minHeight: 48, padding: 12, alignItems: &quot;center&quot;, justifyContent: &quot;center&quot;, backgroundColor: &quot;#DFF4F0&quot;, borderRadius: 10 },
+  toggleText: { color: &quot;#007C78&quot;, fontSize: 16, fontWeight: &quot;700&quot; },
+  footer: { marginTop: &quot;auto&quot;, paddingTop: 24, gap: 12 },
+  save: { minHeight: 48, alignItems: &quot;center&quot;, justifyContent: &quot;center&quot;, padding: 12, backgroundColor: &quot;#007C78&quot;, borderRadius: 10 },
+  saveText: { color: &quot;white&quot;, fontSize: 16, fontWeight: &quot;700&quot; },
+  result: { color: &quot;#007C78&quot;, fontSize: 15, lineHeight: 22 },
+});</code></pre></div></details>
+<h3>Menu cấu hình và phạm vi chạy</h3>
+<p>Native header được tắt ở root Stack để mỗi screen tự quản safe area và chiều cao header trong bài học. Khi đưa code vào app có header/tab bar khác, cần đánh giá lại offsets và vùng chứa. Không đổi sang thông số cố định theo ảnh chụp của một Simulator.</p>
+<details class="source-file"><summary>src/app/_layout.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/_layout.tsx</span><button class="copy-code" type="button" aria-label="Sao chép src/app/_layout.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Stack } from &quot;expo-router&quot;;
+
+export default function RootLayout() {
+  // Mỗi screen tự vẽ header, nên SafeAreaView xử lý cả cạnh trên.
+  // KeyboardAvoidingView ở task/form phủ toàn màn hình, không có native header offset.
+  return &lt;Stack screenOptions={{ headerShown: false }} /&gt;;
+}</code></pre></div></details>
+<details class="source-file"><summary>src/app/index.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/index.tsx</span><button class="copy-code" type="button" aria-label="Sao chép src/app/index.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Link } from &quot;expo-router&quot;;
+import { Pressable, ScrollView, StyleSheet, Text, View } from &quot;react-native&quot;;
+import { SafeAreaView } from &quot;react-native-safe-area-context&quot;;
+
+export default function HomeScreen() {
+  return (
+    &lt;SafeAreaView style={styles.screen}&gt;
+      &lt;ScrollView contentContainerStyle={styles.content}&gt;
+        &lt;Text style={styles.eyebrow}&gt;REACT NATIVE · FLEXBOX LAB&lt;/Text&gt;
+        &lt;Text style={styles.title}&gt;Chạm, đổi style, quan sát layout.&lt;/Text&gt;
+        &lt;Text style={styles.description}&gt;
+          Ba bài thực hành dùng layout native. Mở từng màn hình rồi thay đổi kích thước Simulator,
+          tăng cỡ chữ và thử nội dung dài để thấy constraint tác động thế nào.
+        &lt;/Text&gt;
+        &lt;Link href=&quot;/axes&quot; asChild&gt;
+          &lt;Pressable style={styles.card} accessibilityRole=&quot;button&quot;&gt;
+            &lt;Text style={styles.cardTitle}&gt;01 · Trục chính và trục chéo&lt;/Text&gt;
+            &lt;Text style={styles.description}&gt;Đổi direction, justifyContent, alignItems và quan sát ba ô.&lt;/Text&gt;
+          &lt;/Pressable&gt;
+        &lt;/Link&gt;
+        &lt;Link href=&quot;/tasks&quot; asChild&gt;
+          &lt;Pressable style={styles.card} accessibilityRole=&quot;button&quot;&gt;
+            &lt;Text style={styles.cardTitle}&gt;02 · Danh sách task&lt;/Text&gt;
+            &lt;Text style={styles.description}&gt;Header và footer tự cao, FlatList nhận phần còn lại, text dài co đúng chỗ.&lt;/Text&gt;
+          &lt;/Pressable&gt;
+        &lt;/Link&gt;
+        &lt;Link href=&quot;/form&quot; asChild&gt;
+          &lt;Pressable style={styles.card} accessibilityRole=&quot;button&quot;&gt;
+            &lt;Text style={styles.cardTitle}&gt;03 · Form ngắn và dài&lt;/Text&gt;
+            &lt;Text style={styles.description}&gt;So sánh viewport với content; flexGrow: 1 và footer marginTop: auto.&lt;/Text&gt;
+          &lt;/Pressable&gt;
+        &lt;/Link&gt;
+        &lt;View style={styles.note}&gt;
+          &lt;Text style={styles.description}&gt;
+            Mẫu dùng dữ liệu trong bộ nhớ. Reload app sẽ khởi tạo lại dữ liệu; không có API hay lưu trữ.
+          &lt;/Text&gt;
+        &lt;/View&gt;
+      &lt;/ScrollView&gt;
+    &lt;/SafeAreaView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: &quot;#F4F7FB&quot; },
+  content: { padding: 20, gap: 16 },
+  eyebrow: { fontSize: 12, fontWeight: &quot;700&quot;, color: &quot;#007C78&quot;, letterSpacing: 1 },
+  title: { fontSize: 30, fontWeight: &quot;800&quot;, color: &quot;#10243A&quot; },
+  description: { fontSize: 16, lineHeight: 24, color: &quot;#42566C&quot; },
+  card: { padding: 20, gap: 8, backgroundColor: &quot;white&quot;, borderRadius: 16, borderWidth: 1, borderColor: &quot;#DDE6EF&quot; },
+  cardTitle: { fontSize: 19, fontWeight: &quot;700&quot;, color: &quot;#10243A&quot; },
+  note: { padding: 16, borderRadius: 12, backgroundColor: &quot;#DFF4F0&quot; },
+});</code></pre></div></details>
+<details class="source-file"><summary>package.json</summary><div class="code-block"><div class="code-head"><span>package.json</span><button class="copy-code" type="button" aria-label="Sao chép package.json">Sao chép</button></div><pre tabindex="0"><code class="language-json">{
+  &quot;name&quot;: &quot;react-native-flexbox-lab&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;private&quot;: true,
+  &quot;main&quot;: &quot;expo-router/entry&quot;,
+  &quot;engines&quot;: {
+    &quot;node&quot;: &quot;&gt;=22.13.0&quot;
+  },
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;expo start&quot;,
+    &quot;ios&quot;: &quot;expo start --ios&quot;,
+    &quot;android&quot;: &quot;expo start --android&quot;,
+    &quot;web&quot;: &quot;expo start --web&quot;,
+    &quot;typecheck&quot;: &quot;tsc --noEmit&quot;,
+    &quot;lint&quot;: &quot;expo lint&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;expo&quot;: &quot;57.0.30&quot;,
+    &quot;expo-constants&quot;: &quot;57.0.22&quot;,
+    &quot;expo-linking&quot;: &quot;57.0.13&quot;,
+    &quot;expo-router&quot;: &quot;57.0.28&quot;,
+    &quot;react&quot;: &quot;19.2.3&quot;,
+    &quot;react-dom&quot;: &quot;19.2.3&quot;,
+    &quot;react-native&quot;: &quot;0.86.3&quot;,
+    &quot;react-native-safe-area-context&quot;: &quot;5.7.0&quot;,
+    &quot;react-native-screens&quot;: &quot;4.26.0&quot;,
+    &quot;react-native-web&quot;: &quot;0.21.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@types/react&quot;: &quot;~19.2.2&quot;,
+    &quot;typescript&quot;: &quot;~6.0.3&quot;
+  }
+}</code></pre></div></details>
+<details class="source-file"><summary>app.json</summary><div class="code-block"><div class="code-head"><span>app.json</span><button class="copy-code" type="button" aria-label="Sao chép app.json">Sao chép</button></div><pre tabindex="0"><code class="language-json">{
+  &quot;expo&quot;: {
+    &quot;name&quot;: &quot;Flexbox Lab&quot;,
+    &quot;slug&quot;: &quot;react-native-flexbox-lab&quot;,
+    &quot;scheme&quot;: &quot;flexboxlab&quot;,
+    &quot;version&quot;: &quot;1.0.0&quot;,
+    &quot;plugins&quot;: [&quot;expo-router&quot;],
+    &quot;experiments&quot;: { &quot;typedRoutes&quot;: false },
+    &quot;web&quot;: { &quot;bundler&quot;: &quot;metro&quot; }
+  }
+}</code></pre></div></details>
+<details class="source-file"><summary>tsconfig.json</summary><div class="code-block"><div class="code-head"><span>tsconfig.json</span><button class="copy-code" type="button" aria-label="Sao chép tsconfig.json">Sao chép</button></div><pre tabindex="0"><code class="language-json">{
+  &quot;extends&quot;: &quot;expo/tsconfig.base&quot;,
+  &quot;compilerOptions&quot;: { &quot;strict&quot;: true },
+  &quot;include&quot;: [&quot;**/*.ts&quot;, &quot;**/*.tsx&quot;, &quot;.expo/types/**/*.ts&quot;, &quot;expo-env.d.ts&quot;]
+}</code></pre></div></details>
+<p><strong>Dữ liệu tạm:</strong> task và form dùng useState tại screen. Reload hoặc unmount có thể làm state trở về ban đầu. Bài này không triển khai API, lưu trữ bền vững hay đồng bộ giữa các screen.</p>
+<p><strong>Điểm dừng:</strong> bạn giải thích được từng flex 1 dựa vào cha trực tiếp của nó, và chỉ ra được vùng nào cuộn, vùng nào giữ kích thước, vùng nào cao theo nội dung. Nếu chưa giải thích được, dùng debugger đo vùng đó trước khi thêm style.</p>
+</section>
+<section id="chan-doan" data-title="Debug và bài tập tự làm">
+<h2><span class="section-number">15 · CHẨN ĐOÁN CÓ THỨ TỰ</span>Tìm constraint sai trước khi đổi thuộc tính</h2>
+<p>Khi layout sai, hãy hỏi lần lượt: cha đang có kích thước gì, trục chính là gì, child cần bao nhiêu chỗ, grow/shrink có tham gia không, và min/max hay nội dung đang giới hạn phần nào. Mỗi lần sửa một nguyên nhân để thấy quan hệ nhân quả.</p>
+<div class="code-block"><div class="code-head"><span>Đọc kích thước thật của một View</span><button class="copy-code" type="button" aria-label="Sao chép Đọc kích thước thật của một View">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { View, Text } from &#x27;react-native&#x27;;
+
+export default function MeasureDemo() {
+  return (
+    &lt;View style={{ flex: 1, padding: 20 }}&gt;
+      &lt;View style={{ flexDirection: &#x27;row&#x27;, gap: 10 }} onLayout={(event) =&gt; {
+        const { width, height, x, y } = event.nativeEvent.layout;
+        console.log({ width, height, x, y });
+      }}&gt;
+        &lt;Text style={{ flex: 1 }}&gt;Nội dung được đo trong ràng buộc của cha&lt;/Text&gt;
+        &lt;Text&gt;OK&lt;/Text&gt;
+      &lt;/View&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<p>onLayout cho biết kích thước và vị trí layout của node. Tránh cập nhật state từ số đo theo cách liên tục làm layout đổi rồi đo lại không dừng. Có thể thêm background/border tạm để nhìn ranh giới, nhưng nhớ border và padding cũng có thể ảnh hưởng bài toán kích thước.</p>
+<div class="table-wrap"><table><thead><tr><th>Biểu hiện</th><th>Nguyên nhân thường cần kiểm tra</th><th>Hướng xử lý</th></tr></thead><tbody>
+<tr><td>flex 1 nhưng không có chiều cao</td><td>Cha hoặc một ancestor chưa cấp chiều cao hữu hạn</td><td>Lần ngược chuỗi cha; xác định viewport từ đâu</td></tr>
+<tr><td>justifyContent center không căn ngang</td><td>Cha đang column</td><td>Đọc trục; dùng alignItems cho trục chéo</td></tr>
+<tr><td>space-between không tạo khoảng rõ</td><td>Không còn phần dư sau grow hoặc container vừa khít nội dung</td><td>Đo vùng cha và tổng kích thước item</td></tr>
+<tr><td>stretch không làm child rộng hơn</td><td>Child có width cố định trong column hoặc alignSelf ghi đè</td><td>Bỏ kích thước trục chéo không cần thiết, kiểm tra min/max</td></tr>
+<tr><td>Text đẩy nút ra ngoài</td><td>Wrapper text chưa nhận vùng ngang có giới hạn</td><td>Phân chia wrapper và nút, chọn basis/grow/shrink rõ</td></tr>
+<tr><td>Cắt hai dòng vẫn tràn ngang</td><td>numberOfLines được dùng trước khi giải quyết width constraint</td><td>Sửa vùng đo text, sau đó chọn chính sách cắt</td></tr>
+<tr><td>ScrollView không cuộn hoặc tràn screen</td><td>Viewport không bounded hoặc content bị ép sai</td><td>Kiểm tra style viewport và contentContainerStyle riêng</td></tr>
+<tr><td>Hai item 50% không cùng hàng</td><td>Hai chiều rộng cộng gap vượt vùng cha</td><td>Tính theo container thực tế và trừ gap</td></tr>
+<tr><td>alignContent không nhìn thấy tác dụng</td><td>Không wrap nhiều dòng hoặc không có phần dư trục chéo</td><td>Thêm ràng buộc minh hoạ để quan sát; không ép height nếu sản phẩm không cần</td></tr>
+<tr><td>Footer chồng text dài</td><td>Dùng absolute hoặc height cố định không hợp nội dung</td><td>Đưa footer vào normal flow hay tách ngoài viewport theo ý định</td></tr>
+<tr><td>Input bị bàn phím che</td><td>Vùng resize/offset, safe area và scroll chưa phối hợp</td><td>Thử trên thiết bị và navigator thực tế; tránh bù hai lần</td></tr>
+<tr><td>Chữ lớn bị cắt</td><td>Height cố định quá thấp hoặc số dòng quá ít</td><td>Dùng minHeight, cho text tăng tự nhiên và kiểm tra font scale</td></tr>
+</tbody></table></div>
+<h3>Bài 1 Tính phần thân</h3><p>Vùng cao 720, padding trên dưới mỗi bên 24, header cao 96, footer cao 64 và hai gap 16. Body nhận phần còn lại, bỏ qua các giới hạn khác. Nó cao bao nhiêu?</p><details class="answer"><summary>Xem lời giải</summary><p><code>720 − 48 − 96 − 64 − 32 = 480</code>. Nếu header tăng thêm một dòng 24, body còn 456 trong cùng mô hình. Nếu body cần tối thiểu cao hơn, thiết kế phải xử lý thiếu chỗ thay vì giả định luôn đủ.</p></details>
+<h3>Bài 2 Grow bằng nhau</h3><p>Hàng rộng 400 không gap, basis 100 và 200, grow mỗi item bằng 1. Dự đoán kích thước cuối.</p><details class="answer"><summary>Xem lời giải</summary><p>Dư 100; mỗi item thêm 50. Kết quả 150 và 250. Nếu cả hai basis bằng 0, kết quả đơn giản này mới là 200 và 200. Các giới hạn min/max có thể thay đổi bài toán.</p></details>
+<h3>Bài 3 Shrink có trọng số</h3><p>Hàng rộng 240, basis 200 và 100, shrink đều 1. Không gap/min/max. Mỗi item có mất 30 không?</p><details class="answer"><summary>Xem lời giải</summary><p>Thiếu 60; trọng số là 200 và 100. Item đầu mất 40, item sau mất 20. Kết quả 160 và 80. Nếu shrink lần lượt 1 và 2, trọng số thành 200 và 200 nên mỗi item mới mất 30.</p></details>
+<h3>Bài 4 Dựng card sản phẩm</h3><p>Dựng một card có khung hình vuông, tiêu đề tối đa hai dòng, giá và nút xem trong cùng hàng. Cho card vào vùng cha hẹp. Chỉ định thuộc tính nào thuộc card, thuộc hàng và thuộc text. Thử bản title không giới hạn dòng để nhìn chính sách hiển thị khác nhau.</p>
+<h3>Bài 5 Form với footer hai cách</h3><p>Dùng cùng nội dung, làm một bản footer cuộn theo form và một bản footer ở ngoài ScrollView. Viết ra lý do chọn mỗi bản. Thử content dài, bàn phím, xoay màn hình và font lớn trước khi kết luận layout đúng.</p>
+<ul class="checklist"><li>Tôi chỉ ra được main axis của mỗi container.</li><li>Tôi phân biệt flex của item với thuộc tính bố trí các con của item đó.</li><li>Tôi tính được phần dư đơn giản sau basis và gap.</li><li>Tôi hiểu shrink còn phụ thuộc kích thước cơ sở.</li><li>Tôi đã kiểm tra text dài thay vì chỉ chữ mẫu ngắn.</li><li>Tôi phân biệt viewport với content trong scroll.</li><li>Tôi đã thử cả màn hình hẹp, nội dung dài và bàn phím.</li></ul>
+</section>
+<section id="tra-cuu" data-title="Bảng tra nhanh và nguồn">
+<h2><span class="section-number">16 · TRA CỨU</span>Chọn thuộc tính theo câu hỏi đang giải quyết</h2>
+<div class="table-wrap"><table><thead><tr><th>Câu hỏi</th><th>Thuộc tính cần xem</th></tr></thead><tbody><tr><td>Các con xếp theo chiều nào</td><td><code>flexDirection</code></td></tr><tr><td>Chỗ dư trên trục chính nằm ở đâu</td><td><code>justifyContent</code></td></tr><tr><td>Con nằm thế nào trên trục chéo</td><td><code>alignItems</code>, <code>alignSelf</code></td></tr><tr><td>Kích thước gốc trước khi chia</td><td><code>flexBasis</code>, dimensions, nội dung</td></tr><tr><td>Ai nhận phần dư và ai chịu thu</td><td><code>flexGrow</code>, <code>flexShrink</code></td></tr><tr><td>Chặn nhỏ/lớn ở đâu</td><td><code>minWidth</code>, <code>maxWidth</code>, <code>minHeight</code>, <code>maxHeight</code></td></tr><tr><td>Khoảng cách thuộc vùng nào</td><td><code>padding</code>, <code>margin</code>, <code>gap</code></td></tr><tr><td>Nhiều dòng được tạo và phân bố ra sao</td><td><code>flexWrap</code>, <code>alignContent</code></td></tr><tr><td>Text có vùng đo rộng bao nhiêu</td><td>Wrapper constraints, chính sách số dòng</td></tr><tr><td>Con có nằm trong normal flow không</td><td><code>position</code> và containing block</td></tr><tr><td>Một chiều có thể suy từ chiều kia không</td><td><code>aspectRatio</code></td></tr></tbody></table></div>
+<p>Biên soạn ngày 19 10 2026 cho React Native 0.86.3 và Expo SDK 57. Các hình là sơ đồ khái niệm tự dựng; mô hình trong trình duyệt có giới hạn được ghi ngay tại phần tương tác. Kết quả cuối cùng của giao diện vẫn cần được kiểm tra trên native runtime đích.</p>
+<h3>Nguồn chính thức để đọc tiếp</h3>
+<ol class="source-list"><li><a href="https://reactnative.dev/docs/0.86/flexbox" target="_blank" rel="noopener">React Native Flexbox 0.86</a> — trục và các khác biệt mặc định.</li><li><a href="https://reactnative.dev/docs/0.86/layout-props" target="_blank" rel="noopener">Layout Props 0.86</a> — bảng API theo từng thuộc tính.</li><li><a href="https://reactnative.dev/docs/0.86/height-and-width" target="_blank" rel="noopener">Height and Width</a> — đơn vị và kích thước linh hoạt.</li><li><a href="https://www.yogalayout.dev/docs/styling/flex-direction" target="_blank" rel="noopener">Yoga Flex Direction</a> và <a href="https://www.yogalayout.dev/docs/styling/layout-direction" target="_blank" rel="noopener">Layout Direction</a>.</li><li><a href="https://www.yogalayout.dev/docs/styling/justify-content" target="_blank" rel="noopener">Yoga Justify Content</a> và <a href="https://www.yogalayout.dev/docs/styling/align-items-self" target="_blank" rel="noopener">Align Items and Self</a>.</li><li><a href="https://www.yogalayout.dev/docs/styling/flex-basis-grow-shrink" target="_blank" rel="noopener">Yoga Flex Basis Grow Shrink</a> — phân bố kích thước.</li><li><a href="https://www.yogalayout.dev/docs/styling/min-max-width-height" target="_blank" rel="noopener">Yoga Min Max Width Height</a> — các giới hạn.</li><li><a href="https://www.yogalayout.dev/docs/styling/margin-padding-border" target="_blank" rel="noopener">Yoga Margin Padding Border</a> và <a href="https://www.yogalayout.dev/docs/styling/gap" target="_blank" rel="noopener">Gap</a>.</li><li><a href="https://www.yogalayout.dev/docs/styling/flex-wrap" target="_blank" rel="noopener">Yoga Flex Wrap</a> và <a href="https://www.yogalayout.dev/docs/styling/align-content" target="_blank" rel="noopener">Align Content</a>.</li><li><a href="https://www.yogalayout.dev/docs/styling/aspect-ratio" target="_blank" rel="noopener">Yoga Aspect Ratio</a> và <a href="https://www.yogalayout.dev/docs/styling/position" target="_blank" rel="noopener">Position</a>.</li><li><a href="https://reactnative.dev/docs/0.86/text" target="_blank" rel="noopener">Text</a>, <a href="https://reactnative.dev/docs/0.86/scrollview" target="_blank" rel="noopener">ScrollView</a> và <a href="https://reactnative.dev/docs/0.86/flatlist" target="_blank" rel="noopener">FlatList</a>.</li><li><a href="https://reactnative.dev/docs/0.86/keyboardavoidingview" target="_blank" rel="noopener">KeyboardAvoidingView</a> và <a href="https://reactnative.dev/docs/0.86/usewindowdimensions" target="_blank" rel="noopener">useWindowDimensions</a>.</li><li><a href="https://docs.expo.dev/versions/v57.0.0/sdk/safe-area-context/" target="_blank" rel="noopener">Safe area context SDK 57</a>.</li></ol>
+<h3>Đối chiếu source cho các chi tiết nâng cao</h3>
+<p>Phép đo grow/shrink được chạy trực tiếp với Yoga C++ đi kèm dependency React Native của project. Các vị trí đối chiếu gồm <code>ReactCommon/yoga/yoga/node/Node.cpp</code>, <code>style/Style.h</code>, <code>config/Config.h</code> và phần mapping <code>YogaStylableProps.cpp</code>. Positive flex không được tự khai triển bằng JavaScript thành ba thuộc tính riêng trong source đã đối chiếu.</p>
+<p><strong>Đã kiểm tra:</strong> HTML đọc offline, code copy, tải ZIP, các mô hình tương tác và bố cục desktop/mobile; mã lab qua typecheck và export bundle iOS. Chưa xác nhận UI lab bằng Simulator. Các phần ví dụ tối giản cần được đặt vào đúng screen hoặc component, và hợp nhất imports nếu bạn đưa chúng vào một file đã tồn tại.</p>
+</section>
+<footer class="document-footer"><strong>Flexbox trong React Native từ nền tảng đến thực hành</strong><p>Bản dành cho React Native 0.86 và Expo SDK 57 · Toàn bộ hình và mã mẫu nằm trong HTML · Đọc được offline</p><a href="#dau-trang">Về đầu tài liệu ↑</a></footer></main></div>
+<dialog id="figure-dialog" aria-label="Hình minh hoạ phóng to"><div class="dialog-head"><div>Hình minh hoạ<small>Kéo ngang hoặc dọc để xem toàn bộ hình</small></div><button id="close-figure" type="button">Đóng ×</button></div><div class="zoom-stage" tabindex="0" aria-label="Vùng hình phóng to có thể cuộn"></div></dialog><div id="copy-status" class="sr-only" role="status" aria-live="polite"></div><script>const live=document.getElementById('copy-status');
+document.querySelectorAll('.copy-code').forEach(button=>button.addEventListener('click',async()=>{const text=button.closest('.code-block').querySelector('code').textContent;try{if(navigator.clipboard&&isSecureContext)await navigator.clipboard.writeText(text);else throw Error()}catch{const a=document.createElement('textarea');a.value=text;a.style.cssText='position:fixed;left:-10000px;top:0';document.body.appendChild(a);a.select();const ok=document.execCommand('copy');a.remove();if(!ok){button.textContent='Chọn code để copy';return}}button.textContent='Đã sao chép';live.textContent='Đã sao chép code';setTimeout(()=>button.textContent='Sao chép',1800)}));
+document.querySelectorAll('.download-lab').forEach(button=>button.addEventListener('click',()=>{const bytes=Uint8Array.from(atob('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F9jfXt9sbR0WNVivYYAFu5+wN1cNb7pMpF465AHT2yziBPIxYtg+HwgaAvhZaTk4fvArO/HAWrN2iw/nTsuJK4RxyEWq00arFC4nZe68NZTRkwEG8kPuKs9khH7PsmG/dfDO4ZaVnj9EN0dhwrmUO4897CFLMVsMiDEi2xtSQzoebvqYBKtL5hQ/n/MOLDN08/V0TTMs04ZKMp8A5cYUsmcryx4q+6UayW0btxfKUmWsNQ1KsgT8v7lV6pmN66M4F05bRSHbNPTmnKBrvupvLj2SXqidDQOQLRoEQDvBIXNkYJOF+M1BPxYQ14ryUMcB/b6QCdk8bjXfWU8U1bOsPJWS3KZMKq8T3aDKvXh96i14svm6lZRTlzaD8Q2puQRRSNlsuN/WN1NP58b9cp4bEjNeb0/WXAtJ03Uj1RY7/rU+ODw82jw6tkrr8WjzeB3v8oq8dmKVVmWMo/F3UEsDBBQAAAAIAPazU13QgUUudAAAAJ0AAAAmAAAAcmVhY3QtbmF0aXZlLWZsZXhib3gtbGFiL3RzY29uZmlnLmpzb25NjUEKwjAQAO95RdhjqMndT/gA8aDJKgt1E7JbaSn9u11F8DYMA7M67wFnRS4CR8NWk0qufKdHvF0FYbAk12ejEfupKVW2dPUg2inrzton9NsnJM7jVHCXZwghhagCg//hbBy/k6WhpL/E7AH5FYuJi9vcG1BLAQIUAxQAAAAIAPazU10qn9qmGQoAABoWAAAiAAAAAAAAAAAAAACkgQAAAAByZWFjdC1uYXRpdmUtZmxleGJveC1sYWIvUkVBRE1FLm1kUEsBAhQDFAAAAAgA9rNTXeRR7JyfAAAA+gAAACEAAAAAAAAAAAAAAKSBWQoAAHJlYWN0LW5hdGl2ZS1mbGV4Ym94LWxhYi9hcHAuanNvblBLAQIUAxQAAAAIAAW0U11H0cDjSgEAABQDAAAlAAAAAAAAAAAAAACkgTcLAAByZWFjdC1uYXRpdmUtZmxleGJveC1sYWIvcGFja2FnZS5qc29uUEsBAhQDFAAAAAgA9rNTXU8lgv/9AAAAPQEAACwAAAAAAAAAAAAAAKSBxAwAAHJlYWN0LW5hdGl2ZS1mbGV4Ym94LWxhYi9zcmMvYXBwL19sYXlvdXQudHN4UEsBAhQDFAAAAAgA9rNTXZtTaVDbBgAAMhYAACkAAAAAAAAAAAAAAKSBCw4AAHJlYWN0LW5hdGl2ZS1mbGV4Ym94LWxhYi9zcmMvYXBwL2F4ZXMudHN4UEsBAhQDFAAAAAgA9rNTXXQN0JkBBgAAuw8AACkAAAAAAAAAAAAAAKSBLRUAAHJlYWN0LW5hdGl2ZS1mbGV4Ym94LWxhYi9zcmMvYXBwL2Zvcm0udHN4UEsBAhQDFAAAAAgA9rNTXcbJGKNMBAAAkgoAACoAAAAAAAAAAAAAAKSBdRsAAHJlYWN0LW5hdGl2ZS1mbGV4Ym94LWxhYi9zcmMvYXBwL2luZGV4LnRzeFBLAQIUAxQAAAAIAAq0U114l+uOtwcAABYVAAAqAAAAAAAAAAAAAACkgQkgAAByZWFjdC1uYXRpdmUtZmxleGJveC1sYWIvc3JjL2FwcC90YXNrcy50c3hQSwECFAMUAAAACAD2s1Nd0IFFLnQAAACdAAAAJgAAAAAAAAAAAAAApIEIKAAAcmVhY3QtbmF0aXZlLWZsZXhib3gtbGFiL3RzY29uZmlnLmpzb25QSwUGAAAAAAkACQD+AgAAwCgAAAAA'),c=>c.charCodeAt(0));const url=URL.createObjectURL(new Blob([bytes],{type:'application/zip'}));const a=document.createElement('a');a.href=url;a.download='react-native-flexbox-lab.zip';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000)}));
+document.getElementById('print-guide').addEventListener('click',()=>print());
+const dialog=document.getElementById('figure-dialog');document.querySelectorAll('.zoom-figure').forEach(button=>button.addEventListener('click',()=>{const svg=button.closest('figure').querySelector('svg').cloneNode(true);const ids=[...svg.querySelectorAll('[id]')].map(n=>n.id);for(const n of [svg,...svg.querySelectorAll('*')])for(const attr of [...n.attributes]){let value=attr.value;if(attr.name==='id')value='zoom-'+value;else if(attr.name==='aria-labelledby')value=value.split(' ').map(v=>ids.includes(v)?'zoom-'+v:v).join(' ');else for(const id of ids)value=value.replaceAll('url(#'+id+')','url(#zoom-'+id+')');if(value!==attr.value)n.setAttribute(attr.name,value)}const stage=dialog.querySelector('.zoom-stage');stage.replaceChildren(svg);dialog.showModal();stage.focus()}));document.getElementById('close-figure').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+const sections=[...document.querySelectorAll('section[id]')];function progress(){let id=sections[0]?.id;for(const s of sections)if(s.getBoundingClientRect().top<160)id=s.id;document.querySelectorAll('nav a').forEach(a=>{const active=a.getAttribute('href')==='#'+id;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')});const max=document.documentElement.scrollHeight-innerHeight;document.getElementById('reading-progress').style.width=(max>0?scrollY/max*100:0)+'%'}addEventListener('scroll',progress,{passive:true});addEventListener('resize',progress);progress();
+const axisDirection=document.getElementById('axis-direction'),axisJustify=document.getElementById('axis-justify'),axisAlign=document.getElementById('axis-align');
+function drawAxis(){const direction=axisDirection.value,justify=axisJustify.value,align=axisAlign.value;const row=direction.startsWith('row'),reverse=direction.endsWith('reverse');const c=document.getElementById('axis-canvas');c.style.flexDirection=direction;c.style.justifyContent=justify;c.style.alignItems=align;for(const child of c.children){child.style.width=align==='stretch'&&!row?'auto':'';child.style.height=align==='stretch'&&row?'auto':''}document.getElementById('axis-main').textContent=`Trục chính: ${row?(reverse?'← ngang':'ngang →'):(reverse?'↑ dọc':'dọc ↓')}`;document.getElementById('axis-cross').textContent=`Trục chéo: ${row?'dọc ↓':'ngang →'}`;document.getElementById('axis-code').textContent=`container: {\n  flexDirection: '${direction}',\n  justifyContent: '${justify}',\n  alignItems: '${align}',\n  gap: 8,\n}\n// Child: kích thước cố định 46, flexShrink: 0.\n// Khi chọn stretch, bỏ kích thước của child trên trục chéo.`;document.getElementById('axis-result').textContent=`justifyContent điều khiển trục ${row?'ngang':'dọc'}; alignItems điều khiển trục ${row?'dọc':'ngang'}. Mô hình dùng direction LTR.`}
+[axisDirection,axisJustify,axisAlign].forEach(s=>s.addEventListener('change',drawAxis));drawAxis();
+const calcMode=document.getElementById('calc-mode'),calcWidth=document.getElementById('calc-width');
+function round(v){return Math.round(v*10)/10}
+function drawCalc(){const mode=calcMode.value,w=Number(calcWidth.value);document.getElementById('calc-width-value').textContent=w;let sizes,bases,gap,weights,free,formula;
+if(mode==='grow'){bases=[60,60,60];gap=12;weights=[1,2,3];free=w-24-180;if(free>=0){sizes=bases.map((b,i)=>b+free*weights[i]/6);formula=`Dư = ${w} − 24 gap − 180 basis = ${round(free)}. Thêm theo tỷ lệ 1 : 2 : 3.`}else{sizes=bases;formula=`Thiếu ${round(-free)}. Mô hình grow đặt flexShrink: 0 nên các basis được giữ.`}}
+else{bases=[200,200];gap=20;weights=[1,2];free=w-20-400;if(free<0){const loss=-free;sizes=[200-loss/3,200-loss*2/3];formula=`Thiếu = 400 + 20 − ${w} = ${round(loss)}. Trọng số shrink là 1×200 : 2×200 = 1 : 2.`}else{sizes=bases;formula=`Không thiếu chỗ; flexGrow: 0 giữ mỗi item 200. Còn ${round(free)} chỗ trống.`}}
+const bar=document.getElementById('calc-bar');bar.replaceChildren();bar.style.gap='0';sizes.forEach((value,i)=>{if(i){const gutter=document.createElement('div');gutter.style.width=(gap/w*100)+'%';gutter.style.flex='0 0 auto';bar.appendChild(gutter)}const box=document.createElement('div');box.className='calc-item';box.style.backgroundColor=['#d5ece4','#dfebfa','#eee8fa'][i];box.style.color=['#145347','#244c85','#574684'][i];box.style.width=(value/w*100)+'%';box.style.flex='0 0 auto';box.innerHTML=`<span>${String.fromCharCode(65+i)}</span><span>${round(value)}</span>`;bar.appendChild(box)});const used=sizes.reduce((a,b)=>a+b,0)+gap*(sizes.length-1);if(used<w){const empty=document.createElement('div');empty.className='calc-empty';empty.style.width=((w-used)/w*100)+'%';empty.textContent='dư';bar.appendChild(empty)}document.getElementById('calc-result').textContent=formula;document.getElementById('calc-bases').textContent=bases.join(' + ');document.getElementById('calc-gaps').textContent=gap*(sizes.length-1);document.getElementById('calc-space').textContent=round(free);document.getElementById('calc-code').textContent=mode==='grow'?`row: { flexDirection: 'row', width: ${w}, gap: 12 },\nA: { flexBasis: 60, flexGrow: 1, flexShrink: 0 },\nB: { flexBasis: 60, flexGrow: 2, flexShrink: 0 },\nC: { flexBasis: 60, flexGrow: 3, flexShrink: 0 },`:`row: { flexDirection: 'row', width: ${w}, gap: 20 },\nA: { flexBasis: 200, flexGrow: 0, flexShrink: 1 },\nB: { flexBasis: 200, flexGrow: 0, flexShrink: 2 },`;}
+calcMode.addEventListener('change',drawCalc);calcWidth.addEventListener('input',drawCalc);drawCalc();
+const wrap=document.getElementById('wrap-enabled'),alignContent=document.getElementById('wrap-content');
+function drawWrap(){const c=document.getElementById('wrap-stage');c.style.flexWrap=wrap.value;c.style.alignContent=alignContent.value;document.getElementById('wrap-result').textContent=wrap.value==='nowrap'?'nowrap: sáu item giữ chiều rộng và flexShrink: 0, nên tràn trục ngang. alignContent không tạo thêm dòng.':`wrap: hai dòng; alignContent: ${alignContent.value} phân bố các dòng trên trục dọc. alignItems: flex-start giữ item ở đầu mỗi dòng.`;document.getElementById('wrap-code').textContent=`container: {\n  flexDirection: 'row',\n  flexWrap: '${wrap.value}',\n  alignContent: '${alignContent.value}',\n  alignItems: 'flex-start',\n  height: 260,\n  gap: 10,\n}\n// Các item có width và height cố định; flexShrink: 0.`}
+wrap.addEventListener('change',drawWrap);alignContent.addEventListener('change',drawWrap);drawWrap();
+</script></body></html>

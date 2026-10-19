@@ -1,0 +1,944 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Tài liệu Expo Router SDK 57 bằng tiếng Việt với sơ đồ, ví dụ đầy đủ và lab ứng dụng công việc"><title>Expo Router từ nền tảng đến thực hành</title><style>:root{color-scheme:light;--ink:#142338;--muted:#53657b;--teal:#0f766e;--line:#dce4ec;--paper:#fff;--wash:#f5f8fa;--navy:#13243a;--blue:#2563eb}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;font-size:16px;line-height:1.8}a{color:#12665f;text-underline-offset:3px}button,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,select:focus-visible,summary:focus-visible,pre:focus-visible{outline:3px solid #62b9ad;outline-offset:3px}button{background:#fff;border:1px solid #ccd8e3;border-radius:7px;color:var(--ink);padding:7px 13px;font-size:13px;font-weight:600}button:hover{background:#edf5f3}.skip-link{position:absolute;left:12px;top:-100px;z-index:50;background:#fff;padding:10px}.skip-link:focus{top:10px}.reading-track{height:3px;background:#eaf0f3;position:fixed;left:0;right:0;top:0;z-index:40}#reading-progress{height:100%;width:0;background:var(--teal)}.topbar{height:83px;padding:0 40px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:20px;background:#fff;position:sticky;top:0;z-index:20}.brand{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);font-weight:700;font-size:18px;line-height:1.2}.brand small{display:block;font-size:10px;letter-spacing:1.6px;color:var(--muted);margin-top:6px;font-weight:500}.brand-mark{background:var(--navy);color:#fff;width:39px;height:39px;display:grid;place-items:center;border-radius:10px;font-size:16px}.top-actions{display:flex;gap:10px}.page-shell{max-width:1430px;margin:auto;display:grid;grid-template-columns:260px minmax(0,1fr);gap:60px;padding:0 44px}.sidebar{position:sticky;top:107px;align-self:start;max-height:calc(100vh - 130px);overflow:auto;padding:18px 12px 16px 0}.toc-heading{font-size:10px;letter-spacing:1.8px;font-weight:700;color:var(--muted);margin-bottom:13px}nav{display:flex;flex-direction:column;gap:3px}nav a{font-size:13px;color:#526176;text-decoration:none;display:flex;align-items:baseline;gap:10px;padding:6px 8px;border-radius:6px;line-height:1.55}nav a span{font-size:10px;font-variant-numeric:tabular-nums;color:#7b8b9a;min-width:17px}nav a.active{color:#095c54;background:#eaf5f1;font-weight:600}nav a:hover{background:var(--wash)}.sidebar-note{font-size:11px;line-height:1.8;color:var(--muted);border-top:1px solid var(--line);margin:22px 8px 0;padding-top:16px}main{min-width:0;max-width:990px;padding-bottom:70px}.hero{padding:68px 0 48px;border-bottom:1px solid var(--line)}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--teal);font-weight:700;margin:0 0 18px}h1{font-size:clamp(39px,4.5vw,64px);letter-spacing:-2.2px;line-height:1.12;margin:0 0 22px;font-weight:750;color:#142338}h1 span{color:var(--teal)}.hero-intro{font-size:20px;line-height:1.7;max-width:690px;color:#40526a;margin:0 0 24px}.version-row{display:flex;flex-wrap:wrap;gap:8px}.version-row span{background:var(--wash);border:1px solid #e6edf2;border-radius:5px;padding:3px 9px;font-size:11px;color:#43536b}.hero-actions{display:flex;align-items:center;gap:24px;margin:30px 0 20px;flex-wrap:wrap}.primary-action{display:inline-block;background:var(--teal);color:#fff;padding:10px 17px;border-radius:7px;font-size:14px;font-weight:600;text-decoration:none}.primary-action:hover{background:#0a615a}.text-action{font-size:13px;font-weight:600;text-decoration:none}.scope{font-size:12px;max-width:740px;color:var(--muted);line-height:1.75}.mobile-toc{display:none}section{padding:44px 0 12px;scroll-margin-top:90px}h2{font-size:29px;line-height:1.35;letter-spacing:-.7px;margin:0 0 19px;font-weight:700;color:#142338}h2 .section-number{font-size:12px;letter-spacing:1px;color:var(--teal);display:block;margin-bottom:8px;font-weight:600}h3{font-size:20px;line-height:1.45;letter-spacing:-.2px;margin:31px 0 13px}h4{font-size:16px;margin:25px 0 8px}p{margin:0 0 16px}section>p,section>ul,section>ol{max-width:820px}ul,ol{padding-left:25px;margin:12px 0 22px}li{padding-left:4px;margin:6px 0}strong{font-weight:650}p code,li code,td code,.scope code{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:.87em;background:#eff4f7;border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}figure{margin:27px 0 30px;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:var(--wash)}.figure-art{line-height:0}.figure-art svg{display:block;width:100%;height:auto}figcaption{background:#fff;display:flex;justify-content:space-between;align-items:center;gap:15px;padding:13px 16px;border-top:1px solid var(--line);font-size:12px;line-height:1.6;color:var(--muted)}figcaption button{white-space:nowrap;font-size:11px;padding:5px 9px;flex:none}.table-wrap{overflow:auto;margin:20px 0 25px;border:1px solid var(--line);border-radius:8px}table{border-collapse:collapse;width:100%;font-size:13px;line-height:1.65}th{text-align:left;background:#eef4f6;color:#20364d;font-weight:650}td,th{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}tr:last-child td{border-bottom:0}td:first-child{font-weight:500}table code{font-size:11px}.code-block{margin:18px 0 23px;border-radius:9px;overflow:hidden;background:var(--navy);color:#e7eff8;min-width:0}.code-head{padding:9px 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid #314358;font-size:11px;color:#b9cbdc;line-height:1.5}.code-head>span{overflow-wrap:anywhere}.copy-code{background:#253b52;border:1px solid #456078;color:#e9f2fb;font-size:11px;font-weight:500;padding:4px 9px;flex:none}.copy-code:hover{background:#36516b}pre{margin:0;padding:18px 20px;overflow:auto;tab-size:2;font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace;font-size:12px;line-height:1.7}pre code{font:inherit;color:inherit}details.source-file{border:1px solid var(--line);border-radius:8px;margin:12px 0;overflow:hidden}details.source-file summary{padding:13px 15px;font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere;background:#f5f8fa;cursor:pointer;line-height:1.6}details.source-file .code-block{margin:0;border-radius:0}details.answer{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:12px 0 25px;padding:10px 0}details.answer summary{font-size:13px;color:#12665f;cursor:pointer;font-weight:600}details.answer p{font-size:14px;padding:12px 0 0;margin:0}.source-note{font-size:11px;color:var(--muted);line-height:1.75;margin-top:18px}.source-note a{color:#526d7a}.reading-path{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:22px 0}.reading-path>div{border-top:2px solid #9bbbae;padding-top:14px}.reading-path h3{margin:0 0 9px;font-size:17px}.reading-path p{font-size:14px;line-height:1.8}.reading-path a{font-size:13px}.practice{padding:23px 25px;border:1px solid #bed8cf;border-radius:10px;background:#f4faf7;margin:24px 0}.practice h3{margin:0 0 13px;font-size:18px}.practice .caption{font-size:12px;color:var(--muted)}.control-row{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.control-row button{font-family:Consolas,monospace;font-size:11px}.stack-display{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:7px;min-height:170px;padding:16px;background:#fff;border:1px solid #d7e7df;border-radius:7px}.stack-screen{padding:6px 13px;background:#eaf2fa;border:1px solid #d5e2ef;border-radius:5px;font-family:Consolas,monospace;font-size:12px;min-width:70%;max-width:100%;overflow-wrap:anywhere}.stack-screen:last-child{background:#0f766e;color:#fff;border-color:#0f766e}.sim-result{font-size:12px;line-height:1.8;margin:13px 0 0}.route-controls label{font-size:13px;display:block;font-weight:600;margin-bottom:7px}.route-controls select{width:100%;background:#fff;border:1px solid #afc9bc;border-radius:6px;padding:10px;font-family:Consolas,monospace;font-size:12px}.route-result{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:15px}.route-result>div{min-width:0}.route-result dt{font-size:11px;color:var(--muted);margin-bottom:6px}.route-result dd{margin:0;font-family:Consolas,monospace;font-size:12px;overflow-wrap:anywhere}.checklist{list-style:none;padding-left:0}.checklist li:before{content:"□";font-size:20px;color:var(--teal);padding-right:10px}.download-panel{display:flex;gap:15px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);border-top:1px solid var(--line);padding:20px 0;margin:24px 0}.download-panel p{font-size:13px;margin:0;color:var(--muted)}.download-panel button{background:var(--teal);border-color:var(--teal);color:#fff;white-space:nowrap}.source-list{font-size:13px}.source-list li{margin:10px 0}.document-footer{margin-top:55px;border-top:1px solid var(--line);padding-top:24px;font-size:12px;color:var(--muted)}.document-footer strong{color:var(--ink)}.document-footer p{margin:7px 0 12px}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}dialog{border:1px solid #b8c7d4;border-radius:12px;padding:0;width:min(1250px,96vw);max-width:96vw;color:var(--ink);background:#fff}dialog::backdrop{background:#142338aa}.dialog-head{display:flex;justify-content:space-between;align-items:center;padding:12px 17px;border-bottom:1px solid var(--line);font-size:13px}.zoom-stage{overflow:auto;max-height:80vh;line-height:0}.zoom-stage svg{width:max(100%,1000px);height:auto;display:block}
+.dialog-head small{display:block;font-size:11px;color:var(--muted);line-height:1.6;margin-top:3px}
+@media(max-width:1100px){.page-shell{gap:30px;padding:0 25px;grid-template-columns:220px minmax(0,1fr)}.topbar{padding:0 25px}nav a{font-size:12px}.hero{padding-top:50px}h1{font-size:50px}}
+@media(max-width:800px){.page-shell{display:block;padding:0 22px}.sidebar{display:none}.mobile-toc{display:block;margin-top:24px;border:1px solid var(--line);border-radius:8px;padding:12px 15px}.mobile-toc>summary{font-size:14px;cursor:pointer;font-weight:600}.mobile-toc nav{margin-top:10px}.topbar{height:73px;padding:0 20px}.hero{padding-top:39px}.hero-intro{font-size:18px}h1{font-size:47px}.hero-actions{gap:18px}.scope{font-size:12px}h2{font-size:26px}.reading-path{gap:20px}section{padding-top:37px}.top-actions #print-guide{display:none}.top-actions button{font-size:11px;padding:7px 9px}.brand{font-size:16px}.brand small{font-size:8px}.brand-mark{width:33px;height:33px;font-size:13px}body{font-size:15px}.practice{padding:19px}.route-result{grid-template-columns:1fr}}
+@media(max-width:420px){.page-shell{padding:0 16px}.topbar{padding:0 14px;gap:8px}.brand{gap:7px}.brand small{letter-spacing:.7px}.brand-mark{width:29px;height:29px}.top-actions button{padding:6px 7px;font-size:10px}h1{font-size:41px;letter-spacing:-1.4px}.hero-intro{font-size:17px}.reading-path{grid-template-columns:1fr;gap:20px}pre{font-size:11px;padding:16px}.code-head{padding:9px 10px;gap:5px;font-size:10px}.copy-code{font-size:10px;padding:4px 7px}figcaption{padding:11px;gap:8px;font-size:11px}.download-panel{align-items:flex-start;flex-direction:column}.practice{padding:16px}.control-row button{font-size:10px;padding:7px}.stack-screen{min-width:90%}h2{font-size:25px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.topbar,.sidebar,.mobile-toc,.hero-actions,.copy-code,.zoom-figure,.control-row,.reading-track,.skip-link{display:none!important}.page-shell{display:block;max-width:none;padding:0}main{max-width:none;padding:0}.hero{padding:0 0 25px}.hero-intro{font-size:15px}h1{font-size:36px}body{font-size:10pt;color:#111}h2{font-size:20pt;break-after:avoid}h3{font-size:14pt;break-after:avoid}section{padding-top:26px}figure,.code-block{break-inside:avoid}pre{white-space:pre-wrap;overflow:visible;font-size:8pt;background:#f4f5f7;color:#111}.code-block{background:#f4f5f7;color:#111;border:1px solid #ccd2d9}.code-head{background:#edf1f4;color:#111}.table-wrap{overflow:visible}a{color:#111}details.source-file:not([open]){display:none}dialog{display:none}}
+</style></head>
+<body><a class="skip-link" href="#noi-dung">Đến nội dung</a><div class="reading-track"><div id="reading-progress"></div></div>
+<header class="topbar"><a class="brand" href="#dau-trang"><span class="brand-mark">ER</span><span>Expo Router <small>SỔ TAY THỰC HÀNH</small></span></a><div class="top-actions"><button type="button" class="download-lab">Tải mã mẫu ZIP</button><button type="button" id="print-guide">In tài liệu</button></div></header>
+<div class="page-shell"><aside class="sidebar"><div class="toc-heading">TRONG TÀI LIỆU NÀY</div><nav aria-label="Mục lục"><a href="#lo-trinh"><span>01</span>Cách học và mục tiêu</a><a href="#mo-hinh"><span>02</span>Mô hình hoạt động</a><a href="#project-hien-tai"><span>03</span>Đọc project hiện tại</a><a href="#quy-tac-file"><span>04</span>Quy tắc đặt tên file</a><a href="#layout"><span>05</span>Layout Stack Tabs và Slot</a><a href="#history"><span>06</span>Điều hướng và lịch sử Back</a><a href="#params"><span>07</span>Path params và query params</a><a href="#du-lieu-lifecycle"><span>08</span>Dữ liệu và vòng đời màn hình</a><a href="#tabs"><span>09</span>Thiết kế Tabs và nested Stack</a><a href="#modal"><span>10</span>Modal và đường vào trực tiếp</a><a href="#lab"><span>11</span>Bài thực hành đầy đủ</a><a href="#bao-ve-route"><span>12</span>Đăng nhập và protected routes</a><a href="#deep-links"><span>13</span>Deep links và typed routes</a><a href="#loi-thuong-gap"><span>14</span>Lỗi thường gặp và cách chẩn đoán</a><a href="#bai-tap"><span>15</span>Bài tập và tự kiểm tra</a><a href="#tai-lieu-goc"><span>16</span>Tra cứu và nguồn đối chiếu</a></nav><p class="sidebar-note">Đọc offline · Không cần tài khoản<br>Đối chiếu Expo SDK 57<br>Ngày biên soạn 18 10 2026</p></aside>
+<main id="noi-dung"><div class="hero" id="dau-trang"><p class="eyebrow">TỪ FILE ĐẾN MÀN HÌNH</p><h1>Hiểu và thực hành<br><span>Expo Router</span></h1><p class="hero-intro">Một tài liệu để hiểu vì sao app điều hướng như vậy, biết nên đặt file ở đâu và tự xây được ứng dụng nhiều màn hình.</p><div class="version-row"><span>Expo SDK 57</span><span>Router 57.0.28</span><span>React Native 0.86</span><span>TypeScript</span></div><div class="hero-actions"><a class="primary-action" href="#lab">Bắt đầu bài thực hành</a><a class="text-action" href="#mo-hinh">Đọc từ nền tảng →</a></div><p class="scope">Dùng project <code>my-tasks</code> làm điểm xuất phát. Mã mẫu được cung cấp độc lập; tài liệu không thay đổi source ứng dụng hiện tại.</p></div>
+<details class="mobile-toc"><summary>Mục lục tài liệu</summary><nav aria-label="Mục lục trên điện thoại"><a href="#lo-trinh"><span>01</span>Cách học và mục tiêu</a><a href="#mo-hinh"><span>02</span>Mô hình hoạt động</a><a href="#project-hien-tai"><span>03</span>Đọc project hiện tại</a><a href="#quy-tac-file"><span>04</span>Quy tắc đặt tên file</a><a href="#layout"><span>05</span>Layout Stack Tabs và Slot</a><a href="#history"><span>06</span>Điều hướng và lịch sử Back</a><a href="#params"><span>07</span>Path params và query params</a><a href="#du-lieu-lifecycle"><span>08</span>Dữ liệu và vòng đời màn hình</a><a href="#tabs"><span>09</span>Thiết kế Tabs và nested Stack</a><a href="#modal"><span>10</span>Modal và đường vào trực tiếp</a><a href="#lab"><span>11</span>Bài thực hành đầy đủ</a><a href="#bao-ve-route"><span>12</span>Đăng nhập và protected routes</a><a href="#deep-links"><span>13</span>Deep links và typed routes</a><a href="#loi-thuong-gap"><span>14</span>Lỗi thường gặp và cách chẩn đoán</a><a href="#bai-tap"><span>15</span>Bài tập và tự kiểm tra</a><a href="#tai-lieu-goc"><span>16</span>Tra cứu và nguồn đối chiếu</a></nav></details>
+<section id="lo-trinh" data-title="Cách học và mục tiêu">
+<h2><span class="section-number">01 · BẮT ĐẦU</span>Bạn sẽ làm được gì sau tài liệu này</h2>
+<p>Expo Router cho phép dùng cấu trúc file để khai báo các màn hình và địa chỉ của chúng. Khi người dùng bấm một liên kết hoặc mở một deep link, Router tìm route phù hợp, đặt màn hình vào navigator và phối hợp với React Native để hiển thị giao diện.</p>
+<p>Sau bài thực hành, bạn sẽ có app gồm danh sách công việc, hai tab, màn hình chi tiết theo ID và form tạo công việc dạng modal. Bạn sẽ hiểu vì sao tab bar biến mất ở detail, vì sao Back từ detail không quay lại form đã lưu, và dữ liệu được chia sẻ giữa các màn hình bằng cách nào.</p>
+<div class="reading-path"><div><h3>Muốn chạy được ngay</h3><p>Đi tới bài thực hành, tải ZIP, chạy mẫu trong thư mục riêng rồi đọc từng file theo hướng dẫn. Sau đó quay lại phần Stack và params để giải thích những gì vừa thấy.</p><a href="#lab">Đến bộ mã mẫu →</a></div><div><h3>Muốn hiểu từ gốc</h3><p>Đọc theo thứ tự mô hình hoạt động, quy tắc đặt tên file, layout, history và params. Dùng hai mô hình tương tác để thử trước khi chạy app.</p><a href="#mo-hinh">Bắt đầu từ mô hình hoạt động →</a></div></div>
+<p><strong>Kiến thức cần có:</strong> biết component, props, state và thao tác cơ bản với TypeScript. Chưa cần tự cấu hình React Navigation. Ví dụ dùng JavaScript Tabs và native Stack ổn định; những API experimental mới hơn SDK 57 không nằm trong bài thực hành.</p>
+<p><strong>Phạm vi dữ liệu:</strong> lab lưu công việc trong bộ nhớ bằng React Context. Nó chưa có backend, đăng nhập thật hay lưu trữ bền vững. Điều này giúp quan sát luồng điều hướng và dữ liệu trước khi thêm các lớp khác.</p>
+</section>
+<section id="mo-hinh" data-title="Mô hình hoạt động">
+<h2><span class="section-number">02 · NỀN TẢNG</span>Tách file route URL và navigator</h2>
+<p>Ba khái niệm cần phân biệt ngay từ đầu là <strong>file route</strong>, <strong>URL</strong> và <strong>navigator</strong>. File nói màn hình nào tồn tại. URL xác định màn hình cần mở cùng các tham số. Navigator quyết định màn hình nằm ở đâu, có header hay tab bar không và Back sẽ đi về đâu.</p>
+<p>Ví dụ file <code>tasks/[id].tsx</code> là một mẫu route. URL <code>/tasks/1</code> chọn một công việc cụ thể. Nếu file đó thuộc root Stack, màn hình mở trên toàn bộ Tabs; nếu nó thuộc Stack bên trong một tab, quan hệ hiển thị sẽ khác.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" role="img" aria-labelledby="fig1-title fig1-desc">
+<title id="fig1-title">Từ lệnh terminal đến giao diện iOS</title><desc id="fig1-desc">Luồng chạy rút gọn của npm run ios, với môi trường trên Mac tách khỏi runtime ứng dụng Expo Go trong iOS Simulator.</desc>
+<defs><marker id="fig1-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker></defs>
+<rect height="680" rx="24" fill="#f8fafc"/>
+<text x="36" y="42" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="36" dy="0">HÌNH 01</tspan></text>
+<text x="36" y="80" fill="#172554" font-family="Arial, sans-serif" font-size="28" font-weight="700" text-anchor="start"><tspan x="36" dy="0">Từ lệnh terminal đến giao diện iOS</tspan></text>
+
+<rect x="36" y="140" width="928" height="175" rx="20" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/><text x="58" y="172" fill="#2563eb" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="58" dy="0">TRÊN MAC · CÔNG CỤ PHÁT TRIỂN</tspan></text><rect x="58" y="202" width="190" height="80" rx="16" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="153" y="235" fill="#0f172a" font-family="Arial, sans-serif" font-size="19" font-weight="600" text-anchor="middle"><tspan x="153" dy="0">npm run ios</tspan><tspan x="153" dy="27">expo start --ios</tspan></text><path d="M 252 242 H 300" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig1-arrow)"/><rect x="308" y="194" width="314" height="96" rx="16" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="465" y="228" fill="#172554" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle"><tspan x="465" dy="0">Expo CLI + Metro</tspan></text><text x="465" y="259" fill="#64748b" font-family="Arial, sans-serif" font-size="17" font-weight="400" text-anchor="middle"><tspan x="465" dy="0">Đọc source → transform → bundle</tspan></text><path d="M 628 242 H 680" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig1-arrow)"/><rect x="688" y="202" width="250" height="80" rx="16" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/><text x="813" y="235" fill="#2563eb" font-family="Arial, sans-serif" font-size="19" font-weight="600" text-anchor="middle"><tspan x="813" dy="0">JavaScript bundle</tspan><tspan x="813" dy="27">+ manifest + assets</tspan></text><path d="M 812 316 V 354" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig1-arrow)"/><text x="788" y="342" fill="#64748b" font-family="Arial, sans-serif" font-size="17" font-weight="400" text-anchor="end"><tspan x="788" dy="0">HTTP</tspan></text><rect x="36" y="364" width="928" height="250" rx="20" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.5"/><text x="58" y="397" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="58" dy="0">TRONG iOS SIMULATOR · ỨNG DỤNG EXPO GO</tspan></text><rect x="58" y="428" width="216" height="84" rx="16" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="166.0" y="459" fill="#0f172a" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="166.0" dy="0">Expo Go</tspan><tspan x="166.0" dy="27">Hermes chạy JavaScript</tspan></text><rect x="330" y="428" width="174" height="84" rx="16" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="417.0" y="459" fill="#0f172a" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="417.0" dy="0">Expo Router</tspan><tspan x="417.0" dy="27">Chọn route</tspan></text><rect x="560" y="428" width="160" height="84" rx="16" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="640.0" y="459" fill="#0f172a" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="640.0" dy="0">RootLayout</tspan><tspan x="640.0" dy="27">Tạo Stack</tspan></text><rect x="776" y="428" width="162" height="84" rx="16" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="857.0" y="459" fill="#0f172a" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="857.0" dy="0">Screen</tspan><tspan x="857.0" dy="27">Index()</tspan></text><path d="M 280 470 H 322" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig1-arrow)"/><path d="M 510 470 H 552" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig1-arrow)"/><path d="M 726 470 H 768" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig1-arrow)"/><path d="M 856 518 V 543" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig1-arrow)"/><rect x="694" y="550" width="244" height="44" rx="12" fill="#ccfbf1" stroke="#5eead4" stroke-width="1.5"/><text x="816" y="579" fill="#0f766e" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="816" dy="0">Fabric → native views</tspan></text><text x="58" y="557" fill="#64748b" font-family="Arial, sans-serif" font-size="19" font-weight="400" text-anchor="start"><tspan x="58" dy="0">Router tạo cây React;</tspan><tspan x="58" dy="28">React Native đưa giao diện lên iOS.</tspan></text><text x="36" y="651" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="36" dy="0">Hai môi trường phối hợp qua mạng; code app chạy trong runtime của native app.</tspan></text>
+</svg></div><figcaption><span>Hình 1 · Luồng khởi chạy của project hiện tại qua Expo Go</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<h3>Từ lệnh npm tới màn hình</h3>
+<p>Trong project hiện tại, <code>npm run ios</code> chạy <code>expo start --ios</code>. Expo CLI và Metro chạy trên Mac; Expo Go mở trong Simulator, lấy manifest và bundle, rồi thực thi JavaScript. Entry <code>expo-router/entry</code> đăng ký App của Router. Router xây cây route từ context module do Metro tạo và đưa layout, screen của bạn vào cây React.</p>
+<p>Ở đây có hai thứ tự khác nhau. <strong>Nạp module</strong> là chạy code ở cấp file, gồm imports và khởi tạo object style. <strong>Render component</strong> là React gọi hàm component để lấy elements. Router có thể nạp một screen khi thu thập route trước lúc layout được render. Vì vậy không nên suy ra thứ tự evaluate file chỉ từ quan hệ cha con của component.</p>
+<h3>Router quản lý điều hướng còn dữ liệu thuộc ứng dụng</h3>
+<p>Mở <code>/tasks/1</code> không tự tạo request lấy task 1. Screen phải đọc ID rồi lấy dữ liệu từ Context, store hoặc API mà ứng dụng chọn. Nếu ID hợp lệ về route nhưng không tồn tại trong dữ liệu, screen cần hiển thị trạng thái không tìm thấy tài nguyên.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/router/basics/core-concepts/" target="_blank" rel="noopener">Core concepts</a>, <a href="https://docs.expo.dev/more/expo-cli/" target="_blank" rel="noopener">Expo CLI</a>. Luồng khởi chạy cũng được đối chiếu với source Expo và Router đã cài trong project.</p>
+</section>
+<section id="project-hien-tai" data-title="Đọc project hiện tại">
+<h2><span class="section-number">03 · TỪ PROJECT CỦA BẠN</span>Đọc được một app Router tối thiểu</h2>
+<p>Ở thời điểm bắt đầu soạn tài liệu, ví dụ khởi đầu trong project <code>my-tasks</code> có root layout trả về Stack, màn hình index render Greeting và file Greeting nằm dưới <code>src/app/components</code>. Phần này giữ ví dụ khởi đầu đó để nhìn rõ vai trò từng lớp, kể cả khi bạn đã tiếp tục thay đổi màn hình trong lúc đọc.</p>
+<div class="code-block"><div class="code-head"><span>Layout gốc tối thiểu</span><button type="button" class="copy-code" aria-label="Sao chép Layout gốc tối thiểu">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Stack } from &#x27;expo-router&#x27;;
+
+export default function RootLayout() {
+  return &lt;Stack /&gt;;
+}</code></pre></div>
+<p><code>RootLayout</code> không cần gọi <code>Index()</code> thủ công. Router phát hiện screen từ các file rồi gắn chúng vào Stack. Trong layout, <code>Stack.Screen</code> chủ yếu dùng để cấu hình tên hiển thị, header hoặc presentation của một route đã được phát hiện.</p>
+<h3>Điểm cần chỉnh khi tiếp tục project</h3>
+<p>File <code>src/app/components/Greeting.tsx</code> bị hiểu là một route có URL <code>/components/Greeting</code>. Component này nhận prop <code>name</code> từ màn hình, nên khi bị mở trực tiếp như route nó cũng không nhận dữ liệu theo cách màn hình index truyền vào.</p>
+<p>Để sửa cấu trúc, chuyển component sang <code>src/components/Greeting.tsx</code>, rồi cập nhật import trong <code>src/app/index.tsx</code> thành <code>../components/Greeting</code>. Hai đoạn dưới là phiên bản sau khi chuyển. Tài liệu chỉ hướng dẫn thao tác, chưa di chuyển file trong app hiện tại.</p>
+<div class="code-block"><div class="code-head"><span>Màn hình sau khi chuyển component ra ngoài thư mục route</span><button type="button" class="copy-code" aria-label="Sao chép Màn hình sau khi chuyển component ra ngoài thư mục route">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { StyleSheet, View } from &#x27;react-native&#x27;;
+import Greeting from &#x27;../components/Greeting&#x27;;
+
+export default function Index() {
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Greeting name=&quot;Dat&quot; /&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, alignItems: &#x27;center&#x27;, justifyContent: &#x27;center&#x27; },
+});</code></pre></div>
+<div class="code-block"><div class="code-head"><span>Component tái sử dụng trong src/components/Greeting.tsx</span><button type="button" class="copy-code" aria-label="Sao chép Component tái sử dụng trong src/components/Greeting.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Text } from &#x27;react-native&#x27;;
+
+export default function Greeting({ name }: { name: string }) {
+  return &lt;Text&gt;Greeting {name} to my app&lt;/Text&gt;;
+}</code></pre></div>
+<p><strong>Quy tắc dễ nhớ:</strong> chỉ đặt screen, layout và các file đặc biệt của Router trong <code>src/app</code>. Components dùng lại, hooks, context, services và dữ liệu mẫu đặt ở thư mục bên ngoài.</p>
+<p class="source-note">Căn cứ source project: <code>src/app/_layout.tsx</code>, <code>src/app/index.tsx</code>, <code>src/app/components/Greeting.tsx</code>. Quy ước route: <a href="https://docs.expo.dev/router/basics/notation/" target="_blank" rel="noopener">Expo Router notation</a>.</p>
+</section>
+<section id="quy-tac-file" data-title="Quy tắc đặt tên file">
+<h2><span class="section-number">04 · FILE BASED ROUTING</span>Nhìn cây thư mục là đoán được URL</h2>
+<p>Đọc đường dẫn từ bên trong <code>src/app</code>. Tên thư mục thường tạo thêm segment, <code>index</code> đại diện cho chính đường dẫn thư mục, dấu ngoặc vuông đánh dấu segment động và dấu ngoặc tròn đánh dấu nhóm tổ chức.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-labelledby="fig2-title fig2-desc">
+<title id="fig2-title">Một file route tương ứng với một đường đi</title><desc id="fig2-desc">Các file route được ánh xạ sang URL. Layout và route group không thêm đoạn đường dẫn. Components nằm ngoài thư mục app.</desc>
+<defs><marker id="fig2-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker></defs>
+<rect height="700" rx="24" fill="#f8fafc"/>
+<text x="36" y="42" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="36" dy="0">HÌNH 02</tspan></text>
+<text x="36" y="80" fill="#172554" font-family="Arial, sans-serif" font-size="28" font-weight="700" text-anchor="start"><tspan x="36" dy="0">Một file route tương ứng với một đường đi</tspan></text>
+<text x="36" y="112" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="36" dy="0">Ví dụ cây file cho app quản lý task; [id] là đoạn động, index là trang mặc định.</tspan></text>
+<rect x="36" y="141" width="530" height="425" rx="20" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><rect x="602" y="141" width="362" height="425" rx="20" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="58" y="177" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="58" dy="0">CÂY FILE</tspan></text><text x="626" y="177" fill="#2563eb" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="626" dy="0">URL / VAI TRÒ</tspan></text><text x="58" y="214" fill="#172554" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start"><tspan x="58" dy="0">src/app/</tspan></text><text x="62" y="250" fill="#0f172a" font-family="ui-monospace, Menlo, monospace" font-size="20" font-weight="400" text-anchor="start"><tspan x="62" dy="0">├─ _layout.tsx</tspan></text><path d="M 535 244 H 612" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig2-arrow)"/><text x="626" y="250" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="626" dy="0">Layout gốc · không tạo URL</tspan></text><text x="62" y="290" fill="#0f172a" font-family="ui-monospace, Menlo, monospace" font-size="20" font-weight="400" text-anchor="start"><tspan x="62" dy="0">├─ (tabs)/</tspan></text><path d="M 535 284 H 612" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig2-arrow)"/><text x="626" y="290" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="626" dy="0">Nhóm route · bỏ khỏi URL</tspan></text><text x="62" y="330" fill="#0f172a" font-family="ui-monospace, Menlo, monospace" font-size="20" font-weight="400" text-anchor="start"><tspan x="62" dy="0">│  ├─ _layout.tsx</tspan></text><path d="M 535 324 H 612" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig2-arrow)"/><text x="626" y="330" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="626" dy="0">Layout Tabs · không tạo URL</tspan></text><text x="62" y="370" fill="#0f172a" font-family="ui-monospace, Menlo, monospace" font-size="20" font-weight="400" text-anchor="start"><tspan x="62" dy="0">│  ├─ tasks/index.tsx</tspan></text><path d="M 535 364 H 612" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig2-arrow)"/><text x="626" y="370" fill="#2563eb" font-family="Arial, sans-serif" font-size="21" font-weight="600" text-anchor="start"><tspan x="626" dy="0">/tasks</tspan></text><text x="62" y="410" fill="#0f172a" font-family="ui-monospace, Menlo, monospace" font-size="20" font-weight="400" text-anchor="start"><tspan x="62" dy="0">│  └─ settings.tsx</tspan></text><path d="M 535 404 H 612" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig2-arrow)"/><text x="626" y="410" fill="#2563eb" font-family="Arial, sans-serif" font-size="21" font-weight="600" text-anchor="start"><tspan x="626" dy="0">/settings</tspan></text><text x="62" y="460" fill="#0f172a" font-family="ui-monospace, Menlo, monospace" font-size="20" font-weight="400" text-anchor="start"><tspan x="62" dy="0">├─ tasks/[id].tsx</tspan></text><path d="M 535 454 H 612" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig2-arrow)"/><text x="626" y="460" fill="#2563eb" font-family="Arial, sans-serif" font-size="21" font-weight="600" text-anchor="start"><tspan x="626" dy="0">/tasks/42</tspan></text><text x="62" y="510" fill="#0f172a" font-family="ui-monospace, Menlo, monospace" font-size="20" font-weight="400" text-anchor="start"><tspan x="62" dy="0">└─ tasks/new.tsx</tspan></text><path d="M 535 504 H 612" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig2-arrow)"/><text x="626" y="510" fill="#2563eb" font-family="Arial, sans-serif" font-size="21" font-weight="600" text-anchor="start"><tspan x="626" dy="0">/tasks/new</tspan></text><rect x="36" y="587" width="928" height="71" rx="16" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/><text x="58" y="616" fill="#0f766e" font-family="ui-monospace, Menlo, monospace" font-size="20" font-weight="600" text-anchor="start"><tspan x="58" dy="0">src/components/   src/hooks/   src/lib/</tspan></text><text x="58" y="643" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="58" dy="0">Code tái sử dụng nằm ngoài src/app để tránh bị coi là route.</tspan></text>
+</svg></div><figcaption><span>Hình 2 · Ánh xạ cấu trúc file sang URL và vai trò của từng loại file</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<div class="table-wrap"><table><thead><tr><th>File trong src/app</th><th>URL hoặc ý nghĩa</th><th>Điểm cần hiểu</th></tr></thead><tbody>
+<tr><td><code>index.tsx</code></td><td><code>/</code></td><td>Màn hình khớp đường dẫn gốc</td></tr>
+<tr><td><code>tasks/index.tsx</code></td><td><code>/tasks</code></td><td>Không có đoạn index trong URL</td></tr>
+<tr><td><code>tasks/new.tsx</code></td><td><code>/tasks/new</code></td><td>Route tĩnh được ưu tiên trước mẫu động phù hợp</td></tr>
+<tr><td><code>tasks/[id].tsx</code></td><td><code>/tasks/42</code></td><td><code>id</code> được lấy từ URL</td></tr>
+<tr><td><code>docs/[...parts].tsx</code></td><td><code>/docs/a/b</code></td><td>Catch all; <code>parts</code> gồm các segment còn lại</td></tr>
+<tr><td><code>(tabs)/settings.tsx</code></td><td><code>/settings</code></td><td>Tên group không xuất hiện trong URL công khai</td></tr>
+<tr><td><code>_layout.tsx</code></td><td>Layout của nhánh</td><td>Không tạo URL screen riêng</td></tr>
+<tr><td><code>+not-found.tsx</code></td><td>Fallback không khớp route</td><td>Khác lỗi không tìm thấy một task theo ID</td></tr>
+</tbody></table></div>
+<p>Mỗi file screen cần default export một React component. Tên hàm có thể là <code>TaskDetailScreen</code>, nhưng tên route vẫn được quyết định bởi đường dẫn file. Đổi tên hàm không đổi URL. Đổi tên file hoặc chuyển thư mục có thể đổi route và làm hỏng những link đang dùng.</p>
+<h3>Route name và href không phải cùng một chuỗi</h3>
+<p><code>name</code> trong <code>Stack.Screen</code> hoặc <code>Tabs.Screen</code> là tên route con tương đối với layout đó. <code>href</code> là địa chỉ điều hướng. Trong lab, Tabs có screen name <code>tasks/index</code>, còn URL là <code>/tasks</code>. Đường dẫn có group <code>/(tabs)/tasks</code> giúp chỉ rõ nhánh cần chọn mà URL công khai vẫn là <code>/tasks</code>.</p>
+<p>Thư mục <code>tasks</code> không bắt buộc phải có <code>_layout.tsx</code>. Thêm layout khi cần một ranh giới navigator hoặc wrapper dùng chung. Nếu thêm chỉ vì có thư mục, bạn có thể tạo nhiều navigator hơn dự định.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/router/basics/notation/" target="_blank" rel="noopener">Notation</a>, <a href="https://docs.expo.dev/router/basics/navigation-layouts/" target="_blank" rel="noopener">Navigation layouts</a>.</p>
+</section>
+<section id="layout" data-title="Layout Stack Tabs và Slot">
+<h2><span class="section-number">05 · CẤU TRÚC ĐIỀU HƯỚNG</span>Layout quyết định nơi màn hình xuất hiện</h2>
+<p>Layout là điểm đặt navigator và các thành phần cần sống cùng một nhánh màn hình. Root layout thường chứa provider dữ liệu, theme và navigator gốc. Nested layout tạo một phạm vi bên trong, chẳng hạn một bộ tab hoặc Stack riêng của một tab.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-labelledby="fig3-title fig3-desc">
+<title id="fig3-title">Layout quyết định nơi màn hình xuất hiện</title><desc id="fig3-desc">Stack gốc có ba nhánh: Tabs, màn hình chi tiết và modal. Tabs chứa index ẩn chuyển đường dẫn gốc sang tasks, tab Tasks và tab Settings. Route group không thêm đoạn URL.</desc>
+<defs><marker id="fig3-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker></defs>
+<rect height="700" rx="24" fill="#f8fafc"/>
+<text x="36" y="42" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="36" dy="0">HÌNH 03</tspan></text>
+<text x="36" y="80" fill="#172554" font-family="Arial, sans-serif" font-size="28" font-weight="700" text-anchor="start"><tspan x="36" dy="0">Layout quyết định nơi màn hình xuất hiện</tspan></text>
+<text x="36" y="112" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="36" dy="0">Index nằm trong nhóm Tabs; href: null ẩn nút tab nhưng route vẫn dùng để chuyển hướng.</tspan></text>
+<rect x="36" y="140" width="928" height="470" rx="20" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><rect x="338" y="161" width="324" height="56" rx="12" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/><text x="500" y="197" fill="#172554" font-family="Arial, sans-serif" font-size="23" font-weight="700" text-anchor="middle"><tspan x="500" dy="0">RootLayout · Stack</tspan></text><path d="M 500 220 V 254" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M 280 254 H 835" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M 280 254 V 283" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig3-arrow)"/><path d="M 580 254 V 283" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig3-arrow)"/><path d="M 835 254 V 283" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig3-arrow)"/><rect x="110" y="290" width="340" height="83" rx="13" fill="#ccfbf1" stroke="#5eead4" stroke-width="1.5"/><text x="280" y="323" fill="#0f766e" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle"><tspan x="280" dy="0">(tabs)/_layout.tsx</tspan><tspan x="280" dy="28">Tabs navigator</tspan></text><rect x="472" y="290" width="216" height="83" rx="13" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/><text x="580" y="323" fill="#2563eb" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="580" dy="0">tasks/[id].tsx</tspan><tspan x="580" dy="26">Chi tiết task</tspan></text><rect x="710" y="290" width="250" height="83" rx="13" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/><text x="835" y="323" fill="#2563eb" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="835" dy="0">tasks/new.tsx</tspan><tspan x="835" dy="26">Modal</tspan></text><path d="M 280 379 V 412" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M 184 412 H 828" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M 184 412 V 442" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig3-arrow)"/><path d="M 520 412 V 442" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig3-arrow)"/><path d="M 828 412 V 442" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig3-arrow)"/><rect x="50" y="449" width="268" height="96" rx="13" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.5"/><text x="184" y="477" fill="#0f766e" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="184" dy="0">(tabs)/index.tsx</tspan><tspan x="184" dy="27">Redirect / → /tasks</tspan><tspan x="184" dy="27">Tab ẩn · href: null</tspan></text><rect x="352" y="449" width="336" height="96" rx="13" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.5"/><text x="520" y="481" fill="#0f766e" font-family="Arial, sans-serif" font-size="19" font-weight="600" text-anchor="middle"><tspan x="520" dy="0">tasks/index.tsx</tspan><tspan x="520" dy="29">/tasks · tab Tasks</tspan></text><rect x="718" y="449" width="220" height="96" rx="13" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.5"/><text x="828" y="481" fill="#0f766e" font-family="Arial, sans-serif" font-size="19" font-weight="600" text-anchor="middle"><tspan x="828" dy="0">settings.tsx</tspan><tspan x="828" dy="29">/settings</tspan></text><text x="500" y="583" fill="#2563eb" font-family="Arial, sans-serif" font-size="19" font-weight="600" text-anchor="middle"><tspan x="500" dy="0">Detail và modal thuộc Stack gốc, mở phía trên toàn bộ Tabs navigator.</tspan></text><rect x="36" y="630" width="928" height="51" rx="12" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/><text x="58" y="663" fill="#64748b" font-family="Arial, sans-serif" font-size="19" font-weight="400" text-anchor="start"><tspan x="58" dy="0">(tabs) không thêm đoạn URL; index là tab ẩn dùng để chuyển / sang /tasks.</tspan></text>
+</svg></div><figcaption><span>Hình 3 · Cây navigator của lab với Tabs nằm trong root Stack</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<div class="table-wrap"><table><thead><tr><th>Thành phần</th><th>Dùng khi</th><th>Chịu trách nhiệm</th></tr></thead><tbody>
+<tr><td><code>Stack</code></td><td>Danh sách mở chi tiết; màn hình nối tiếp nhau</td><td>History và cách trình bày các screen của stack</td></tr>
+<tr><td><code>Tabs</code></td><td>Các khu vực ngang hàng như Công việc và Ghi chú</td><td>Chuyển tab và cấu hình thanh tab</td></tr>
+<tr><td><code>Slot</code></td><td>Wrapper chung cần hiển thị child route tại một vị trí</td><td>Chèn child route; không tự dựng giao diện Stack hoặc Tabs</td></tr>
+</tbody></table></div>
+<div class="code-block"><div class="code-head"><span>Wrapper dùng chung với Slot</span><button type="button" class="copy-code" aria-label="Sao chép Wrapper dùng chung với Slot">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Slot } from &#x27;expo-router&#x27;;
+import { View, Text } from &#x27;react-native&#x27;;
+
+export default function HelpLayout() {
+  return (
+    &lt;View style={{ flex: 1 }}&gt;
+      &lt;Text style={{ padding: 16 }}&gt;Trung tâm trợ giúp&lt;/Text&gt;
+      &lt;Slot /&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<p>Đoạn Slot trên có thể dùng trong <code>help/_layout.tsx</code> khi các trang trợ giúp chia sẻ phần đầu đơn giản. Slot phù hợp với một wrapper; nếu cần push/back giữa các màn hình theo native stack, hãy chọn Stack tại ranh giới đó.</p>
+<h3>Muốn giữ tab bar khi mở chi tiết</h3>
+<p>Trong lab, detail <code>tasks/[id].tsx</code> nằm ngoài <code>(tabs)</code>, nên root Stack mở detail ở phía trên cả Tabs. Tab bar không thuộc màn hình detail này. Muốn detail nằm trong vùng tab, tạo Stack trong tab Công việc rồi đặt cả index và detail dưới Stack đó.</p>
+<p>Việc đặt navigator là một quyết định về trải nghiệm. Trước khi thêm file, tự hỏi: màn hình này thuộc khu vực nào, có cần giữ tab bar không, và Back nên quay về màn hình nào?</p>
+<h3>Vì sao xuất hiện hai header</h3>
+<p>Nếu root Stack hiện header cho screen <code>(tabs)</code>, còn navigator con cũng hiện header, bạn có thể thấy hai thanh tiêu đề. Lab đặt <code>headerShown: false</code> ở screen <code>(tabs)</code> của root và để Tabs quản lý header bên trong.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/router/advanced/nesting-navigators/" target="_blank" rel="noopener">Nesting navigators</a>, <a href="https://docs.expo.dev/router/advanced/stack/" target="_blank" rel="noopener">Stack</a>, <a href="https://docs.expo.dev/router/advanced/tabs/" target="_blank" rel="noopener">JavaScript tabs</a>.</p>
+</section>
+<section id="history" data-title="Điều hướng và lịch sử Back">
+<h2><span class="section-number">06 · HISTORY</span>Hiểu push replace và back bằng stack</h2>
+<p>Đường dẫn hiện tại không mô tả toàn bộ lịch sử điều hướng. Hai người cùng nhìn màn hình <code>/tasks/42</code> có thể có lịch sử Back khác nhau: một người đi từ danh sách, người kia mở thẳng deep link. Khi xử lý Back, hãy nghĩ tới state của navigator thay vì chỉ nghĩ tới URL.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 690" role="img" aria-labelledby="fig4-title fig4-desc">
+<title id="fig4-title">Stack lưu lịch sử theo thứ tự màn hình</title><desc id="fig4-desc">Ba khung điện thoại minh hoạ danh sách, push chi tiết 42, rồi push chi tiết 7. back loại phần tử cuối; replace thay phần tử cuối bằng màn hình khác.</desc>
+<defs><marker id="fig4-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker></defs>
+<rect height="690" rx="24" fill="#f8fafc"/>
+<text x="36" y="42" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="36" dy="0">HÌNH 04</tspan></text>
+<text x="36" y="80" fill="#172554" font-family="Arial, sans-serif" font-size="28" font-weight="700" text-anchor="start"><tspan x="36" dy="0">Stack lưu lịch sử theo thứ tự màn hình</tspan></text>
+<text x="36" y="112" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="36" dy="0">Ví dụ dùng push rõ ràng để quan sát việc thêm từng màn hình vào stack.</tspan></text>
+<rect x="42" y="163" width="240" height="297" rx="28" fill="white" stroke="#172554" stroke-width="2"/><rect x="125" y="176" width="74" height="7" rx="4" fill="#172554" stroke="#172554" stroke-width="0"/><text x="62" y="218" fill="#64748b" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="62" dy="0">STACK</tspan></text><rect x="60" y="236" width="204" height="46" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/><text x="162" y="265" fill="#2563eb" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="162" dy="0">Danh sách task</tspan></text><text x="162" y="434" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="middle"><tspan x="162" dy="0">Đang thấy: danh sách</tspan></text><rect x="382" y="163" width="240" height="297" rx="28" fill="white" stroke="#172554" stroke-width="2"/><rect x="465" y="176" width="74" height="7" rx="4" fill="#172554" stroke="#172554" stroke-width="0"/><text x="402" y="218" fill="#64748b" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="402" dy="0">STACK</tspan></text><rect x="400" y="236" width="204" height="46" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/><text x="502" y="265" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="502" dy="0">Danh sách task</tspan></text><rect x="400" y="294" width="204" height="46" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/><text x="502" y="323" fill="#2563eb" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="502" dy="0">Chi tiết #42</tspan></text><text x="502" y="434" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="middle"><tspan x="502" dy="0">Đang thấy: chi tiết #42</tspan></text><rect x="722" y="163" width="240" height="297" rx="28" fill="white" stroke="#172554" stroke-width="2"/><rect x="805" y="176" width="74" height="7" rx="4" fill="#172554" stroke="#172554" stroke-width="0"/><text x="742" y="218" fill="#64748b" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="742" dy="0">STACK</tspan></text><rect x="740" y="236" width="204" height="46" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/><text x="842" y="265" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="842" dy="0">Danh sách task</tspan></text><rect x="740" y="294" width="204" height="46" rx="10" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/><text x="842" y="323" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="842" dy="0">Chi tiết #42</tspan></text><rect x="740" y="352" width="204" height="46" rx="10" fill="#dbeafe" stroke="#93c5fd" stroke-width="1.5"/><text x="842" y="381" fill="#2563eb" font-family="Arial, sans-serif" font-size="18" font-weight="600" text-anchor="middle"><tspan x="842" dy="0">Chi tiết #7</tspan></text><text x="842" y="434" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="middle"><tspan x="842" dy="0">Đang thấy: chi tiết #7</tspan></text><path d="M 290 308 H 370" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig4-arrow)"/><text x="330" y="272" fill="#2563eb" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="middle"><tspan x="330" dy="0">push</tspan></text><text x="330" y="294" fill="#64748b" font-family="Arial, sans-serif" font-size="17" font-weight="400" text-anchor="middle"><tspan x="330" dy="0">/tasks/42</tspan></text><path d="M 630 308 H 710" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig4-arrow)"/><text x="670" y="272" fill="#2563eb" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="middle"><tspan x="670" dy="0">push</tspan></text><text x="670" y="294" fill="#64748b" font-family="Arial, sans-serif" font-size="17" font-weight="400" text-anchor="middle"><tspan x="670" dy="0">/tasks/7</tspan></text><rect x="42" y="490" width="440" height="135" rx="16" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.5"/><text x="62" y="524" fill="#0f766e" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start"><tspan x="62" dy="0">back(): bỏ màn hình trên cùng</tspan></text><text x="62" y="559" fill="#0f172a" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="start"><tspan x="62" dy="0">[Danh sách, #42, #7]</tspan><tspan x="62" dy="31">→ [Danh sách, #42]</tspan></text><rect x="508" y="490" width="454" height="135" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/><text x="528" y="524" fill="#2563eb" font-family="Arial, sans-serif" font-size="21" font-weight="700" text-anchor="start"><tspan x="528" dy="0">replace(): thay màn hình trên cùng</tspan></text><text x="528" y="559" fill="#0f172a" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="start"><tspan x="528" dy="0">[Danh sách, #42, #7]</tspan><tspan x="528" dy="31">→ [Danh sách, #42, #99]</tspan></text><text x="42" y="660" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="42" dy="0">Hình minh hoạ trạng thái stack; phần tử cuối là màn hình đang hiển thị.</tspan></text>
+</svg></div><figcaption><span>Hình 4 · Các thao tác trên một stack đơn giản với màn hình đang hiển thị ở vị trí cuối</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<div class="practice"><h3>Thử thao tác trên một stack</h3><p class="caption">Mô hình rút gọn để quan sát history; không mô phỏng route key, singular hay navigator lồng. Tối đa 6 screen để hình vẫn dễ đọc.</p><div class="control-row"><button type="button" data-stack="push42">push /tasks/42</button><button type="button" data-stack="push7">push /tasks/7</button><button type="button" data-stack="replace">replace /tasks/99</button><button type="button" data-stack="back">back()</button><button type="button" data-stack="reset">Về ban đầu</button></div><div class="stack-display" id="stack-display" aria-label="Lịch sử các màn hình"></div><p class="sim-result" id="stack-result" role="status" aria-live="polite"></p></div>
+<div class="table-wrap"><table><thead><tr><th>API</th><th>Ý định</th><th>Khi nên dùng</th></tr></thead><tbody>
+<tr><td><code>navigate(href)</code></td><td>Đi tới đích; có thể push hoặc quay lại screen phù hợp đã có</td><td>Điều hướng thông thường khi muốn tận dụng lịch sử sẵn có</td></tr>
+<tr><td><code>push(href)</code></td><td>Yêu cầu thêm screen vào stack</td><td>Cần một bước mới rõ ràng trong luồng đọc chi tiết</td></tr>
+<tr><td><code>replace(href)</code></td><td>Thay screen hiện tại</td><td>Lưu form xong mở detail mà không quay lại form cũ</td></tr>
+<tr><td><code>back()</code></td><td>Đi ngược lịch sử</td><td>Nút trở lại có ý nghĩa theo hành trình người dùng</td></tr>
+<tr><td><code>canGoBack()</code></td><td>Kiểm tra có lịch sử để Back</td><td>Xử lý trường hợp người dùng mở app từ deep link</td></tr>
+<tr><td><code>dismissTo(href)</code></td><td>Quay lùi tới đích; nếu không có thì replace screen hiện tại</td><td>Nút về danh sách cần đích rõ ràng</td></tr>
+<tr><td><code>dismissAll()</code></td><td>Về đầu stack gần nhất</td><td>Đóng các bước trong một nhánh Stack</td></tr>
+</tbody></table></div>
+<p>Hành vi cụ thể còn chịu ảnh hưởng bởi nesting và các tùy chọn navigator. Trong tài liệu, mô hình push/back dùng cấu hình stack thông thường; không áp dụng tùy chọn singular hoặc navigator tự viết.</p>
+<div class="code-block"><div class="code-head"><span>Điều hướng từ handler</span><button type="button" class="copy-code" aria-label="Sao chép Điều hướng từ handler">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { router } from &#x27;expo-router&#x27;;
+
+// Gọi handler tương ứng từ onPress; không gọi ở cấp module.
+export function openTask(id: string) {
+  router.push({ pathname: &#x27;/tasks/[id]&#x27;, params: { id } });
+}
+
+export function openTaskAfterSave(id: string) {
+  router.replace({ pathname: &#x27;/tasks/[id]&#x27;, params: { id } });
+}
+
+export function goBackOrOpenList() {
+  if (router.canGoBack()) router.back();
+  else router.replace(&#x27;/(tabs)/tasks&#x27;);
+}</code></pre></div>
+<h3>Chọn Link hay router</h3>
+<p>Dùng <code>Link</code> khi đích là một liên kết hiển thị trong giao diện. Dùng <code>router</code> trong handler sau khi validation hoặc thao tác nghiệp vụ hoàn tất. <code>Link</code> mặc định tạo nội dung text; với nút riêng, dùng <code>asChild</code> để chuyển hành vi điều hướng xuống child nhận được props tương tác.</p>
+<div class="code-block"><div class="code-head"><span>Điều hướng khai báo bằng Link</span><button type="button" class="copy-code" aria-label="Sao chép Điều hướng khai báo bằng Link">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Link } from &#x27;expo-router&#x27;;
+import { Pressable, Text } from &#x27;react-native&#x27;;
+
+export function OpenTaskButton() {
+  return (
+    &lt;Link
+      href={{ pathname: &#x27;/tasks/[id]&#x27;, params: { id: &#x27;1&#x27;, source: &#x27;home&#x27; } }}
+      asChild
+    &gt;
+      &lt;Pressable accessibilityRole=&quot;button&quot; style={{ padding: 16 }}&gt;
+        &lt;Text&gt;Mở công việc 1&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/Link&gt;
+  );
+}</code></pre></div>
+<p>Trong lab, nút Lưu tạo task trước rồi gọi <code>replace</code>. Điều đó khiến Back từ detail về danh sách thay vì trở lại một form đã lưu. Nút “Về danh sách” dùng <code>dismissTo</code> vì ý định là quay về một đích cụ thể.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/router/basics/navigation/" target="_blank" rel="noopener">Navigation</a>, <a href="https://docs.expo.dev/versions/v57.0.0/sdk/router/link/" target="_blank" rel="noopener">Link SDK 57</a>, <a href="https://docs.expo.dev/versions/v57.0.0/sdk/router/" target="_blank" rel="noopener">Router API SDK 57</a>.</p>
+</section>
+<section id="params" data-title="Path params và query params">
+<h2><span class="section-number">07 · DỮ LIỆU TRONG URL</span>Truyền ID và đọc dữ liệu đúng chỗ</h2>
+<p>URL có hai phần dữ liệu thường dùng. Path params điền vào segment động như <code>[id]</code>. Query params đứng sau dấu hỏi và mang thêm ngữ cảnh, chẳng hạn nguồn truy cập, từ khóa hoặc bộ lọc.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 690" role="img" aria-labelledby="fig5-title fig5-desc">
+<title id="fig5-title">Đọc URL để hiểu dữ liệu màn hình</title><desc id="fig5-desc">URL tasks 42 với query source home được tách thành id là path param và source là query param. Danh sách gửi pathname và params; chi tiết đọc useLocalSearchParams rồi tra dữ liệu bằng id.</desc>
+<defs><marker id="fig5-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker></defs>
+<rect height="690" rx="24" fill="#f8fafc"/>
+<text x="36" y="42" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="36" dy="0">HÌNH 05</tspan></text>
+<text x="36" y="80" fill="#172554" font-family="Arial, sans-serif" font-size="28" font-weight="700" text-anchor="start"><tspan x="36" dy="0">Đọc URL để hiểu dữ liệu màn hình</tspan></text>
+<text x="36" y="112" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="36" dy="0">Đường dẫn chọn tài nguyên; query bổ sung ngữ cảnh của lần điều hướng.</tspan></text>
+<rect x="80" y="145" width="840" height="102" rx="18" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="500" y="206" fill="#172554" font-family="ui-monospace, Menlo, monospace" font-size="36" font-weight="700" text-anchor="middle"><tspan x="500" dy="0">/tasks/42?source=home</tspan></text><path d="M 420 250 V 275 H 270 V 307" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig5-arrow)"/><path d="M 655 250 V 275 H 738 V 307" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig5-arrow)"/><rect x="66" y="315" width="410" height="117" rx="16" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1.5"/><text x="86" y="349" fill="#2563eb" font-family="ui-monospace, Menlo, monospace" font-size="24" font-weight="700" text-anchor="start"><tspan x="86" dy="0">id = &quot;42&quot;</tspan></text><text x="86" y="383" fill="#0f172a" font-family="Arial, sans-serif" font-size="19" font-weight="400" text-anchor="start"><tspan x="86" dy="0">Path param: khớp đoạn [id].</tspan><tspan x="86" dy="27">Giá trị id đọc được là chuỗi.</tspan></text><rect x="524" y="315" width="410" height="117" rx="16" fill="#f0fdfa" stroke="#99f6e4" stroke-width="1.5"/><text x="544" y="349" fill="#0f766e" font-family="ui-monospace, Menlo, monospace" font-size="24" font-weight="700" text-anchor="start"><tspan x="544" dy="0">source = &quot;home&quot;</tspan></text><text x="544" y="383" fill="#0f172a" font-family="Arial, sans-serif" font-size="19" font-weight="400" text-anchor="start"><tspan x="544" dy="0">Query param: dữ liệu sau dấu ?</tspan><tspan x="544" dy="27">Dùng cho ngữ cảnh / bộ lọc.</tspan></text><rect x="66" y="468" width="326" height="114" rx="16" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="86" y="502" fill="#172554" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start"><tspan x="86" dy="0">Màn hình danh sách</tspan></text><text x="86" y="537" fill="#0f172a" font-family="Arial, sans-serif" font-size="19" font-weight="400" text-anchor="start"><tspan x="86" dy="0">Link / router.push</tspan><tspan x="86" dy="27">pathname + params</tspan></text><path d="M 400 525 H 594" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig5-arrow)"/><text x="497" y="506" fill="#64748b" font-family="Arial, sans-serif" font-size="17" font-weight="400" text-anchor="middle"><tspan x="497" dy="0">URL xác định màn hình</tspan></text><rect x="608" y="468" width="326" height="114" rx="16" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="628" y="502" fill="#172554" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start"><tspan x="628" dy="0">Màn hình chi tiết</tspan></text><text x="628" y="537" fill="#0f172a" font-family="Arial, sans-serif" font-size="19" font-weight="400" text-anchor="start"><tspan x="628" dy="0">useLocalSearchParams</tspan><tspan x="628" dy="27">→ id → tra cứu task</tspan></text><rect x="66" y="607" width="868" height="52" rx="12" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/><text x="86" y="640" fill="#64748b" font-family="Arial, sans-serif" font-size="20" font-weight="400" text-anchor="start"><tspan x="86" dy="0">Truyền ID nhỏ qua URL; dữ liệu task đầy đủ nằm trong store hoặc API.</tspan></text>
+</svg></div><figcaption><span>Hình 5 · Phân biệt ID trong đường dẫn và ngữ cảnh ở query string</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<p>Với <code>/tasks/42?source=home</code>, route khớp file <code>tasks/[id].tsx</code>, <code>id</code> là chuỗi <code>"42"</code> và <code>source</code> là chuỗi <code>"home"</code>. Trong lab, dữ liệu seed có ID 1 và 2; số 42 trong hình chỉ dùng minh hoạ cách phân tích URL.</p>
+<div class="code-block"><div class="code-head"><span>Đọc và kiểm tra path params cùng query params</span><button type="button" class="copy-code" aria-label="Sao chép Đọc và kiểm tra path params cùng query params">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { useLocalSearchParams } from &#x27;expo-router&#x27;;
+import { Text, View } from &#x27;react-native&#x27;;
+
+export default function ParamsDemo() {
+  const params = useLocalSearchParams&lt;{
+    id?: string | string[];
+    source?: string | string[];
+  }&gt;();
+  const id = typeof params.id === &#x27;string&#x27; ? params.id : undefined;
+  const source = typeof params.source === &#x27;string&#x27; ? params.source : undefined;
+
+  // Chỉ chuyển số khi dữ liệu ứng dụng thật sự dùng ID số.
+  const numericId = id &amp;&amp; /^\d+$/.test(id) ? Number(id) : undefined;
+  const isValidNumber = numericId !== undefined &amp;&amp; Number.isSafeInteger(numericId);
+
+  return (
+    &lt;View style={{ padding: 24, gap: 12 }}&gt;
+      &lt;Text&gt;ID gốc: {id ?? &#x27;thiếu hoặc sai dạng&#x27;}&lt;/Text&gt;
+      &lt;Text&gt;Nguồn: {source ?? &#x27;không truyền&#x27;}&lt;/Text&gt;
+      &lt;Text&gt;ID số hợp lệ: {String(isValidNumber)}&lt;/Text&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<p>Generic TypeScript mô tả hình dạng bạn mong đợi, không kiểm tra URL từ bên ngoài. Hãy chuẩn hóa giá trị, xử lý thiếu tham số và kiểm tra quy tắc ID của ứng dụng. Với catch all <code>[...parts]</code>, dữ liệu là mảng segment; khi cho phép query lặp, cũng nên xử lý dạng mảng.</p>
+<div class="practice route-controls"><h3>Thử nhìn một URL theo ba lớp</h3><label for="route-select">Chọn URL trong cấu trúc lab</label><select id="route-select"><option>/tasks</option><option>/settings</option><option>/tasks/42?source=home</option><option>/tasks/new</option><option>/khong-ton-tai</option></select><dl class="route-result" aria-live="polite"><div><dt>FILE ĐƯỢC CHỌN</dt><dd id="route-file"></dd></div><div><dt>PARAMS CỦA MÀN HÌNH</dt><dd id="route-params"></dd></div><div><dt>NHÁNH ĐIỀU HƯỚNG</dt><dd id="route-layout"></dd></div></dl></div>
+<h3>Local params và global params</h3>
+<p>Một stack có thể giữ nhiều screen đã mount. Khi task 42 nằm dưới task 7, <code>useLocalSearchParams</code> của screen cũ vẫn mô tả route instance task 42; <code>useGlobalSearchParams</code> đi theo URL đang được chọn. Screen cần dữ liệu riêng của nó thường dùng local params. Global params hữu ích khi quan sát điều hướng ở phạm vi toàn app nhưng có thể làm các screen nền cập nhật không cần thiết.</p>
+<div class="code-block"><div class="code-head"><span>Đổi bộ lọc của route hiện tại</span><button type="button" class="copy-code" aria-label="Sao chép Đổi bộ lọc của route hiện tại">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { router } from &#x27;expo-router&#x27;;
+
+// Gọi từ onPress. Query thay đổi mà không thêm screen vào history.
+export function showCompletedTasks() {
+  router.setParams({ filter: &#x27;done&#x27; });
+}
+// Ví dụ URL hiện tại sau khi gọi: /tasks?filter=done</code></pre></div>
+<p><strong>Giữ URL gọn:</strong> truyền ID hoặc giá trị lọc ngắn rồi lấy object đầy đủ từ dữ liệu ứng dụng. Không đưa token, mật khẩu hay toàn bộ object task vào URL. Các tên <code>screen</code>, <code>params</code>, <code>initial</code> và <code>state</code> là reserved keys; tránh dùng làm query key nghiệp vụ.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/router/reference/url-parameters/" target="_blank" rel="noopener">URL parameters</a> và phần API trong <a href="https://docs.expo.dev/versions/v57.0.0/sdk/router/" target="_blank" rel="noopener">Router SDK 57</a>. Quy tắc chuẩn hóa ID và giới hạn dữ liệu URL là lựa chọn thiết kế của các ví dụ trong tài liệu.</p>
+</section>
+<section id="du-lieu-lifecycle" data-title="Dữ liệu và vòng đời màn hình">
+<h2><span class="section-number">08 · STATE VÀ FOCUS</span>Màn hình bị che có thể vẫn đang mounted</h2>
+<p>Khi push từ danh sách sang detail, đừng giả định danh sách đã bị xoá khỏi cây React. Trong một Stack, screen phía dưới thường vẫn mounted. Khi Back, bạn có thể nhìn lại đúng instance và state trước đó, thay vì tạo mới toàn bộ screen.</p>
+<div class="table-wrap"><table><thead><tr><th>Khái niệm</th><th>Câu hỏi nó trả lời</th><th>Ví dụ trong lab</th></tr></thead><tbody><tr><td>Mount và unmount</td><td>Component có còn tồn tại trong cây React không</td><td>Form new bị thay bằng detail sau khi lưu</td></tr><tr><td>Focus và blur</td><td>Màn hình có đang là nơi nhận tương tác trong nhánh không</td><td>Danh sách mất focus khi mở detail</td></tr><tr><td>Provider scope</td><td>State dùng chung sống cùng nhánh nào</td><td>TasksProvider ở root chia sẻ state với Tabs và detail</td></tr><tr><td>Persistence</td><td>Dữ liệu có còn sau khi runtime khởi động lại không</td><td>Context của lab reset về hai task seed khi Reload</td></tr></tbody></table></div>
+<p><code>useEffect(..., [])</code> gắn với lifecycle của component. Nếu cần làm việc mỗi lần screen nhận focus, dùng <code>useFocusEffect</code> với callback ổn định và cleanup tương ứng. Ví dụ dưới chỉ log để quan sát, không cần backend hay hàm tự viết khác.</p>
+<div class="code-block"><div class="code-head"><span>Theo dõi focus của màn hình chi tiết</span><button type="button" class="copy-code" aria-label="Sao chép Theo dõi focus của màn hình chi tiết">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { useCallback } from &#x27;react&#x27;;
+import { useFocusEffect, useLocalSearchParams } from &#x27;expo-router&#x27;;
+import { Text } from &#x27;react-native&#x27;;
+
+export default function FocusDemo() {
+  const params = useLocalSearchParams&lt;{ id?: string | string[] }&gt;();
+  const id = typeof params.id === &#x27;string&#x27; ? params.id : undefined;
+  useFocusEffect(
+    useCallback(() =&gt; {
+      console.log(&#x27;Màn hình nhận focus&#x27;, id);
+      return () =&gt; {
+        console.log(&#x27;Màn hình mất focus hoặc unmount&#x27;, id);
+      };
+    }, [id]),
+  );
+  return &lt;Text style={{ padding: 24 }}&gt;Đang xem task {id ?? &#x27;chưa có ID&#x27;}&lt;/Text&gt;;
+}</code></pre></div>
+<h3>Luồng cập nhật task trong bài thực hành</h3>
+<p>Danh sách và detail cùng gọi <code>useTasks()</code>. Khi detail gọi <code>toggleTask(id)</code>, TasksProvider tạo mảng task mới. Các consumer nhận state mới. Khi Back, danh sách đã có trạng thái và bộ đếm mới dù screen danh sách không được mount lại.</p>
+<p>Đặt provider bên trong từng screen sẽ tạo những vùng state khác nhau. Đặt provider trong một layout có thể phù hợp nếu state chỉ thuộc nhánh đó. Trong lab, provider nằm ở root vì cả tab, detail và modal đều cần cùng dữ liệu.</p>
+<p><strong>Fast Refresh không phải lưu trữ dữ liệu.</strong> Nó có thể giữ state trong một số lần sửa code và reset state trong những tình huống khác. Muốn dữ liệu tồn tại sau khi mở lại app, cần thêm lớp lưu trữ hoặc backend với chiến lược tải và đồng bộ rõ ràng.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/router/reference/focus-handling/" target="_blank" rel="noopener">Focus handling</a>, <a href="https://reactnative.dev/docs/0.86/fast-refresh" target="_blank" rel="noopener">Fast Refresh của React Native 0.86</a>. Luồng state được minh hoạ bằng TasksContext của bộ mã mẫu.</p>
+</section>
+<section id="tabs" data-title="Thiết kế Tabs và nested Stack">
+<h2><span class="section-number">09 · CÁC KHU VỰC NGANG HÀNG</span>Đặt Tabs ở ranh giới của trải nghiệm</h2>
+<p>Tabs phù hợp với các khu vực người dùng chuyển qua lại thường xuyên. Lab có tab Công việc và tab Ghi chú. File của tab thứ hai có tên <code>settings.tsx</code>, nhưng label hiển thị là “Ghi chú”: tên file quyết định route, còn options quyết định tên người dùng nhìn thấy.</p>
+<p>Bản hướng dẫn dùng <code>Tabs</code> từ <code>expo-router</code>, tức JavaScript Tabs. Native Tabs và headless tabs là các lựa chọn khác với API riêng; hãy học chắc một loại trước khi thay đổi implementation.</p>
+<h3>Hai cách đặt màn hình chi tiết</h3>
+<div class="table-wrap"><table><thead><tr><th>Mục tiêu</th><th>Cấu trúc</th><th>Kết quả</th></tr></thead><tbody><tr><td>Detail chiếm vùng điều hướng toàn app</td><td>Root Stack chứa Tabs và detail như hai screen cùng cấp</td><td>Tab bar không xuất hiện trên detail</td></tr><tr><td>Detail thuộc riêng một tab</td><td>Tab Công việc chứa Stack với list và detail bên trong</td><td>Tab bar vẫn thuộc vùng cha của detail</td></tr></tbody></table></div>
+<p>Cấu trúc đúng là cấu trúc diễn đạt hành trình người dùng. Nếu một màn hình cần được truy cập từ nhiều tab nhưng mở toàn màn hình, đặt nó ở root Stack có thể dễ quản lý hơn. Nếu mỗi tab có lịch sử drill down riêng, Stack bên trong tab thường diễn đạt ý định rõ hơn.</p>
+<h3>Screen ẩn khỏi tab bar vẫn là một route</h3>
+<p>Lab có file <code>(tabs)/index.tsx</code> để chuyển <code>/</code> sang <code>/tasks</code>. Tabs khai báo screen <code>index</code> với <code>href: null</code>, nên nó không có nút trên thanh tab. Cách này giữ redirect bên trong cùng một Tabs instance.</p>
+<p><code>href: null</code> chỉ ẩn nút tab. Nó không chặn route, không xác thực người dùng và không thay thế protected routes. Khi thiết kế screen không được truy cập bởi người chưa đăng nhập, phải dùng guard và kiểm soát dữ liệu phù hợp.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/router/advanced/tabs/" target="_blank" rel="noopener">JavaScript tabs</a>, <a href="https://docs.expo.dev/router/advanced/nesting-navigators/" target="_blank" rel="noopener">Nesting navigators</a>.</p>
+</section>
+<section id="modal" data-title="Modal và đường vào trực tiếp">
+<h2><span class="section-number">10 · MODAL ROUTES</span>Modal là một screen có cách trình bày riêng</h2>
+<p>File có tên <code>modal.tsx</code> không tự trở thành modal. Một route được trình bày như modal khi Stack cấu hình <code>presentation: 'modal'</code> cho screen đó. Lab dùng file <code>tasks/new.tsx</code> và cấu hình presentation ở root layout.</p>
+<p>Route modal tham gia URL và history. React Native cũng có component <code>Modal</code> cho overlay cục bộ. Hãy chọn theo ý định: một luồng tạo dữ liệu có địa chỉ riêng phù hợp với route modal; một hộp xác nhận nhỏ trong cùng screen có thể chỉ cần UI cục bộ.</p>
+<div class="code-block"><div class="code-head"><span>Ví dụ riêng với index và create cùng cấp trong một Stack</span><button type="button" class="copy-code" aria-label="Sao chép Ví dụ riêng với index và create cùng cấp trong một Stack">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Stack } from &#x27;expo-router&#x27;;
+
+export const unstable_settings = { anchor: &#x27;index&#x27; };
+
+export default function Layout() {
+  return (
+    &lt;Stack&gt;
+      &lt;Stack.Screen name=&quot;index&quot; options={{ title: &#x27;Danh sách&#x27; }} /&gt;
+      &lt;Stack.Screen
+        name=&quot;create&quot;
+        options={{ title: &#x27;Tạo mới&#x27;, presentation: &#x27;modal&#x27; }}
+      /&gt;
+    &lt;/Stack&gt;
+  );
+}</code></pre></div>
+<p>Đây là ví dụ độc lập có hai file screen <code>index.tsx</code> và <code>create.tsx</code> cùng layout. Trong lab, screen nền là Tabs nên anchor dùng <code>'(tabs)'</code> thay cho <code>'index'</code>.</p>
+<h3>Tại sao phải nghĩ tới deep link</h3>
+<p>Khi đi từ danh sách vào form, screen nền đã có trong history. Nhưng người dùng có thể mở thẳng URL của form từ bên ngoài. <code>anchor</code> giúp giữ một screen nền phù hợp trong cấu hình này; hành vi cụ thể còn phụ thuộc navigator và platform.</p>
+<p><strong>Chú ý khi kết hợp redirect với anchor:</strong> đừng tạo root index redirect sang Tabs trong khi root Stack cũng chèn Tabs làm anchor. Cấu hình đó có thể thay root index thành một Tabs thứ hai. Lab đặt redirect index bên trong Tabs và ẩn nút tab tương ứng.</p>
+<h3>Lưu và hủy có history khác nhau</h3>
+<p>Hủy dùng Back khi có history, nếu không thì về danh sách bằng một đích an toàn. Lưu thành công tạo task rồi <code>replace</code> form bằng detail. Nhờ đó Back từ detail bỏ qua form vừa xử lý. Trên web, cách hiển thị và đóng modal cần được kiểm tra riêng; bài lab tập trung trước vào native iOS.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/router/advanced/modals/" target="_blank" rel="noopener">Modals</a>, <a href="https://docs.expo.dev/router/advanced/router-settings/" target="_blank" rel="noopener">Router settings</a>. Cấu hình anchor và redirect của lab đã được rà soát với parser và StackRouter SDK 57.</p>
+</section>
+<section id="lab" data-title="Bài thực hành đầy đủ">
+<h2><span class="section-number">11 · BỘ MÃ CHẠY ĐƯỢC</span>Tự xây app công việc qua từng lớp</h2>
+<p>Bộ mã mẫu là một project độc lập với 10 file source, 3 file cấu hình và README. Bạn có thể tải ZIP ngay từ file HTML này khi offline. Source đã qua TypeScript typecheck và export bundle iOS trên bộ dependency tương ứng SDK 57. Bộ mẫu chưa được chạy trên Simulator trong quá trình biên soạn.</p>
+<div class="download-panel"><div><strong>Expo Router Lab</strong><p>Hai tab · Chi tiết động · Form modal · Context · 404</p></div><button type="button" class="download-lab">Tải project mẫu ZIP</button></div>
+<h3>Bước 1 Chạy mẫu trong thư mục riêng</h3>
+<p>Giải nén ZIP vào một thư mục mới, mở Terminal tại nơi có <code>package.json</code>. Không chép đè source <code>my-tasks</code> đang làm. Cần Node tương thích SDK 57, npm và môi trường Simulator đã hoạt động như ở project hiện tại.</p>
+<div class="code-block"><div class="code-head"><span>Chạy project mẫu trong một thư mục riêng</span><button type="button" class="copy-code" aria-label="Sao chép Chạy project mẫu trong một thư mục riêng">Sao chép</button></div><pre tabindex="0"><code class="language-bash"># Giải nén ZIP rồi mở Terminal trong thư mục expo-router-lab
+npm install
+npm run typecheck
+npm run ios
+
+# Nếu cổng Metro của project cũ đang được dùng, chọn cổng mới khi CLI hỏi.
+# Hoặc dừng dev server cũ trước khi chạy mẫu.</code></pre></div>
+<p><code>npm install</code> cài các phiên bản đã khai báo của mẫu. Khi bổ sung package mới sau này, dùng <code>npx expo install tên-package</code> để chọn bản tương thích SDK. Mẫu dùng Expo Go; custom scheme chỉ được đăng ký khi build native app tương ứng.</p>
+<div class="code-block"><div class="code-head"><span>Cây file của bộ mã mẫu</span><button type="button" class="copy-code" aria-label="Sao chép Cây file của bộ mã mẫu">Sao chép</button></div><pre tabindex="0"><code class="language-text">src/
+├── app/
+│   ├── _layout.tsx                Root Stack và TasksProvider
+│   ├── (tabs)/
+│   │   ├── _layout.tsx            Tabs navigator
+│   │   ├── index.tsx              / → chuyển tới /tasks, ẩn nút tab
+│   │   ├── tasks/index.tsx        /tasks
+│   │   └── settings.tsx           /settings
+│   ├── tasks/
+│   │   ├── [id].tsx               /tasks/1, /tasks/2, ...
+│   │   └── new.tsx                /tasks/new, mở dạng modal
+│   └── +not-found.tsx             URL không khớp route
+├── components/TaskRow.tsx         Component dùng lại
+└── contexts/TasksContext.tsx      Dữ liệu dùng chung</code></pre></div>
+<h3>Bước 2 Đọc dữ liệu dùng chung trước khi đọc màn hình</h3>
+<p>TasksProvider khởi tạo hai công việc có ID 1 và 2. <code>addTask</code> trả về ID vừa tạo để handler điều hướng tới detail. <code>toggleTask</code> tạo state mới để cả detail và danh sách nhận cập nhật.</p>
+<details class="source-file" open><summary>src/contexts/TasksContext.tsx</summary><div class="code-block"><div class="code-head"><span>src/contexts/TasksContext.tsx</span><button type="button" class="copy-code" aria-label="Sao chép src/contexts/TasksContext.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { createContext, useContext, useRef, useState, type ReactNode } from &#x27;react&#x27;;
+
+export type Task = {
+  id: string;
+  title: string;
+  notes: string;
+  completed: boolean;
+};
+
+type TasksState = {
+  tasks: Task[];
+  addTask: (title: string, notes: string) =&gt; string;
+  toggleTask: (id: string) =&gt; void;
+};
+
+const initialTasks: Task[] = [
+  { id: &#x27;1&#x27;, title: &#x27;Hiểu _layout.tsx&#x27;, notes: &#x27;Layout tổ chức navigator và provider.&#x27;, completed: false },
+  { id: &#x27;2&#x27;, title: &#x27;Mở một dynamic route&#x27;, notes: &#x27;ID thuộc URL; dữ liệu được đọc từ Context.&#x27;, completed: true },
+];
+
+const TasksContext = createContext&lt;TasksState | null&gt;(null);
+
+export function TasksProvider({ children }: { children: ReactNode }) {
+  const [tasks, setTasks] = useState&lt;Task[]&gt;(initialTasks);
+  const nextId = useRef(3);
+
+  function addTask(title: string, notes: string) {
+    const id = String(nextId.current++);
+    const task: Task = { id, title: title.trim(), notes: notes.trim(), completed: false };
+    setTasks((current) =&gt; [task, ...current]);
+    return id;
+  }
+
+  function toggleTask(id: string) {
+    setTasks((current) =&gt; current.map((task) =&gt;
+      task.id === id ? { ...task, completed: !task.completed } : task,
+    ));
+  }
+
+  return (
+    &lt;TasksContext.Provider value={{ tasks, addTask, toggleTask }}&gt;
+      {children}
+    &lt;/TasksContext.Provider&gt;
+  );
+}
+
+export function useTasks() {
+  const context = useContext(TasksContext);
+  if (!context) throw new Error(&#x27;useTasks phải nằm trong TasksProvider.&#x27;);
+  return context;
+}</code></pre></div></details>
+<p><strong>Quan sát:</strong> ID được lưu dạng chuỗi để phù hợp cách dùng URL. Đây là chiến lược ID đơn giản của lab, không phải cách sinh ID dành cho dữ liệu đồng bộ nhiều thiết bị.</p>
+<h3>Bước 3 Gắn provider và tạo cây navigator</h3>
+<p>Root Stack chứa Tabs, detail, modal new và route fallback. Tabs làm anchor khi mở thẳng detail/modal. Redirect của <code>/</code> nằm trong <code>(tabs)/index.tsx</code> để tránh tạo hai Tabs instance.</p>
+<details class="source-file" open><summary>src/app/_layout.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/_layout.tsx</span><button type="button" class="copy-code" aria-label="Sao chép src/app/_layout.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Stack } from &#x27;expo-router&#x27;;
+import { StatusBar } from &#x27;expo-status-bar&#x27;;
+import { TasksProvider } from &#x27;../contexts/TasksContext&#x27;;
+
+// Giữ Tabs làm màn hình nền khi mở thẳng detail hoặc modal từ deep link.
+export const unstable_settings = { anchor: &#x27;(tabs)&#x27; };
+
+export default function RootLayout() {
+  return (
+    &lt;TasksProvider&gt;
+      &lt;StatusBar style=&quot;dark&quot; /&gt;
+      &lt;Stack screenOptions={{ headerTintColor: &#x27;#155eef&#x27;, contentStyle: { backgroundColor: &#x27;#f5f7fb&#x27; } }}&gt;
+        &lt;Stack.Screen name=&quot;(tabs)&quot; options={{ headerShown: false }} /&gt;
+        &lt;Stack.Screen name=&quot;tasks/[id]&quot; options={{ title: &#x27;Chi tiết công việc&#x27; }} /&gt;
+        &lt;Stack.Screen name=&quot;tasks/new&quot; options={{ title: &#x27;Tạo công việc&#x27;, presentation: &#x27;modal&#x27; }} /&gt;
+        &lt;Stack.Screen name=&quot;+not-found&quot; options={{ title: &#x27;Không tìm thấy trang&#x27; }} /&gt;
+      &lt;/Stack&gt;
+    &lt;/TasksProvider&gt;
+  );
+}</code></pre></div></details>
+<details class="source-file" open><summary>src/app/(tabs)/_layout.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/(tabs)/_layout.tsx</span><button type="button" class="copy-code" aria-label="Sao chép src/app/(tabs)/_layout.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Tabs } from &#x27;expo-router&#x27;;
+import { Text } from &#x27;react-native&#x27;;
+
+export default function TabsLayout() {
+  return (
+    &lt;Tabs initialRouteName=&quot;tasks/index&quot; screenOptions={{ tabBarActiveTintColor: &#x27;#155eef&#x27; }}&gt;
+      &lt;Tabs.Screen name=&quot;index&quot; options={{ href: null }} /&gt;
+      &lt;Tabs.Screen name=&quot;tasks/index&quot; options={{
+        title: &#x27;Công việc&#x27;,
+        tabBarIcon: ({ color }) =&gt; &lt;Text style={{ color, fontSize: 20 }}&gt;✓&lt;/Text&gt;,
+      }} /&gt;
+      &lt;Tabs.Screen name=&quot;settings&quot; options={{
+        title: &#x27;Ghi chú&#x27;,
+        tabBarIcon: ({ color }) =&gt; &lt;Text style={{ color, fontSize: 20 }}&gt;ⓘ&lt;/Text&gt;,
+      }} /&gt;
+    &lt;/Tabs&gt;
+  );
+}</code></pre></div></details>
+<details class="source-file" open><summary>src/app/(tabs)/index.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/(tabs)/index.tsx</span><button type="button" class="copy-code" aria-label="Sao chép src/app/(tabs)/index.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Redirect } from &#x27;expo-router&#x27;;
+
+export default function Index() {
+  return &lt;Redirect href=&quot;/(tabs)/tasks&quot; /&gt;;
+}</code></pre></div></details>
+<p>Hãy đọc lại <code>Tabs.Screen name="tasks/index"</code>: đó là tên route con trong layout Tabs, vì thư mục <code>tasks</code> bên trong nhóm này không có layout riêng. <code>href: null</code> của index chỉ bỏ nút tab redirect khỏi thanh tab.</p>
+<h3>Bước 4 Dùng Link nối danh sách với detail</h3>
+<p>TaskRow nhận object task từ danh sách, tạo href gồm <code>pathname</code> và <code>params</code>. URL mang ID và tags minh hoạ; object task đầy đủ vẫn ở Context. File component nằm bên ngoài thư mục route.</p>
+<details class="source-file" open><summary>src/components/TaskRow.tsx</summary><div class="code-block"><div class="code-head"><span>src/components/TaskRow.tsx</span><button type="button" class="copy-code" aria-label="Sao chép src/components/TaskRow.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Link } from &#x27;expo-router&#x27;;
+import { Pressable, StyleSheet, Text } from &#x27;react-native&#x27;;
+import type { Task } from &#x27;../contexts/TasksContext&#x27;;
+
+export function TaskRow({ task }: { task: Task }) {
+  return (
+    &lt;Link href={{ pathname: &#x27;/tasks/[id]&#x27;, params: { id: task.id, tags: &#x27;router,lab&#x27; } }} asChild&gt;
+      &lt;Pressable style={styles.row} accessibilityLabel={`Xem ${task.title}`}&gt;
+        &lt;Text style={styles.status}&gt;{task.completed ? &#x27;✓ Đã xong&#x27; : &#x27;○ Chưa xong&#x27;}&lt;/Text&gt;
+        &lt;Text style={styles.title}&gt;{task.title}&lt;/Text&gt;
+        &lt;Text style={styles.hint}&gt;/tasks/{task.id} →&lt;/Text&gt;
+      &lt;/Pressable&gt;
+    &lt;/Link&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  row: { backgroundColor: &#x27;#fff&#x27;, padding: 18, borderRadius: 16, gap: 7 },
+  status: { color: &#x27;#155eef&#x27;, fontWeight: &#x27;600&#x27; },
+  title: { color: &#x27;#17253f&#x27;, fontSize: 18, fontWeight: &#x27;600&#x27; },
+  hint: { color: &#x27;#5d6c84&#x27; },
+});</code></pre></div></details>
+<details class="source-file" open><summary>src/app/(tabs)/tasks/index.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/(tabs)/tasks/index.tsx</span><button type="button" class="copy-code" aria-label="Sao chép src/app/(tabs)/tasks/index.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Link } from &#x27;expo-router&#x27;;
+import { FlatList, Pressable, StyleSheet, Text, View } from &#x27;react-native&#x27;;
+import { TaskRow } from &#x27;../../../components/TaskRow&#x27;;
+import { useTasks } from &#x27;../../../contexts/TasksContext&#x27;;
+
+export default function TasksScreen() {
+  const { tasks } = useTasks();
+  const completed = tasks.filter((task) =&gt; task.completed).length;
+
+  return (
+    &lt;FlatList
+      style={styles.screen}
+      contentContainerStyle={styles.content}
+      data={tasks}
+      keyExtractor={(task) =&gt; task.id}
+      renderItem={({ item }) =&gt; &lt;TaskRow task={item} /&gt;}
+      ItemSeparatorComponent={() =&gt; &lt;View style={{ height: 12 }} /&gt;}
+      ListHeaderComponent={
+        &lt;View style={styles.header}&gt;
+          &lt;Text style={styles.title}&gt;Router Lab&lt;/Text&gt;
+          &lt;Text style={styles.caption}&gt;{completed}/{tasks.length} công việc đã hoàn thành&lt;/Text&gt;
+          &lt;Link href=&quot;/tasks/new&quot; asChild&gt;
+            &lt;Pressable style={styles.button} accessibilityRole=&quot;button&quot;&gt;
+              &lt;Text style={styles.buttonText}&gt;+ Tạo công việc&lt;/Text&gt;
+            &lt;/Pressable&gt;
+          &lt;/Link&gt;
+        &lt;/View&gt;
+      }
+      ListEmptyComponent={&lt;Text&gt;Chưa có công việc nào. Hãy tạo công việc đầu tiên.&lt;/Text&gt;}
+    /&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: &#x27;#f5f7fb&#x27; },
+  content: { padding: 20, paddingBottom: 32 },
+  header: { gap: 12, marginBottom: 20 },
+  title: { fontSize: 30, fontWeight: &#x27;700&#x27;, color: &#x27;#17253f&#x27; },
+  caption: { color: &#x27;#5d6c84&#x27;, fontSize: 16 },
+  button: { backgroundColor: &#x27;#155eef&#x27;, borderRadius: 12, padding: 16 },
+  buttonText: { color: &#x27;#fff&#x27;, fontWeight: &#x27;700&#x27;, textAlign: &#x27;center&#x27; },
+});</code></pre></div></details>
+<h3>Bước 5 Detail đọc ID rồi tìm dữ liệu</h3>
+<p>Screen chuẩn hóa ID và tags, tìm task trong Context, rồi đặt header theo task. Nếu route khớp nhưng dữ liệu không tồn tại, screen hiển thị lời giải thích. Nút <code>dismissTo</code> có đích danh sách rõ ràng.</p>
+<details class="source-file" open><summary>src/app/tasks/[id].tsx</summary><div class="code-block"><div class="code-head"><span>src/app/tasks/[id].tsx</span><button type="button" class="copy-code" aria-label="Sao chép src/app/tasks/[id].tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Link, Stack, useLocalSearchParams } from &#x27;expo-router&#x27;;
+import { Button, ScrollView, StyleSheet, Text, View } from &#x27;react-native&#x27;;
+import { useTasks } from &#x27;../../contexts/TasksContext&#x27;;
+
+export default function TaskDetailScreen() {
+  // Generic mô tả dữ liệu; kiểm tra runtime vẫn cần cho URL từ bên ngoài.
+  const params = useLocalSearchParams&lt;{ id?: string | string[]; tags?: string | string[] }&gt;();
+  const id = typeof params.id === &#x27;string&#x27; &amp;&amp; params.id.trim() ? params.id : undefined;
+  const tags = (Array.isArray(params.tags) ? params.tags : [params.tags ?? &#x27;&#x27;])
+    .flatMap((value) =&gt; value.split(&#x27;,&#x27;))
+    .map((value) =&gt; value.trim())
+    .filter(Boolean);
+  const { tasks, toggleTask } = useTasks();
+  const task = id ? tasks.find((item) =&gt; item.id === id) : undefined;
+
+  if (!task) {
+    return (
+      &lt;View style={styles.content}&gt;
+        &lt;Text style={styles.title}&gt;Không tìm thấy công việc&lt;/Text&gt;
+        &lt;Text style={styles.text}&gt;
+          {id ? `ID “${id}” chưa có trong dữ liệu hiện tại.` : &#x27;URL thiếu ID hợp lệ.&#x27;}
+          {&#x27; &#x27;}Công việc vừa tạo sẽ mất khi reload vì lab dùng dữ liệu trong bộ nhớ.
+        &lt;/Text&gt;
+        &lt;Link href=&quot;/(tabs)/tasks&quot; dismissTo style={styles.link}&gt;Về danh sách&lt;/Link&gt;
+      &lt;/View&gt;
+    );
+  }
+
+  return (
+    &lt;ScrollView style={styles.screen} contentContainerStyle={styles.content}&gt;
+      &lt;Stack.Screen options={{ title: `Công việc #${task.id}` }} /&gt;
+      &lt;Text style={styles.eyebrow}&gt;PATH PARAM · id = {task.id}&lt;/Text&gt;
+      &lt;Text style={styles.title}&gt;{task.title}&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;{task.notes || &#x27;Chưa có ghi chú.&#x27;}&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;Trạng thái: {task.completed ? &#x27;Đã hoàn thành&#x27; : &#x27;Đang làm&#x27;}&lt;/Text&gt;
+      &lt;Button title={task.completed ? &#x27;Đánh dấu chưa xong&#x27; : &#x27;Đánh dấu hoàn thành&#x27;}
+        onPress={() =&gt; toggleTask(task.id)} /&gt;
+      &lt;Text style={styles.eyebrow}&gt;QUERY PARAM · tags&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;{tags.length ? tags.join(&#x27; · &#x27;) : &#x27;Không truyền tags trong URL.&#x27;}&lt;/Text&gt;
+      &lt;Text style={styles.small}&gt;URL chỉ mang ID và bộ lọc. Nội dung công việc được lấy từ Context.&lt;/Text&gt;
+      &lt;Link href=&quot;/(tabs)/tasks&quot; dismissTo style={styles.link}&gt;Về danh sách&lt;/Link&gt;
+    &lt;/ScrollView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: &#x27;#f5f7fb&#x27; },
+  content: { padding: 24, gap: 20, paddingBottom: 40 },
+  title: { fontSize: 28, fontWeight: &#x27;700&#x27;, color: &#x27;#17253f&#x27; },
+  text: { color: &#x27;#44546f&#x27;, fontSize: 17, lineHeight: 27 },
+  eyebrow: { fontSize: 12, fontWeight: &#x27;700&#x27;, color: &#x27;#155eef&#x27; },
+  small: { color: &#x27;#5d6c84&#x27;, fontSize: 14, lineHeight: 22 },
+  link: { color: &#x27;#155eef&#x27;, fontSize: 17, paddingVertical: 12 },
+});</code></pre></div></details>
+<h3>Bước 6 Tạo task rồi thay form bằng detail</h3>
+<p>Form kiểm tra độ dài tiêu đề trước khi lưu. Chỉ sau khi tạo task thành công, handler mới gọi <code>replace</code>. Đây là một ví dụ về việc tách điều hướng khai báo bằng Link với điều hướng sau hành động bằng router.</p>
+<details class="source-file" open><summary>src/app/tasks/new.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/tasks/new.tsx</span><button type="button" class="copy-code" aria-label="Sao chép src/app/tasks/new.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { router } from &#x27;expo-router&#x27;;
+import { useState } from &#x27;react&#x27;;
+import { Button, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput } from &#x27;react-native&#x27;;
+import { useTasks } from &#x27;../../contexts/TasksContext&#x27;;
+
+export default function NewTaskScreen() {
+  const [title, setTitle] = useState(&#x27;&#x27;);
+  const [notes, setNotes] = useState(&#x27;&#x27;);
+  const [error, setError] = useState(&#x27;&#x27;);
+  const { addTask } = useTasks();
+
+  function save() {
+    if (title.trim().length &lt; 3) {
+      setError(&#x27;Tiêu đề cần ít nhất 3 ký tự, không tính khoảng trắng đầu/cuối.&#x27;);
+      return;
+    }
+    const id = addTask(title, notes);
+    // Thay modal bằng detail: Back từ detail không quay lại form vừa lưu.
+    router.replace({ pathname: &#x27;/tasks/[id]&#x27;, params: { id } });
+  }
+
+  function cancel() {
+    if (router.canGoBack()) router.back();
+    else router.replace(&#x27;/(tabs)/tasks&#x27;);
+  }
+
+  return (
+    &lt;KeyboardAvoidingView style={styles.screen} behavior={Platform.OS === &#x27;ios&#x27; ? &#x27;padding&#x27; : undefined}&gt;
+      &lt;ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps=&quot;handled&quot;&gt;
+        &lt;Text style={styles.title}&gt;Tạo một công việc&lt;/Text&gt;
+        &lt;Text style={styles.caption}&gt;Đây là route /tasks/new được trình bày dạng modal.&lt;/Text&gt;
+        &lt;Text style={styles.label}&gt;Tiêu đề&lt;/Text&gt;
+        &lt;TextInput style={styles.input} value={title} onChangeText={(value) =&gt; {
+          setTitle(value);
+          setError(&#x27;&#x27;);
+        }} placeholder=&quot;Ví dụ: Thử router.replace&quot; accessibilityLabel=&quot;Tiêu đề công việc&quot;
+          maxLength={120} autoFocus returnKeyType=&quot;next&quot; /&gt;
+        &lt;Text style={styles.label}&gt;Ghi chú&lt;/Text&gt;
+        &lt;TextInput style={[styles.input, styles.notes]} value={notes} onChangeText={setNotes}
+          placeholder=&quot;Ghi điều bạn vừa học...&quot; accessibilityLabel=&quot;Ghi chú công việc&quot;
+          multiline maxLength={1000} /&gt;
+        {error ? &lt;Text style={styles.error} accessibilityRole=&quot;alert&quot;&gt;{error}&lt;/Text&gt; : null}
+        &lt;Button title=&quot;Lưu và mở chi tiết&quot; onPress={save} /&gt;
+        &lt;Button title=&quot;Hủy&quot; onPress={cancel} color=&quot;#5d6c84&quot; /&gt;
+      &lt;/ScrollView&gt;
+    &lt;/KeyboardAvoidingView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: &#x27;#f5f7fb&#x27; },
+  content: { padding: 24, paddingBottom: 48, gap: 16 },
+  title: { color: &#x27;#17253f&#x27;, fontSize: 27, fontWeight: &#x27;700&#x27; },
+  caption: { color: &#x27;#5d6c84&#x27;, lineHeight: 23 },
+  label: { color: &#x27;#17253f&#x27;, fontWeight: &#x27;600&#x27;, fontSize: 16 },
+  input: { borderWidth: 1, borderColor: &#x27;#cfd7e6&#x27;, borderRadius: 12, padding: 16, backgroundColor: &#x27;#fff&#x27;, fontSize: 16 },
+  notes: { minHeight: 120, textAlignVertical: &#x27;top&#x27; },
+  error: { color: &#x27;#b42318&#x27;, lineHeight: 22 },
+});</code></pre></div></details>
+<h3>Bước 7 Hoàn thiện screen phụ và cấu hình</h3>
+<p>Tab Ghi chú giải thích phạm vi dữ liệu của lab. Screen not found phục vụ URL không khớp route. Các file cấu hình dưới đây đã có sẵn trong ZIP; mở khi cần đối chiếu môi trường.</p>
+<details class="source-file"><summary>src/app/(tabs)/settings.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/(tabs)/settings.tsx</span><button type="button" class="copy-code" aria-label="Sao chép src/app/(tabs)/settings.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { ScrollView, StyleSheet, Text } from &#x27;react-native&#x27;;
+import { useTasks } from &#x27;../../contexts/TasksContext&#x27;;
+
+export default function SettingsScreen() {
+  const { tasks } = useTasks();
+
+  return (
+    &lt;ScrollView style={styles.screen} contentContainerStyle={styles.content}&gt;
+      &lt;Text style={styles.title}&gt;Dữ liệu đi cùng layout&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;Hiện có {tasks.length} công việc trong TasksProvider.&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;
+        Provider bọc Root Stack nên Tabs, màn hình chi tiết và modal dùng chung dữ liệu.
+        Chuyển tab không làm mất danh sách.
+      &lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;
+        Đây là dữ liệu trong bộ nhớ. Reload toàn bộ ứng dụng hoặc khởi động lại sẽ
+        khôi phục 2 công việc mẫu. Fast Refresh có thể giữ hoặc reset state.
+      &lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;
+        (tabs) là route group: giúp tổ chức navigator và không xuất hiện trong URL công khai.
+        Màn hình chi tiết và tạo mới ở ngoài nhóm nên không có tab bar.
+      &lt;/Text&gt;
+    &lt;/ScrollView&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: &#x27;#f5f7fb&#x27; },
+  content: { padding: 24, gap: 18, paddingBottom: 40 },
+  title: { color: &#x27;#17253f&#x27;, fontSize: 27, fontWeight: &#x27;700&#x27; },
+  text: { color: &#x27;#44546f&#x27;, fontSize: 17, lineHeight: 27 },
+});</code></pre></div></details>
+<details class="source-file"><summary>src/app/+not-found.tsx</summary><div class="code-block"><div class="code-head"><span>src/app/+not-found.tsx</span><button type="button" class="copy-code" aria-label="Sao chép src/app/+not-found.tsx">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Link } from &#x27;expo-router&#x27;;
+import { StyleSheet, Text, View } from &#x27;react-native&#x27;;
+
+export default function NotFoundScreen() {
+  return (
+    &lt;View style={styles.screen}&gt;
+      &lt;Text style={styles.title}&gt;Không có trang này&lt;/Text&gt;
+      &lt;Text style={styles.text}&gt;URL không khớp với route nào trong src/app.&lt;/Text&gt;
+      &lt;Link href=&quot;/(tabs)/tasks&quot; dismissTo style={styles.link}&gt;Mở danh sách công việc&lt;/Link&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: { flex: 1, justifyContent: &#x27;center&#x27;, padding: 24, gap: 20, backgroundColor: &#x27;#f5f7fb&#x27; },
+  title: { color: &#x27;#17253f&#x27;, fontSize: 28, fontWeight: &#x27;700&#x27; },
+  text: { color: &#x27;#44546f&#x27;, fontSize: 17, lineHeight: 26 },
+  link: { color: &#x27;#155eef&#x27;, fontSize: 17, paddingVertical: 12 },
+});</code></pre></div></details>
+<details class="source-file"><summary>package.json</summary><div class="code-block"><div class="code-head"><span>package.json</span><button type="button" class="copy-code" aria-label="Sao chép package.json">Sao chép</button></div><pre tabindex="0"><code class="language-json">{
+  &quot;name&quot;: &quot;expo-router-guide-lab&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;private&quot;: true,
+  &quot;main&quot;: &quot;expo-router/entry&quot;,
+  &quot;scripts&quot;: {
+    &quot;start&quot;: &quot;expo start&quot;,
+    &quot;ios&quot;: &quot;expo start --ios&quot;,
+    &quot;android&quot;: &quot;expo start --android&quot;,
+    &quot;web&quot;: &quot;expo start --web&quot;,
+    &quot;typecheck&quot;: &quot;tsc --noEmit&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;expo&quot;: &quot;~57.0.30&quot;,
+    &quot;expo-constants&quot;: &quot;~57.0.22&quot;,
+    &quot;expo-linking&quot;: &quot;~57.0.13&quot;,
+    &quot;expo-router&quot;: &quot;~57.0.28&quot;,
+    &quot;expo-status-bar&quot;: &quot;~57.0.1&quot;,
+    &quot;react&quot;: &quot;19.2.3&quot;,
+    &quot;react-dom&quot;: &quot;19.2.3&quot;,
+    &quot;react-native&quot;: &quot;0.86.3&quot;,
+    &quot;react-native-safe-area-context&quot;: &quot;~5.7.0&quot;,
+    &quot;react-native-screens&quot;: &quot;~4.26.0&quot;,
+    &quot;react-native-web&quot;: &quot;~0.21.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@types/react&quot;: &quot;~19.2.2&quot;,
+    &quot;typescript&quot;: &quot;~6.0.3&quot;
+  }
+}</code></pre></div></details>
+<details class="source-file"><summary>app.json</summary><div class="code-block"><div class="code-head"><span>app.json</span><button type="button" class="copy-code" aria-label="Sao chép app.json">Sao chép</button></div><pre tabindex="0"><code class="language-json">{
+  &quot;expo&quot;: {
+    &quot;name&quot;: &quot;Router Lab&quot;,
+    &quot;slug&quot;: &quot;expo-router-guide-lab&quot;,
+    &quot;scheme&quot;: &quot;mytasks-router-lab&quot;,
+    &quot;orientation&quot;: &quot;portrait&quot;,
+    &quot;userInterfaceStyle&quot;: &quot;light&quot;,
+    &quot;plugins&quot;: [&quot;expo-router&quot;],
+    &quot;experiments&quot;: {
+      &quot;typedRoutes&quot;: false
+    }
+  }
+}</code></pre></div></details>
+<details class="source-file"><summary>tsconfig.json</summary><div class="code-block"><div class="code-head"><span>tsconfig.json</span><button type="button" class="copy-code" aria-label="Sao chép tsconfig.json">Sao chép</button></div><pre tabindex="0"><code class="language-json">{
+  &quot;extends&quot;: &quot;expo/tsconfig.base&quot;,
+  &quot;compilerOptions&quot;: {
+    &quot;strict&quot;: true
+  },
+  &quot;include&quot;: [&quot;src/**/*.ts&quot;, &quot;src/**/*.tsx&quot;, &quot;.expo/types/**/*.ts&quot;]
+}</code></pre></div></details>
+<h3>Chạy thử đúng hành trình để hiểu history</h3>
+<ol><li>Mở app ở <code>/</code>. Bạn được đưa tới danh sách <code>/tasks</code>, thấy hai task và hai tab.</li><li>Bấm task 1. URL tương ứng có ID và tags; detail hiện, tab bar không còn trong vùng này.</li><li>Đánh dấu hoàn thành rồi Back. Danh sách và bộ đếm đã đổi nhờ Context.</li><li>Mở Tạo công việc. Lưu với tiêu đề quá ngắn để thấy validation.</li><li>Nhập tiêu đề hợp lệ, lưu và mở detail. Back về danh sách, không quay lại form vừa lưu.</li><li>Chuyển tab Ghi chú rồi quay lại. Dữ liệu vẫn sống vì provider ở root.</li><li>Reload toàn bộ app. Hai task seed trở lại; task mới mất vì chưa có lưu trữ bền vững.</li><li>Mở <code>/tasks/999</code> rồi một URL không tồn tại. So sánh lỗi tài nguyên với lỗi route.</li></ol>
+<p><strong>Điểm dừng đạt yêu cầu:</strong> bạn giải thích được mỗi thao tác đã thay đổi URL, history và dữ liệu như thế nào. Nếu chỉ thấy màn hình chạy mà chưa giải thích được Back, hãy quay lại mô hình stack trước khi thêm tính năng mới.</p>
+</section>
+<section id="bao-ve-route" data-title="Đăng nhập và protected routes">
+<h2><span class="section-number">12 · KIẾN TRÚC NÂNG CAO</span>Bảo vệ nhánh route sau khi có session</h2>
+<p>Khi thêm đăng nhập, hãy tách ba trạng thái: đang khôi phục session, chưa đăng nhập và đã đăng nhập. Nếu chưa biết session mà đã render nhánh ứng dụng hoặc chuyển route vội, người dùng có thể thấy màn hình nhấp nháy hoặc gặp một chuỗi redirect khó dự đoán.</p>
+<figure><div class="figure-art"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 680" role="img" aria-labelledby="fig6-title fig6-desc">
+<title id="fig6-title">Đợi session trước, rồi mới mở nhánh route</title><desc id="fig6-desc">Luồng session đang tải hiển thị loading, chưa đăng nhập đi nhánh sign-in, đã đăng nhập mở nhóm protected chứa tabs và tasks. Protected routes là kiểm soát client, backend vẫn cần xác thực và phân quyền.</desc>
+<defs><marker id="fig6-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/></marker></defs>
+<rect height="680" rx="24" fill="#f8fafc"/>
+<text x="36" y="42" fill="#0f766e" font-family="Arial, sans-serif" font-size="17" font-weight="700" text-anchor="start"><tspan x="36" dy="0">HÌNH 06</tspan></text>
+<text x="36" y="80" fill="#172554" font-family="Arial, sans-serif" font-size="28" font-weight="700" text-anchor="start"><tspan x="36" dy="0">Đợi session trước, rồi mới mở nhánh route</tspan></text>
+<text x="36" y="112" fill="#64748b" font-family="Arial, sans-serif" font-size="18" font-weight="400" text-anchor="start"><tspan x="36" dy="0">Mô hình dùng Stack.Protected: điều kiện guard quyết định nhóm màn hình được phép truy cập.</tspan></text>
+<rect x="344" y="143" width="312" height="72" rx="16" fill="white" stroke="#cbd5e1" stroke-width="1.5"/><text x="500" y="174" fill="#172554" font-family="Arial, sans-serif" font-size="19" font-weight="700" text-anchor="middle"><tspan x="500" dy="0">SessionProvider</tspan><tspan x="500" dy="27">Khôi phục phiên đăng nhập</tspan></text><path d="M 500 220 V 253" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M 190 253 H 810" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M 190 253 V 291" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig6-arrow)"/><path d="M 500 253 V 291" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig6-arrow)"/><path d="M 810 253 V 291" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig6-arrow)"/><rect x="42" y="298" width="296" height="84" rx="14" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/><text x="190.0" y="331" fill="#64748b" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle"><tspan x="190.0" dy="0">Đang kiểm tra session</tspan><tspan x="190.0" dy="29">isLoading = true</tspan></text><rect x="352" y="298" width="296" height="84" rx="14" fill="#eff6ff" stroke="#cbd5e1" stroke-width="1.5"/><text x="500.0" y="331" fill="#2563eb" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle"><tspan x="500.0" dy="0">Chưa đăng nhập</tspan><tspan x="500.0" dy="29">session = null</tspan></text><rect x="662" y="298" width="296" height="84" rx="14" fill="#f0fdfa" stroke="#cbd5e1" stroke-width="1.5"/><text x="810.0" y="331" fill="#0f766e" font-family="Arial, sans-serif" font-size="20" font-weight="700" text-anchor="middle"><tspan x="810.0" dy="0">Đã đăng nhập</tspan><tspan x="810.0" dy="29">session tồn tại</tspan></text><path d="M 190 388 V 420" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig6-arrow)"/><path d="M 500 388 V 420" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig6-arrow)"/><path d="M 810 388 V 420" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#fig6-arrow)"/><rect x="42" y="427" width="296" height="91" rx="14" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/><text x="190.0" y="463" fill="#64748b" font-family="Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle"><tspan x="190.0" dy="0">Hiển thị loading</tspan><tspan x="190.0" dy="29">Chờ kết quả khôi phục</tspan></text><rect x="352" y="427" width="296" height="91" rx="14" fill="#eff6ff" stroke="#cbd5e1" stroke-width="1.5"/><text x="500.0" y="463" fill="#2563eb" font-family="Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle"><tspan x="500.0" dy="0">Route sign-in</tspan><tspan x="500.0" dy="29">Cho phép đăng nhập</tspan></text><rect x="662" y="427" width="296" height="91" rx="14" fill="#f0fdfa" stroke="#cbd5e1" stroke-width="1.5"/><text x="810.0" y="463" fill="#0f766e" font-family="Arial, sans-serif" font-size="20" font-weight="600" text-anchor="middle"><tspan x="810.0" dy="0">Nhóm được bảo vệ</tspan><tspan x="810.0" dy="29">(tabs) → /tasks</tspan></text><rect x="42" y="550" width="916" height="99" rx="16" fill="#fff7ed" stroke="#fed7aa" stroke-width="1.5"/><text x="64" y="585" fill="#9a3412" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="start"><tspan x="64" dy="0">Protected routes kiểm soát truy cập màn hình ở client.</tspan></text><text x="64" y="621" fill="#0f172a" font-family="Arial, sans-serif" font-size="19" font-weight="400" text-anchor="start"><tspan x="64" dy="0">Backend vẫn phải xác thực token và kiểm tra quyền với từng yêu cầu dữ liệu.</tspan></text>
+</svg></div><figcaption><span>Hình 6 · Quyết định nhánh màn hình theo trạng thái session</span><button class="zoom-figure" type="button">Phóng to hình</button></figcaption></figure>
+<p><code>Stack.Protected</code> cho phép mô tả những screen được truy cập khi một guard đúng. Khi guard chuyển sang false, các history entries của nhánh không còn được phép sẽ bị loại bỏ và Router chọn đích hợp lệ theo cấu hình.</p>
+<div class="code-block"><div class="code-head"><span>Pattern bảo vệ route ở layout sau khi đã có SessionProvider</span><button type="button" class="copy-code" aria-label="Sao chép Pattern bảo vệ route ở layout sau khi đã có SessionProvider">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Stack } from &#x27;expo-router&#x27;;
+import { Text } from &#x27;react-native&#x27;;
+import { useSession } from &#x27;../contexts/SessionContext&#x27;;
+
+// Pattern nâng cao: useSession phải được triển khai và Provider đặt phía trên.
+// Thêm file sign-in.tsx trước khi dùng cấu hình này.
+export function RootNavigator() {
+  const { session, isLoading } = useSession();
+
+  if (isLoading) return &lt;Text&gt;Đang kiểm tra phiên đăng nhập…&lt;/Text&gt;;
+
+  return (
+    &lt;Stack&gt;
+      &lt;Stack.Protected guard={!session}&gt;
+        &lt;Stack.Screen name=&quot;sign-in&quot; options={{ title: &#x27;Đăng nhập&#x27; }} /&gt;
+      &lt;/Stack.Protected&gt;
+      &lt;Stack.Protected guard={!!session}&gt;
+        &lt;Stack.Screen name=&quot;(tabs)&quot; options={{ headerShown: false }} /&gt;
+        &lt;Stack.Screen name=&quot;tasks/[id]&quot; /&gt;
+        &lt;Stack.Screen name=&quot;tasks/new&quot; options={{ presentation: &#x27;modal&#x27; }} /&gt;
+      &lt;/Stack.Protected&gt;
+    &lt;/Stack&gt;
+  );
+}</code></pre></div>
+<p><strong>Đây là pattern kiến trúc, chưa nằm trong project ZIP.</strong> Trước khi dùng, bạn cần triển khai <code>SessionContext</code>, đặt SessionProvider phía trên RootNavigator và thêm screen <code>sign-in.tsx</code>. Nếu tích hợp vào lab, giữ TasksProvider ở ngoài navigator như hiện tại; redirect index đã nằm trong nhóm Tabs nên không khai báo root index nữa.</p>
+<h3>Luồng đăng nhập nên có trách nhiệm rõ</h3>
+<ol><li>SessionProvider khôi phục trạng thái xác thực từ giải pháp của ứng dụng.</li><li>Trong lúc chờ, hiển thị loading hoặc phối hợp splash; chưa quyết định nhánh đăng nhập.</li><li>Khi có kết quả, guard cho phép sign in hoặc nhánh ứng dụng.</li><li>Đăng nhập thành công cập nhật session. Guard đổi và Router chọn nhánh được phép.</li><li>Đăng xuất làm session không còn hợp lệ; history của các screen bị bảo vệ được xử lý theo guard.</li></ol>
+<p><strong>Protected routes kiểm soát giao diện phía client.</strong> Server vẫn phải kiểm tra token, quyền truy cập và ownership của từng task. Một URL có ID đúng không chứng minh người dùng được phép đọc dữ liệu đó.</p>
+<p>Để tránh loop, không đặt một redirect không điều kiện ở screen vẫn được phép truy cập sau khi session đổi. Hãy thử cả cold start, mở deep link khi chưa đăng nhập, đăng nhập, đăng xuất và nhấn Back.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/router/advanced/protected/" target="_blank" rel="noopener">Protected routes</a>, <a href="https://docs.expo.dev/router/advanced/authentication/" target="_blank" rel="noopener">Authentication</a>. Giải pháp session cụ thể được để riêng khỏi lab điều hướng.</p>
+</section>
+<section id="deep-links" data-title="Deep links và typed routes">
+<h2><span class="section-number">13 · MỞ APP TỪ BÊN NGOÀI</span>Kiểm tra đường vào trực tiếp và kiểu dữ liệu</h2>
+<p>Với Expo Router, mỗi route có một địa chỉ có thể điều hướng tới. Mở link từ bên ngoài là một đường vào quan trọng của mobile app: người dùng có thể tới detail mà chưa đi qua danh sách trong phiên hiện tại.</p>
+<div class="code-block"><div class="code-head"><span>Cùng một route qua hai loại URL</span><button type="button" class="copy-code" aria-label="Sao chép Cùng một route qua hai loại URL">Sao chép</button></div><pre tabindex="0"><code class="language-text"># Expo Go: thay host và port bằng địa chỉ Metro thật
+exp://&lt;host&gt;:&lt;port&gt;/--/tasks/1?tags=router,lab
+
+# Chỉ dùng khi đã cài native app build với scheme tương ứng
+mytasks-router-lab://tasks/1?tags=router,lab</code></pre></div>
+<p>Để thử trên iOS Simulator cùng máy Mac, khi Metro đang dùng cổng 8081, có thể chạy lệnh dưới. Nếu CLI đang dùng cổng khác, thay cổng hoặc dùng địa chỉ Expo Go thực tế từ Terminal. Công cụ <code>uri-scheme</code> chỉ gửi yêu cầu mở link; nó không build native app.</p>
+<div class="code-block"><div class="code-head"><span>Thử Expo Go trên Simulator khi Metro dùng cổng 8081</span><button type="button" class="copy-code" aria-label="Sao chép Thử Expo Go trên Simulator khi Metro dùng cổng 8081">Sao chép</button></div><pre tabindex="0"><code class="language-bash">npx uri-scheme open &#x27;exp://127.0.0.1:8081/--/tasks/1?tags=router,lab&#x27; --ios
+
+# Nếu Metro chạy cổng khác, thay 8081 bằng cổng thực tế.
+# Có thể thay toàn bộ địa chỉ bằng Expo Go URL của project trong Terminal.</code></pre></div>
+<p>Trong URL Expo Go, <code>/--/</code> ngăn địa chỉ dev server với path của route. Custom scheme <code>mytasks-router-lab</code> trong app config chỉ được native app build tương ứng đăng ký. Expo Go không trở thành app mang scheme riêng chỉ vì bạn sửa <code>app.json</code>.</p>
+<h3>Cold start và warm start cần được kiểm tra riêng</h3>
+<p>Cold start mở app khi runtime chưa hoạt động. Warm start mở một link khi app đã có state và history. Trong lab, task 1 và 2 tồn tại ở cả hai tình huống vì là seed data. Task vừa tạo chỉ có trong bộ nhớ, nên deep link tới task đó sau một lần khởi động lại sẽ không tìm thấy dữ liệu.</p>
+<p>Anchor giúp tổ chức screen nền cho luồng detail/modal. Khi dữ liệu đến từ server, bạn còn phải bổ sung loading, lỗi request và quyền truy cập cho screen được mở thẳng. Navigator không giải quyết thay các trách nhiệm dữ liệu này.</p>
+<h3>Typed routes giúp bắt lỗi khi viết code</h3>
+<div class="code-block"><div class="code-head"><span>Bật typed routes trong app.json của project thật</span><button type="button" class="copy-code" aria-label="Sao chép Bật typed routes trong app.json của project thật">Sao chép</button></div><pre tabindex="0"><code class="language-json">{
+  &quot;expo&quot;: {
+    &quot;plugins&quot;: [&quot;expo-router&quot;],
+    &quot;experiments&quot;: {
+      &quot;typedRoutes&quot;: true
+    }
+  }
+}</code></pre></div>
+<p>Đây là cấu hình để hợp nhất vào <code>app.json</code> đang có, không phải thay toàn bộ file bằng phần JSON ngắn trên. Expo CLI sinh route types khi chạy. Project <code>my-tasks</code> hiện đã bật tùy chọn này; lab tắt để người học không phụ thuộc các type sinh trước khi khởi động.</p>
+<div class="code-block"><div class="code-head"><span>Href động với pathname và params tách rõ ràng</span><button type="button" class="copy-code" aria-label="Sao chép Href động với pathname và params tách rõ ràng">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { router } from &#x27;expo-router&#x27;;
+import { Button } from &#x27;react-native&#x27;;
+
+export function OpenTask({ taskId }: { taskId: string }) {
+  return (
+    &lt;Button title=&quot;Xem công việc&quot; onPress={() =&gt; router.push({
+      pathname: &#x27;/tasks/[id]&#x27;,
+      params: { id: taskId },
+    })} /&gt;
+  );
+}</code></pre></div>
+<p>Dùng pathname động dạng mẫu và params tách riêng giúp code dễ đọc, thuận lợi cho kiểm tra kiểu. Dù TypeScript chấp nhận lời gọi, URL đến từ bên ngoài vẫn phải kiểm tra runtime và dữ liệu task vẫn có thể không tồn tại.</p>
+<h3>Giữ imports đúng với SDK 57</h3>
+<div class="code-block"><div class="code-head"><span>Imports phù hợp với Expo Router SDK 57</span><button type="button" class="copy-code" aria-label="Sao chép Imports phù hợp với Expo Router SDK 57">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import { Stack, Tabs, Link, router, useLocalSearchParams } from &#x27;expo-router&#x27;;
+import { ThemeProvider, DefaultTheme, DarkTheme } from &#x27;expo-router/react-navigation&#x27;;
+
+// Với SDK 56 trở lên, dùng các entrypoint Expo Router tương ứng
+// thay cho imports application code trực tiếp từ @react-navigation/*.</code></pre></div>
+<p>Ví dụ cũ trên mạng có thể import trực tiếp từ <code>@react-navigation/*</code> hoặc thêm plugin Babel Router đời cũ. Hãy đối chiếu tài liệu matching SDK. Sổ tay này dùng Options API của Stack; không yêu cầu các API alpha hoặc tính năng chỉ có từ SDK 58.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/linking/into-your-app/" target="_blank" rel="noopener">Linking into your app</a>, <a href="https://docs.expo.dev/router/reference/typed-routes/" target="_blank" rel="noopener">Typed routes</a>, <a href="https://docs.expo.dev/router/migrate/sdk-55-to-56/" target="_blank" rel="noopener">Migration từ SDK 55 sang 56</a>, <a href="https://docs.expo.dev/router/installation/" target="_blank" rel="noopener">Installation</a>.</p>
+</section>
+<section id="loi-thuong-gap" data-title="Lỗi thường gặp và cách chẩn đoán">
+<h2><span class="section-number">14 · DEBUG CÓ THỨ TỰ</span>Phân biệt lỗi route dữ liệu và development</h2>
+<p>Khi app hiển thị khác mong đợi, hãy xác định lớp đang có vấn đề trước khi thay cấu hình. Cùng một biểu hiện “mở không đúng màn hình” có thể đến từ file sai chỗ, href sai, guard, state cũ hoặc dữ liệu không tồn tại.</p>
+<div class="table-wrap"><table><thead><tr><th>Biểu hiện</th><th>Kiểm tra đầu tiên</th><th>Cách xử lý phù hợp</th></tr></thead><tbody>
+<tr><td>Component dùng lại xuất hiện thành một trang</td><td>File có nằm dưới src/app không</td><td>Chuyển component ra ngoài thư mục route và sửa import</td></tr>
+<tr><td>Router báo file route thiếu default export</td><td>File được tạo trong app là screen hay utility</td><td>Screen cần default component; utility đặt ngoài app</td></tr>
+<tr><td>Screen options không có tác dụng</td><td>Tên Screen có tương đối đúng với layout không</td><td>Ví dụ Tabs của lab dùng tasks/index, root dùng tasks/[id]</td></tr>
+<tr><td>Hai header cùng hiện</td><td>Cả navigator cha và con có header không</td><td>Ẩn header ở ranh giới không cần hiển thị</td></tr>
+<tr><td>Tab bar biến mất trên detail</td><td>Detail có nằm ngoài nhóm Tabs không</td><td>Giữ nếu đúng thiết kế; chuyển vào Stack của tab nếu cần giữ tab bar</td></tr>
+<tr><td>Back quay lại form đã lưu</td><td>Lưu xong đang push hay replace</td><td>Dùng replace khi muốn thay bước form bằng detail</td></tr>
+<tr><td>Back có một lớp Tabs thừa</td><td>Root index redirect có kết hợp anchor Tabs không</td><td>Đưa redirect index vào Tabs như cấu trúc mẫu đã kiểm tra</td></tr>
+<tr><td>Task không tồn tại dù route đúng</td><td>ID, nguồn dữ liệu và việc Reload</td><td>Hiển thị trạng thái tài nguyên không tồn tại; kiểm tra persistence</td></tr>
+<tr><td>Navigate trước khi root sẵn sàng</td><td>Hành động điều hướng có chạy trước navigator mount không</td><td>Để navigator được render trước khi điều hướng; đặt logic redirect trong screen/nhánh phù hợp</td></tr>
+<tr><td>Href hợp lệ nhưng TypeScript vẫn báo lỗi</td><td>Route vừa đổi tên và type đã được sinh lại chưa</td><td>Khởi động Expo, đối chiếu route thật và file .expo/types được sinh</td></tr>
+<tr><td>Sửa JSX nhưng app không tự đổi</td><td>Đã lưu file, đúng Metro project, Fast Refresh bật chưa</td><td>Kiểm tra menu, Reload để nối lại client; chẩn đoán server nếu vẫn lỗi</td></tr>
+<tr><td>Sửa scheme hoặc splash không đổi</td><td>Đây có phải cấu hình native không</td><td>Build native app phù hợp; kiểm tra splash đầy đủ trên release build</td></tr>
+</tbody></table></div>
+<h3>Phân biệt ba loại lỗi khi mở URL</h3>
+<p><strong>Không khớp route:</strong> URL như <code>/khong-ton-tai</code> dùng <code>+not-found.tsx</code>. <strong>Không có tài nguyên:</strong> <code>/tasks/999</code> khớp file động, nhưng Context không có task 999 nên detail xử lý. <strong>Lỗi render:</strong> component ném exception; bạn có thể thêm ErrorBoundary để hiển thị trạng thái lỗi của nhánh.</p>
+<div class="code-block"><div class="code-head"><span>Named export thêm vào file screen hoặc layout</span><button type="button" class="copy-code" aria-label="Sao chép Named export thêm vào file screen hoặc layout">Sao chép</button></div><pre tabindex="0"><code class="language-tsx">import type { ErrorBoundaryProps } from &#x27;expo-router&#x27;;
+import { Button, Text, View } from &#x27;react-native&#x27;;
+
+// Giữ default export của screen; thêm named export này trong cùng file.
+export function ErrorBoundary({ error, retry }: ErrorBoundaryProps) {
+  return (
+    &lt;View style={{ flex: 1, padding: 24, justifyContent: &#x27;center&#x27;, gap: 16 }}&gt;
+      &lt;Text&gt;Không thể hiển thị màn hình này.&lt;/Text&gt;
+      &lt;Text&gt;{error.message}&lt;/Text&gt;
+      &lt;Button title=&quot;Thử lại&quot; onPress={() =&gt; void retry()} /&gt;
+    &lt;/View&gt;
+  );
+}</code></pre></div>
+<p>Khi thêm ví dụ này vào file hiện có, hợp nhất imports và giữ nguyên default export của screen. Trong app thật, nội dung lỗi hiển thị cho người dùng cần phù hợp; không đưa chi tiết nhạy cảm từ server ra giao diện.</p>
+<h3>Fast Refresh và Reload có mục đích khác nhau</h3>
+<p>Trên Simulator iOS, mở developer menu bằng <kbd>⌘D</kbd> và kiểm tra Fast refresh. Ở terminal Expo, <kbd>r</kbd> yêu cầu Reload toàn bộ app. Fast Refresh cập nhật code và cố gắng giữ state khi an toàn; Reload tạo lại runtime/state của ứng dụng.</p>
+<div class="code-block"><div class="code-head"><span>Lệnh khởi động lại Metro khi cần chẩn đoán cache</span><button type="button" class="copy-code" aria-label="Sao chép Lệnh khởi động lại Metro khi cần chẩn đoán cache">Sao chép</button></div><pre tabindex="0"><code class="language-bash"># Tại terminal đang chạy Metro: Ctrl+C, sau đó
+npm run ios -- --clear
+
+# Lệnh này phục vụ JavaScript và mở Expo Go.
+# Các thay đổi native như scheme hoặc plugin splash cần native build phù hợp.</code></pre></div>
+<p><strong>Trường hợp thực tế của project:</strong> đã từng xảy ra menu Fast Refresh bật nhưng client runtime chưa đồng bộ. Chẩn đoán phải xác nhận một thay đổi JSX tự hiện sau khi lưu, rồi thử lại sau Reload. Chỉ thấy server còn chạy hoặc có TCP connection chưa chứng minh HMR đang áp dụng bản cập nhật.</p>
+<p class="source-note">Đối chiếu: <a href="https://docs.expo.dev/router/error-handling/" target="_blank" rel="noopener">Error handling</a>, <a href="https://docs.expo.dev/debugging/tools/" target="_blank" rel="noopener">Debugging tools</a>, <a href="https://docs.expo.dev/versions/v57.0.0/sdk/splash-screen/" target="_blank" rel="noopener">SplashScreen SDK 57</a>. Các lỗi cấu trúc và HMR có thêm căn cứ từ project và buổi kiểm tra trước đó.</p>
+</section>
+<section id="bai-tap" data-title="Bài tập và tự kiểm tra">
+<h2><span class="section-number">15 · TỰ LÀM KHÔNG NHÌN MẪU</span>Các bài tập để kiểm tra bạn đã hiểu</h2>
+<h3>Bài 1 Đặt tên file cho một URL</h3><p>Bạn muốn mở <code>/projects/8/tasks/15</code>. Hãy chọn một cấu trúc file và liệt kê các params mà màn hình nhận.</p>
+<details class="answer"><summary>Xem hướng giải</summary><p>Một cách là <code>src/app/projects/[projectId]/tasks/[taskId].tsx</code>. Screen đọc <code>projectId = "8"</code> và <code>taskId = "15"</code>. Thêm layout khi cần wrapper hoặc navigator của nhánh, không chỉ vì có nhiều thư mục.</p></details>
+<h3>Bài 2 Dự đoán history trước khi bấm Back</h3><p>Bắt đầu ở danh sách, push task 1, push task 2, replace bằng task 3 rồi Back. Bạn đang ở screen nào? Làm lại trên mô hình tương tác để kiểm tra.</p>
+<details class="answer"><summary>Xem hướng giải</summary><p>History rút gọn lần lượt là <code>[list]</code>, <code>[list, 1]</code>, <code>[list, 1, 2]</code>, <code>[list, 1, 3]</code>. Back bỏ task 3, nên task 1 được hiển thị. Replace không thêm một phần tử vào cuối.</p></details>
+<h3>Bài 3 Thêm screen chỉnh sửa task</h3><p>Thêm route chỉnh sửa theo URL <code>/tasks/1/edit</code>. Đọc ID, tìm task, hiển thị form, bổ sung hàm update vào TasksContext rồi chọn hành vi sau lưu. Giữ scope task ở root provider.</p>
+<div class="code-block"><div class="code-head"><span>Gợi ý route chỉnh sửa ở bài tập nâng cao</span><button type="button" class="copy-code" aria-label="Sao chép Gợi ý route chỉnh sửa ở bài tập nâng cao">Sao chép</button></div><pre tabindex="0"><code class="language-text">src/app/tasks/[id]/edit.tsx  →  /tasks/1/edit
+
+router.push({
+  pathname: &#x27;/tasks/[id]/edit&#x27;,
+  params: { id: task.id },
+});
+
+// Giữ [id].tsx hiện có cho /tasks/1.
+// edit.tsx và màn hình detail dùng cùng TasksContext.</code></pre></div>
+<details class="answer"><summary>Câu hỏi để tự kiểm tra lời giải</summary><p>URL thiếu hoặc sai ID có giao diện phù hợp chưa? Lưu xong có muốn quay lại form khi Back không? Nội dung task có cập nhật ở list và detail không? Deep link trực tiếp tới edit có hoạt động với task seed không?</p></details>
+<h3>Bài 4 Giữ tab bar khi mở detail</h3><p>Thiết kế lại nhánh Công việc thành một Stack bên trong tab. Đặt list và detail dưới nhánh đó. Trước khi di chuyển file, vẽ lại cây navigator và liệt kê các href/name phải đổi.</p>
+<details class="answer"><summary>Xem hướng giải</summary><p>Có thể dùng <code>(tabs)/tasks/_layout.tsx</code> trả về Stack, <code>(tabs)/tasks/index.tsx</code> và <code>(tabs)/tasks/[id].tsx</code>. Screen của Tabs trở thành <code>tasks</code>, còn Stack bên trong dùng name <code>index</code> và <code>[id]</code>. Đừng giữ đồng thời detail cũ bên ngoài với cùng public URL nếu chưa chủ ý dùng cơ chế shared routes.</p></details>
+<h3>Bài 5 Phân biệt dữ liệu và URL</h3><p>Tạo task 3, sao chép URL detail, Reload app rồi mở lại URL đó. Giải thích vì sao route vẫn khớp nhưng task không tồn tại. Đề xuất lớp cần thêm để sửa yêu cầu lưu dữ liệu.</p>
+<details class="answer"><summary>Xem hướng giải</summary><p>File dynamic vẫn tồn tại nên Router chọn đúng screen. State Context đã khởi tạo lại nên task 3 biến mất. Muốn dữ liệu bền vững cần lưu và khôi phục từ storage hoặc API; thay navigation API không giải quyết việc mất dữ liệu.</p></details>
+<h3>Checklist trước khi tự xây tính năng mới</h3>
+<ul class="checklist"><li>Tôi dự đoán được URL từ một file route và ngược lại.</li><li>Tôi phân biệt route name trong layout với href dùng để điều hướng.</li><li>Tôi chọn được Stack, Tabs hay Slot theo trải nghiệm cần có.</li><li>Tôi dự đoán được history sau push, replace và back.</li><li>Tôi xử lý được params thiếu, sai kiểu và tài nguyên không tồn tại.</li><li>Tôi biết provider nên sống ở layout nào để chia sẻ state.</li><li>Tôi đã thử mở thẳng detail/modal bằng deep link.</li><li>Tôi phân biệt sửa JavaScript, Reload và thay đổi cần native build.</li></ul>
+</section>
+<section id="tai-lieu-goc" data-title="Tra cứu và nguồn đối chiếu">
+<h2><span class="section-number">16 · TRA CỨU TIẾP</span>Nguồn chính thức và giới hạn của bộ mẫu</h2>
+<p>Tài liệu được biên soạn cho Expo SDK 57, Router 57.0.28 và React Native 0.86.3, đối chiếu ngày 18 10 2026. Các guide không có số phiên bản có thể được cập nhật theo SDK mới; khi sao chép API khác vào app, ưu tiên reference SDK 57 và đối chiếu package thực tế.</p>
+<ol class="source-list"><li><a href="https://docs.expo.dev/versions/v57.0.0/" target="_blank" rel="noopener">Expo SDK 57 reference</a> — phiên bản nền tảng và thư viện tương ứng.</li><li><a href="https://docs.expo.dev/versions/v57.0.0/sdk/router/" target="_blank" rel="noopener">Router SDK 57 API</a> — APIs, props và yêu cầu imports.</li><li><a href="https://docs.expo.dev/router/basics/core-concepts/" target="_blank" rel="noopener">Core concepts</a> — file tree, URL và layout.</li><li><a href="https://docs.expo.dev/router/basics/notation/" target="_blank" rel="noopener">Notation</a> — index, groups và dynamic routes.</li><li><a href="https://docs.expo.dev/router/basics/navigation-layouts/" target="_blank" rel="noopener">Navigation layouts</a> — root và nested layout.</li><li><a href="https://docs.expo.dev/router/basics/navigation/" target="_blank" rel="noopener">Navigation</a> — href và các thao tác điều hướng.</li><li><a href="https://docs.expo.dev/versions/v57.0.0/sdk/router/link/" target="_blank" rel="noopener">Link SDK 57</a> — Link, asChild và các lựa chọn navigation.</li><li><a href="https://docs.expo.dev/router/reference/url-parameters/" target="_blank" rel="noopener">URL parameters</a> — local, global, path và query params.</li><li><a href="https://docs.expo.dev/router/advanced/stack/" target="_blank" rel="noopener">Stack</a> và <a href="https://docs.expo.dev/router/advanced/tabs/" target="_blank" rel="noopener">JavaScript tabs</a> — cấu hình navigator.</li><li><a href="https://docs.expo.dev/router/advanced/nesting-navigators/" target="_blank" rel="noopener">Nesting navigators</a> — ranh giới Stack và Tabs.</li><li><a href="https://docs.expo.dev/router/advanced/modals/" target="_blank" rel="noopener">Modals</a> và <a href="https://docs.expo.dev/router/advanced/router-settings/" target="_blank" rel="noopener">Router settings</a> — presentation và anchor.</li><li><a href="https://docs.expo.dev/router/advanced/protected/" target="_blank" rel="noopener">Protected routes</a> — guard và history của nhánh bị bảo vệ.</li><li><a href="https://docs.expo.dev/router/reference/typed-routes/" target="_blank" rel="noopener">Typed routes</a> — kiểm tra href trong TypeScript.</li><li><a href="https://docs.expo.dev/linking/into-your-app/" target="_blank" rel="noopener">Linking into your app</a> — custom scheme và Expo Go URL.</li><li><a href="https://docs.expo.dev/router/reference/focus-handling/" target="_blank" rel="noopener">Focus handling</a> và <a href="https://docs.expo.dev/router/error-handling/" target="_blank" rel="noopener">Error handling</a> — lifecycle và trạng thái lỗi.</li><li><a href="https://docs.expo.dev/router/migrate/sdk-55-to-56/" target="_blank" rel="noopener">SDK 55 to 56 migration</a> — thay đổi entrypoints React Navigation.</li><li><a href="https://docs.expo.dev/debugging/tools/" target="_blank" rel="noopener">Debugging tools</a> và <a href="https://reactnative.dev/docs/0.86/fast-refresh" target="_blank" rel="noopener">React Native Fast Refresh</a> — công cụ development.</li><li><a href="https://docs.expo.dev/versions/v57.0.0/sdk/splash-screen/" target="_blank" rel="noopener">SplashScreen SDK 57</a> — phân biệt config native và runtime.</li></ol>
+<p><strong>Đã kiểm tra:</strong> source mẫu qua typecheck và export iOS; cấu trúc route được rà soát với Router SDK 57; HTML được kiểm tra chức năng và bố cục ở desktop/điện thoại. Các hình là sơ đồ minh hoạ khái niệm, không phải ảnh chụp app.</p>
+<p><strong>Chưa triển khai trong ZIP:</strong> auth/session thật, storage, backend, đồng bộ nhiều thiết bị, upload, notification hoặc cấu hình production deep links. Phần protected routes là kiến trúc để tiếp tục sau khi bạn nắm vững bài lab.</p>
+</section>
+<footer class="document-footer"><strong>Expo Router từ nền tảng đến thực hành</strong><p>Bản dành cho Expo SDK 57 · Ví dụ tiếng Việt · Có thể lưu file HTML và đọc offline</p><a href="#dau-trang">Về đầu tài liệu ↑</a></footer></main></div>
+<dialog id="figure-dialog" aria-label="Xem hình minh hoạ phóng to"><div class="dialog-head"><div>Hình minh hoạ<small>Kéo ngang hoặc dọc để xem toàn bộ hình</small></div><button type="button" id="close-figure">Đóng ×</button></div><div class="zoom-stage" tabindex="0" aria-label="Vùng hình phóng to có thể cuộn ngang và dọc"></div></dialog><div id="copy-status" class="sr-only" role="status" aria-live="polite"></div>
+<script>const statusRegion = document.getElementById('copy-status');
+document.querySelectorAll('.copy-code').forEach(button => button.addEventListener('click', async () => {
+  const text = button.closest('.code-block').querySelector('code').textContent;
+  try {
+    if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(text);
+    else throw new Error('clipboard fallback');
+  } catch {
+    const area = document.createElement('textarea'); area.value = text; area.setAttribute('aria-label','Nội dung cần sao chép');
+    area.style.cssText='position:fixed;left:-10000px;top:0'; document.body.appendChild(area); area.select();
+    const copied = document.execCommand('copy'); area.remove();
+    if (!copied) {button.textContent='Chọn code để copy'; statusRegion.textContent='Trình duyệt chặn clipboard. Hãy chọn và sao chép code.'; return;}
+  }
+  button.textContent='Đã sao chép'; statusRegion.textContent='Đã sao chép code vào clipboard';
+  setTimeout(()=>button.textContent='Sao chép',1800);
+}));
+document.querySelectorAll('.download-lab').forEach(button=>button.addEventListener('click',()=>{
+  const bytes=Uint8Array.from(atob('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'),c=>c.charCodeAt(0));
+  const url=URL.createObjectURL(new Blob([bytes],{type:'application/zip'})); const a=document.createElement('a');
+  a.href=url;a.download='expo-router-lab.zip';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
+}));
+document.getElementById('print-guide').addEventListener('click',()=>window.print());
+const dialog=document.getElementById('figure-dialog');
+document.querySelectorAll('.zoom-figure').forEach(button=>button.addEventListener('click',()=>{
+  const stage=dialog.querySelector('.zoom-stage');stage.replaceChildren(button.closest('figure').querySelector('svg').cloneNode(true));dialog.showModal();stage.focus();
+}));
+document.getElementById('close-figure').addEventListener('click',()=>dialog.close());
+dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close()});
+const sections=[...document.querySelectorAll('section[id]')];
+function updateReading(){const max=document.documentElement.scrollHeight-innerHeight;document.getElementById('reading-progress').style.width=(max>0?scrollY/max*100:0)+'%';let current=sections[0]?.id;for(const section of sections){if(section.getBoundingClientRect().top<160)current=section.id}document.querySelectorAll('nav a').forEach(a=>{const active=a.getAttribute('href')==='#'+current;a.classList.toggle('active',active);if(active)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')})}
+window.addEventListener('scroll',updateReading,{passive:true});window.addEventListener('resize',updateReading);updateReading();
+let stack=['/tasks'];const stackDisplay=document.getElementById('stack-display');
+function renderStack(action){stackDisplay.replaceChildren(...stack.map((path,index)=>{const el=document.createElement('div');el.className='stack-screen';el.textContent=`${index+1}. ${path}${index===stack.length-1?' ← đang hiển thị':''}`;return el}));document.getElementById('stack-result').textContent=`${action} · canGoBack() = ${stack.length>1} · ${stack.length} screen trong mô hình`;document.querySelector('[data-stack="back"]').disabled=stack.length===1;document.querySelectorAll('[data-stack="push42"],[data-stack="push7"]').forEach(b=>b.disabled=stack.length>=6)}
+document.querySelectorAll('[data-stack]').forEach(button=>button.addEventListener('click',()=>{const action=button.dataset.stack;if(action==='push42')stack.push('/tasks/42');if(action==='push7')stack.push('/tasks/7');if(action==='replace')stack[stack.length-1]='/tasks/99';if(action==='back'&&stack.length>1)stack.pop();if(action==='reset')stack=['/tasks'];renderStack(button.textContent)}));renderStack('Trạng thái ban đầu');
+const routeExamples={
+  '/tasks':{file:'src/app/(tabs)/tasks/index.tsx',params:'{}',layout:'Root Stack → (tabs) Tabs → Công việc'},
+  '/settings':{file:'src/app/(tabs)/settings.tsx',params:'{}',layout:'Root Stack → (tabs) Tabs → Cài đặt'},
+  '/tasks/42?source=home':{file:'src/app/tasks/[id].tsx',params:'{ id: "42", source: "home" }',layout:'Root Stack → Chi tiết công việc'},
+  '/tasks/new':{file:'src/app/tasks/new.tsx',params:'{}',layout:'Root Stack → Modal tạo công việc'},
+  '/khong-ton-tai':{file:'src/app/+not-found.tsx',params:'Không có route phù hợp',layout:'Root Stack → Trang không tồn tại'}
+};
+const routeSelect=document.getElementById('route-select');function inspectRoute(){const result=routeExamples[routeSelect.value];document.getElementById('route-file').textContent=result.file;document.getElementById('route-params').textContent=result.params;document.getElementById('route-layout').textContent=result.layout}routeSelect.addEventListener('change',inspectRoute);inspectRoute();
+</script></body></html>
