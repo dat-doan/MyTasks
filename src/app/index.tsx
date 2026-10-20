@@ -1,17 +1,21 @@
-import { View, Text } from 'react-native';
+import TaskSummary from "@/components/TaskSummary";
+import TaskTracking from "@/components/TaskTracking";
+import { StyleSheet, View } from "react-native";
 
-export default function ShrinkDemo() {
+export default function MyTasks() {
   return (
-    <View style={{ width: 300, maxWidth: '100%', flexDirection: 'row', gap: 20 }}>
-      <View style={{ flexBasis: 200, flexGrow: 0, flexShrink: 1,
-        minWidth: 0, height: 64, backgroundColor: '#d8eee5' }}>
-        <Text>A</Text>
-      </View>
-      <View style={{ flexBasis: 200, flexGrow: 0, flexShrink: 2,
-        minWidth: 0, height: 64, backgroundColor: '#dfebfa' }}>
-        <Text>B</Text>
-      </View>
+    <View style={styles.container}>
+      <TaskSummary title="My Tasks" subtitle="0 cong viec hoan thanh" />
+      <TaskTracking percent={35} />
     </View>
   );
 }
-// Khi hàng thực sự rộng 300: A = 160, B = 120, gap = 20.
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    gap: 10,
+    backgroundColor: "#F7F9FB",
+  },
+});
