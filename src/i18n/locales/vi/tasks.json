@@ -7,6 +7,12 @@
     "add": "Thêm công việc",
     "delete": "Xoá công việc"
   },
+  "deleteConfirmation": {
+    "title": "Xoá công việc?",
+    "message": "Bạn có chắc chắn muốn xoá công việc này không?",
+    "cancel": "Huỷ",
+    "confirm": "Xác nhận"
+  },
   "input": {
     "placeholder": "Nhập công việc mới..."
   }

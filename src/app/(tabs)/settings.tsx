@@ -1,7 +1,8 @@
 import ActionSheet from "@/components/ActionSheet";
 import SettingsRow from "@/components/SettingsRow";
 import type { AppLanguage } from "@/i18n/language";
-import { useState } from "react";
+import { setLanguage } from "@/i18n/language";
+import { useEffect, useState } from "react";
 import { withTranslation, type WithTranslation } from "react-i18next";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -11,7 +12,9 @@ function Settings({ t, i18n }: WithTranslation<"common">) {
     i18n.resolvedLanguage?.startsWith("en") ? "en" : "vi",
   );
   const [selectedTheme, setSelectedTheme] = useState<"light" | "dark">("light");
-  const [activeSheet, setActiveSheet] = useState<"language" | "theme" | null>(null);
+  const [activeSheet, setActiveSheet] = useState<"language" | "theme" | null>(
+    null,
+  );
 
   const languageOptions = [
     { value: "vi", label: t(($) => $.settings.language.vietnamese) },
@@ -21,6 +24,14 @@ function Settings({ t, i18n }: WithTranslation<"common">) {
     { value: "light", label: t(($) => $.settings.theme.light) },
     { value: "dark", label: t(($) => $.settings.theme.dark) },
   ] as const;
+
+  // TODO: Cần check lại khi xảy ra đồng bộ
+  useEffect(() => {
+    const updater = async () => {
+      await setLanguage(selectedLanguage);
+    };
+    updater();
+  }, [selectedLanguage]);
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
@@ -33,8 +44,9 @@ function Settings({ t, i18n }: WithTranslation<"common">) {
             icon={{ ios: "globe", android: "language", web: "language" }}
             title={t(($) => $.settings.language.title)}
             description={
-              languageOptions.find((option) => option.value === selectedLanguage)!
-                .label
+              languageOptions.find(
+                (option) => option.value === selectedLanguage,
+              )!.label
             }
             onPress={() => setActiveSheet("language")}
           />
@@ -47,7 +59,8 @@ function Settings({ t, i18n }: WithTranslation<"common">) {
             }}
             title={t(($) => $.settings.theme.title)}
             description={
-              themeOptions.find((option) => option.value === selectedTheme)!.label
+              themeOptions.find((option) => option.value === selectedTheme)!
+                .label
             }
             onPress={() => setActiveSheet("theme")}
           />

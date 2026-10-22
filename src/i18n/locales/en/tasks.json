@@ -7,6 +7,12 @@
     "add": "Add task",
     "delete": "Delete task"
   },
+  "deleteConfirmation": {
+    "title": "Delete task?",
+    "message": "Are you sure you want to delete this task?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
   "input": {
     "placeholder": "Enter a new task..."
   }

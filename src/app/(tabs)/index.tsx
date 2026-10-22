@@ -6,7 +6,7 @@ import { Task } from "@/models/Task";
 import * as Crypto from "expo-crypto";
 import { useState } from "react";
 import { withTranslation, type WithTranslation } from "react-i18next";
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 function MyTasks({ t }: WithTranslation<"tasks">) {
@@ -18,6 +18,24 @@ function MyTasks({ t }: WithTranslation<"tasks">) {
   });
   const percent =
     tasks.length === 0 ? 0 : Math.round((completedCount / tasks.length) * 100);
+
+  function onDeleteConfirmation(id: string) {
+    const title = t(($) => $.deleteConfirmation.title);
+    const msg = t(($) => $.deleteConfirmation.message);
+    Alert.alert(title, msg, [
+      {
+        text: t(($) => $.deleteConfirmation.cancel),
+        style: "cancel",
+      },
+      {
+        text: t(($) => $.deleteConfirmation.confirm),
+        style: "destructive",
+        onPress: () => {
+          setTasks((prev) => prev.filter((e) => e.id !== id));
+        },
+      },
+    ]);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,13 +54,15 @@ function MyTasks({ t }: WithTranslation<"tasks">) {
         onAction={(action, id) => {
           switch (action) {
             case "delete":
-              setTasks((prev) => prev.filter((e) => e.id !== id));
+              onDeleteConfirmation(id);
+              break;
             case "toggle":
               setTasks((prev) =>
                 prev.map((e) =>
                   e.id === id ? { ...e, complete: !e.complete } : e,
                 ),
               );
+              break;
           }
         }}
       />
