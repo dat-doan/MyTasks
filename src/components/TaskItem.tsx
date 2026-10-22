@@ -4,7 +4,7 @@ import { SymbolView } from "expo-symbols";
 import { WithTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export type TaskItemAction = "toggle" | "delete";
+export type TaskItemAction = "toggle" | "delete" | "edit";
 
 type TaskItemProps = {
   task: Task;
@@ -36,6 +36,18 @@ export default function TaskItem({ task, onAction, t }: TaskItemProps) {
             <Text style={styles.time}>{formatDateTime(task.createAt)}</Text>
           </View>
 
+          <Pressable
+            accessibilityLabel={t(($) => $.actions.edit)}
+            accessibilityRole="button"
+            style={styles.editButton}
+            onPress={() => onAction("edit")}
+          >
+            <SymbolView
+              name={{ ios: "pencil", android: "edit", web: "edit" }}
+              size={22}
+              tintColor="#4F46E5"
+            />
+          </Pressable>
           <Pressable onPress={() => onAction("delete")}>
             <SymbolView
               name={{ ios: "trash", android: "delete", web: "delete" }}
@@ -66,6 +78,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     gap: 4,
+  },
+  editButton: {
+    width: 44,
+    height: 44,
+    marginRight: 8,
+    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
     fontWeight: 500,

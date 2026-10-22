@@ -5,6 +5,7 @@
   "completedCount_other": "{{count}} công việc hoàn thành",
   "actions": {
     "add": "Thêm công việc",
+    "edit": "Chỉnh sửa công việc",
     "delete": "Xoá công việc"
   },
   "deleteConfirmation": {

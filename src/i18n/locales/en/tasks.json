@@ -5,6 +5,7 @@
   "completedCount_other": "{{count}} tasks completed",
   "actions": {
     "add": "Add task",
+    "edit": "Edit task",
     "delete": "Delete task"
   },
   "deleteConfirmation": {

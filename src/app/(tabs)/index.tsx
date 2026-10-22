@@ -68,6 +68,8 @@ function MyTasks({ t }: WithTranslation<"tasks">) {
                 ),
               );
               break;
+            case "edit":
+              break;
           }
         }}
       />
