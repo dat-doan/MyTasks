@@ -4,7 +4,9 @@
     "delete": "Xoá"
   },
   "navigation": {
-    "about": "Giới thiệu"
+    "about": "Giới thiệu",
+    "tasks": "Công việc",
+    "settings": "Cài đặt"
   },
   "progress": {
     "title": "Tiến độ hoàn thành"

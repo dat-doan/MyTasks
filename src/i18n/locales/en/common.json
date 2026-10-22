@@ -4,7 +4,9 @@
     "delete": "Delete"
   },
   "navigation": {
-    "about": "About"
+    "about": "About",
+    "tasks": "Tasks",
+    "settings": "Settings"
   },
   "progress": {
     "title": "Completion progress"

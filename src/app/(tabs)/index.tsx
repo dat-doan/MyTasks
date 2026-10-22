@@ -55,7 +55,8 @@ export default withTranslation("tasks")(MyTasks);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 20,
     gap: 10,
     backgroundColor: "#F7F9FB",
   },
