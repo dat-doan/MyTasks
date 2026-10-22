@@ -31,7 +31,7 @@ function TabLayout({ t }: WithTranslation<"common">) {
       <Tabs.Screen
         name="settings"
         options={{
-          title: t(($) => $.navigation.tasks),
+          title: t(($) => $.navigation.settings),
           tabBarIcon: ({ color, size }) => (
             <SymbolView
               name={{

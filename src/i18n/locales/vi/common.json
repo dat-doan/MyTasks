@@ -1,7 +1,8 @@
 {
   "actions": {
     "add": "Thêm",
-    "delete": "Xoá"
+    "delete": "Xoá",
+    "cancel": "Huỷ"
   },
   "navigation": {
     "about": "Giới thiệu",
@@ -10,5 +11,19 @@
   },
   "progress": {
     "title": "Tiến độ hoàn thành"
+  },
+  "settings": {
+    "language": {
+      "title": "Ngôn ngữ",
+      "options": "Tiếng Việt · English",
+      "vietnamese": "Tiếng Việt",
+      "english": "English"
+    },
+    "theme": {
+      "title": "Giao diện",
+      "options": "Sáng · Tối",
+      "light": "Sáng",
+      "dark": "Tối"
+    }
   }
 }

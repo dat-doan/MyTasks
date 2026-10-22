@@ -1,7 +1,8 @@
 {
   "actions": {
     "add": "Add",
-    "delete": "Delete"
+    "delete": "Delete",
+    "cancel": "Cancel"
   },
   "navigation": {
     "about": "About",
@@ -10,5 +11,19 @@
   },
   "progress": {
     "title": "Completion progress"
+  },
+  "settings": {
+    "language": {
+      "title": "Language",
+      "options": "Tiếng Việt · English",
+      "vietnamese": "Tiếng Việt",
+      "english": "English"
+    },
+    "theme": {
+      "title": "Appearance",
+      "options": "Light · Dark",
+      "light": "Light",
+      "dark": "Dark"
+    }
   }
 }
