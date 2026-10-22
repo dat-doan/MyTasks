@@ -45,7 +45,12 @@ function MyTasks({ t }: WithTranslation<"tasks">) {
         onAdd={(val) =>
           setTasks((v) => [
             ...v,
-            { id: Crypto.randomUUID(), title: val, complete: false },
+            {
+              id: Crypto.randomUUID(),
+              title: val,
+              complete: false,
+              createAt: new Date(),
+            },
           ])
         }
       />
