@@ -1,8 +1,10 @@
+import EditTaskModal from "@/components/EditTaskModal";
 import TaskInput from "@/components/TaskInput";
 import TaskList from "@/components/TaskList";
 import TaskSummary from "@/components/TaskSummary";
 import TaskTracking from "@/components/TaskTracking";
 import { Task } from "@/models/Task";
+import { orEmpty } from "@/utils/string";
 import * as Crypto from "expo-crypto";
 import { useState } from "react";
 import { withTranslation, type WithTranslation } from "react-i18next";
@@ -11,6 +13,9 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 function MyTasks({ t }: WithTranslation<"tasks">) {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
+
+  const editingTask = tasks.find((e) => e.id === editingTaskId);
 
   const completedCount = tasks.filter((e) => e.complete).length;
   const message = t(($) => $.completedCount, {
@@ -35,6 +40,14 @@ function MyTasks({ t }: WithTranslation<"tasks">) {
         },
       },
     ]);
+  }
+
+  function onEditTaskName(name: string) {
+    setTasks((prev) => {
+      return prev.map((e) =>
+        e.id === editingTask?.id ? { ...e, title: name } : e,
+      );
+    });
   }
 
   return (
@@ -68,9 +81,27 @@ function MyTasks({ t }: WithTranslation<"tasks">) {
                 ),
               );
               break;
-            case "edit":
+            case "edit": {
+              const task = tasks.find((item) => item.id === id);
+              if (task) {
+                setEditingTaskId(id);
+              }
               break;
+            }
           }
+        }}
+      />
+
+      <EditTaskModal
+        key={editingTask?.id}
+        visible={editingTaskId !== null}
+        title={orEmpty(editingTask?.title)}
+        onSave={(updatedTitle) => {
+          onEditTaskName(updatedTitle);
+          setEditingTaskId(null);
+        }}
+        onClose={() => {
+          setEditingTaskId(null);
         }}
       />
     </SafeAreaView>

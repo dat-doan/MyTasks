@@ -14,6 +14,16 @@
     "cancel": "Cancel",
     "confirm": "Confirm"
   },
+  "editForm": {
+    "title": "Edit task",
+    "description": "Update the name of your task.",
+    "nameLabel": "Task name",
+    "placeholder": "Enter a task name...",
+    "hint": "Task name cannot be empty.",
+    "cancel": "Cancel",
+    "save": "Save",
+    "close": "Close edit form"
+  },
   "input": {
     "placeholder": "Enter a new task..."
   }
