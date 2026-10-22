@@ -1,0 +1,13 @@
+{
+  "title": "My Tasks",
+  "emptyState": "No tasks yet. Add your first task!",
+  "completedCount_one": "{{count}} task completed",
+  "completedCount_other": "{{count}} tasks completed",
+  "actions": {
+    "add": "Add task",
+    "delete": "Delete task"
+  },
+  "input": {
+    "placeholder": "Enter a new task..."
+  }
+}

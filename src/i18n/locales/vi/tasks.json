@@ -1,0 +1,13 @@
+{
+  "title": "Công việc của tôi",
+  "emptyState": "Chưa có công việc nào. Hãy thêm công việc nhé!",
+  "completedCount_one": "{{count}} công việc hoàn thành",
+  "completedCount_other": "{{count}} công việc hoàn thành",
+  "actions": {
+    "add": "Thêm công việc",
+    "delete": "Xoá công việc"
+  },
+  "input": {
+    "placeholder": "Nhập công việc mới..."
+  }
+}

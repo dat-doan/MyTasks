@@ -5,20 +5,23 @@ import TaskTracking from "@/components/TaskTracking";
 import { Task } from "@/models/Task";
 import * as Crypto from "expo-crypto";
 import { useState } from "react";
+import { withTranslation, type WithTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function MyTasks() {
+function MyTasks({ t }: WithTranslation<"tasks">) {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const completedCount = tasks.filter((e) => e.complete).length;
-  const message = `${completedCount} công việc hoàn thành`;
+  const message = t(($) => $.completedCount, {
+    count: completedCount,
+  });
   const percent =
     tasks.length === 0 ? 0 : Math.round((completedCount / tasks.length) * 100);
 
   return (
     <SafeAreaView style={styles.container}>
-      <TaskSummary title="My Tasks" subtitle={message} />
+      <TaskSummary title={t(($) => $.title)} subtitle={message} />
       <TaskTracking percent={percent} />
       <TaskInput
         onAdd={(val) =>
@@ -46,6 +49,8 @@ export default function MyTasks() {
     </SafeAreaView>
   );
 }
+
+export default withTranslation("tasks")(MyTasks);
 
 const styles = StyleSheet.create({
   container: {

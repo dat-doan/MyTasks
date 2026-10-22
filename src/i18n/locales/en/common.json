@@ -1,0 +1,12 @@
+{
+  "actions": {
+    "add": "Add",
+    "delete": "Delete"
+  },
+  "navigation": {
+    "about": "About"
+  },
+  "progress": {
+    "title": "Completion progress"
+  }
+}

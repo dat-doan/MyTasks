@@ -1,0 +1,12 @@
+{
+  "actions": {
+    "add": "Thêm",
+    "delete": "Xoá"
+  },
+  "navigation": {
+    "about": "Giới thiệu"
+  },
+  "progress": {
+    "title": "Tiến độ hoàn thành"
+  }
+}

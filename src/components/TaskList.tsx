@@ -1,23 +1,25 @@
 import { FlashList } from "@shopify/flash-list";
 import { SymbolView } from "expo-symbols";
+import { withTranslation, WithTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Task } from "../models/Task";
 
 export type TaskItemAction = "toggle" | "delete";
 
-export default function TaskList({
-  tasks,
-  onAction,
-}: {
+type TaskListProps = {
   tasks: Task[];
   onAction: (action: TaskItemAction, id: string) => void;
-}) {
+} & WithTranslation<"tasks">;
+
+type TaskItemProps = {
+  task: Task;
+  onAction: (action: TaskItemAction) => void;
+  t: WithTranslation<"tasks">["t"];
+};
+
+export function TaskList({ tasks, onAction, t }: TaskListProps) {
   if (tasks.length === 0)
-    return (
-      <Text style={styles.empty}>
-        Chưa có công việc nào. Hãy thêm công việc nhé!
-      </Text>
-    );
+    return <Text style={styles.empty}>{t(($) => $.emptyState)}</Text>;
   return (
     <FlashList
       style={styles.list}
@@ -28,19 +30,14 @@ export default function TaskList({
         <TaskItem
           task={item}
           onAction={(action) => onAction(action, item.id)}
+          t={t}
         />
       )}
     />
   );
 }
 
-function TaskItem({
-  task,
-  onAction,
-}: {
-  task: Task;
-  onAction: (action: TaskItemAction) => void;
-}) {
+function TaskItem({ task, onAction, t }: TaskItemProps) {
   return (
     <>
       <View style={styles.itemCard}>
@@ -65,7 +62,7 @@ function TaskItem({
               name={{ ios: "trash", android: "delete", web: "delete" }}
               size={22}
               tintColor="#E53935"
-              accessibilityLabel="Xoá công việc"
+              accessibilityLabel={t(($) => $.actions.delete)}
             />
           </Pressable>
         </View>
@@ -74,6 +71,8 @@ function TaskItem({
     </>
   );
 }
+
+export default withTranslation("tasks")(TaskList);
 
 const styles = StyleSheet.create({
   list: {

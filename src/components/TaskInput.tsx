@@ -1,17 +1,13 @@
 import { SymbolView } from "expo-symbols";
 import { useState } from "react";
-import {
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { withTranslation, WithTranslation } from "react-i18next";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 
-export default function TaskInput({
-  onAdd,
-}: {
+type TaskInputProps = {
   onAdd: (task: string) => void;
-}) {
+} & WithTranslation<"tasks">;
+
+export function TaskInput({ onAdd, t }: TaskInputProps) {
   const [taskName, setTaskName] = useState("");
   const [inputHeight, setInputHeight] = useState<number>();
 
@@ -20,7 +16,7 @@ export default function TaskInput({
   return (
     <View style={styles.container}>
       <TextInput
-        placeholder="Nhập công việc mới..."
+        placeholder={t(($) => $.input.placeholder)}
         placeholderTextColor="#94A3B8"
         selectionColor="#4F46E5"
         underlineColorAndroid="transparent"
@@ -32,7 +28,7 @@ export default function TaskInput({
         value={taskName}
       />
       <TouchableOpacity
-        accessibilityLabel="Thêm công việc"
+        accessibilityLabel={t(($) => $.actions.add)}
         accessibilityRole="button"
         disabled={!enable()}
         style={[
@@ -55,6 +51,8 @@ export default function TaskInput({
     </View>
   );
 }
+
+export default withTranslation("tasks")(TaskInput);
 
 const styles = StyleSheet.create({
   container: {

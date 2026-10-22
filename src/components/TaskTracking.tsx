@@ -1,16 +1,23 @@
+import { withTranslation, type WithTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function TaskTracking({ percent = 0 }: { percent: number }) {
+type TaskTrackingProps = {
+  percent: number;
+} & WithTranslation<"common">;
+
+function TaskTracking({ percent = 0, t }: TaskTrackingProps) {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Tiến độ hoàn thành</Text>
+        <Text style={styles.title}>{t(($) => $.progress.title)}</Text>
         <Text style={styles.title}>{`${percent.toFixed(0)}%`}</Text>
       </View>
       <TaskProgressBar percent={percent} />
     </View>
   );
 }
+
+export default withTranslation("common")(TaskTracking);
 
 function TaskProgressBar({ percent = 0 }: { percent: number }) {
   return (
