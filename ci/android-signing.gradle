@@ -1,0 +1,28 @@
+
+def ciStoreFile = System.getenv("ANDROID_KEYSTORE_PATH")
+def ciStorePassword = System.getenv("ANDROID_KEYSTORE_PASSWORD")
+def ciKeyAlias = System.getenv("ANDROID_KEY_ALIAS")
+def ciKeyPassword = System.getenv("ANDROID_KEY_PASSWORD")
+
+if ([ciStoreFile, ciStorePassword, ciKeyAlias, ciKeyPassword].any { !it }) {
+    throw new GradleException(
+        "Missing Android release signing environment variables"
+    )
+}
+
+android {
+    signingConfigs {
+        ciRelease {
+            storeFile file(ciStoreFile)
+            storePassword ciStorePassword
+            keyAlias ciKeyAlias
+            keyPassword ciKeyPassword
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.ciRelease
+        }
+    }
+}
