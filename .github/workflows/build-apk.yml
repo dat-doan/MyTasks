@@ -1,16 +1,25 @@
 name: Build Android APK
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    branches: [main]
+    types: [closed]
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: android-apk-main
+  queue: max
+  cancel-in-progress: false
 
 jobs:
   build-apk:
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' ||
+       github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
     timeout-minutes: 90
 
@@ -22,6 +31,9 @@ jobs:
       # 1. Checkout source code
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 0
 
       # 2. Install Node.js
       - name: Setup Node.js
@@ -45,23 +57,47 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # 6. Generate native Android project
+      # 6. Bump build version
+      - name: Bump and commit app version
+        if: github.event_name == 'pull_request'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          message="chore: bump app version for PR #${PR_NUMBER}"
+
+          existing="$(git log -1 --format=%H --grep="^${message}$")"
+
+          if [ -n "$existing" ]; then
+            echo "Version was already bumped for PR #${PR_NUMBER}"
+            exit 0
+          fi
+
+          node scripts/bump-version.cjs
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add app.json
+          git commit -m "$message"
+          git push origin HEAD:main
+
+      # 7. Generate native Android project
       - name: Expo Prebuild
         run: npx expo prebuild --platform android --clean
 
-      # 7. Attach custom signing configuration
+      # 8. Attach custom signing configuration
       - name: Configure Android signing
         run: |
           printf '\napply from: rootProject.file("../ci/android-signing.gradle")\n' \
             >> android/app/build.gradle
 
-      # 8. Setup Gradle + caching
+      # 9. Setup Gradle + caching
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
         with:
           cache-provider: basic
 
-      # 9. Restore Keystore from GitHub Secrets
+      # 10. Restore Keystore from GitHub Secrets
       - name: Restore Keystore
         env:
           ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
@@ -70,7 +106,7 @@ jobs:
           printf '%s' "$ANDROID_KEYSTORE_BASE64" \
             | base64 --decode > "$RUNNER_TEMP/android-upload.jks"
 
-      # 10. Build signed release APK
+      # 11. Build signed release APK
       - name: Build Release APK
         working-directory: android
         env:
@@ -81,11 +117,11 @@ jobs:
         run: |
           ./gradlew :app:assembleRelease --no-daemon
 
-      # 11. Upload APK to GitHub Artifacts
+      # 12. Upload APK to GitHub Artifacts
       - name: Upload APK
         uses: actions/upload-artifact@v7
         with:
           name: android-release-apk-${{ github.run_number }}
           path: android/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 10
