@@ -9,7 +9,7 @@ type TaskListProps = {
   onAction: (action: TaskItemAction, id: string) => void;
 } & WithTranslation<"tasks">;
 
-export function TaskList({ tasks, onAction, t }: TaskListProps) {
+function TaskList({ tasks, onAction, t }: TaskListProps) {
   if (tasks.length === 0)
     return <Text style={styles.empty}>{t(($) => $.emptyState)}</Text>;
   return (
@@ -21,7 +21,7 @@ export function TaskList({ tasks, onAction, t }: TaskListProps) {
       renderItem={({ item }) => (
         <TaskItem
           task={item}
-          onAction={(action) => onAction(action, item.id)}
+          onAction={onAction}
           t={t}
         />
       )}

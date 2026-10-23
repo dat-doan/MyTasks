@@ -26,5 +26,12 @@
   },
   "input": {
     "placeholder": "Nhập công việc mới..."
+  },
+  "storage": {
+    "loading": "Đang tải công việc...",
+    "loadError": "Không thể tải công việc. Vui lòng thử lại.",
+    "errorTitle": "Không thể lưu",
+    "saveError": "Không thể lưu thay đổi. Vui lòng thử lại.",
+    "retry": "Thử lại"
   }
 }

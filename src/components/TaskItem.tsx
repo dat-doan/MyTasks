@@ -1,6 +1,7 @@
 import { Task } from "@/models/Task";
 import { formatDateTime } from "@/utils/date";
 import { SymbolView } from "expo-symbols";
+import { memo } from "react";
 import { WithTranslation } from "react-i18next";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -8,16 +9,16 @@ export type TaskItemAction = "toggle" | "delete" | "edit";
 
 type TaskItemProps = {
   task: Task;
-  onAction: (action: TaskItemAction) => void;
+  onAction: (action: TaskItemAction, id: string) => void;
   t: WithTranslation<"tasks">["t"];
 };
 
-export default function TaskItem({ task, onAction, t }: TaskItemProps) {
+function TaskItem({ task, onAction, t }: TaskItemProps) {
   return (
     <>
       <View style={styles.card}>
         <View style={styles.mainContent}>
-          <Pressable onPress={() => onAction("toggle")}>
+          <Pressable onPress={() => onAction("toggle", task.id)}>
             <SymbolView
               name={{
                 ios: task.complete ? "checkmark.circle" : "circle",
@@ -40,7 +41,7 @@ export default function TaskItem({ task, onAction, t }: TaskItemProps) {
             accessibilityLabel={t(($) => $.actions.edit)}
             accessibilityRole="button"
             style={styles.editButton}
-            onPress={() => onAction("edit")}
+            onPress={() => onAction("edit", task.id)}
           >
             <SymbolView
               name={{ ios: "pencil", android: "edit", web: "edit" }}
@@ -48,7 +49,7 @@ export default function TaskItem({ task, onAction, t }: TaskItemProps) {
               tintColor="#4F46E5"
             />
           </Pressable>
-          <Pressable onPress={() => onAction("delete")}>
+          <Pressable onPress={() => onAction("delete", task.id)}>
             <SymbolView
               name={{ ios: "trash", android: "delete", web: "delete" }}
               size={22}
@@ -62,6 +63,8 @@ export default function TaskItem({ task, onAction, t }: TaskItemProps) {
     </>
   );
 }
+
+export default memo(TaskItem);
 
 const styles = StyleSheet.create({
   card: {

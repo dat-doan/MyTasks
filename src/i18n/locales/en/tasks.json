@@ -26,5 +26,12 @@
   },
   "input": {
     "placeholder": "Enter a new task..."
+  },
+  "storage": {
+    "loading": "Loading tasks...",
+    "loadError": "Unable to load your tasks. Please try again.",
+    "errorTitle": "Unable to save",
+    "saveError": "Your changes could not be saved. Please try again.",
+    "retry": "Try again"
   }
 }

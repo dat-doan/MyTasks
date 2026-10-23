@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { withTranslation, type WithTranslation } from "react-i18next";
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -15,7 +16,8 @@ import {
 type EditTaskModalProps = {
   visible: boolean;
   title: string;
-  onSave: (title: string) => void;
+  onSave: (title: string) => Promise<void>;
+  onError: (error: unknown) => void;
   onClose: () => void;
 } & WithTranslation<"tasks">;
 
@@ -23,19 +25,40 @@ function EditTaskModal({
   visible,
   title,
   onSave,
+  onError,
   onClose,
   t,
 }: EditTaskModalProps) {
   const inputRef = useRef<TextInput>(null);
-  const [daftTitle, setDraftTitle] = useState<string>(title);
-  const canSave = daftTitle.trim().length > 0;
+  const [draftTitle, setDraftTitle] = useState(title);
+  const [isSaving, setIsSaving] = useState(false);
+  const submittingRef = useRef(false);
+  const canSave = !isSaving && draftTitle.trim().length > 0;
+
+  function close() {
+    if (!submittingRef.current) onClose();
+  }
+
+  async function save() {
+    if (!canSave || submittingRef.current) return;
+    submittingRef.current = true;
+    setIsSaving(true);
+    try {
+      await onSave(draftTitle.trim());
+    } catch (error) {
+      onError(error);
+    } finally {
+      submittingRef.current = false;
+      setIsSaving(false);
+    }
+  }
 
   return (
     <Modal
       visible={visible}
       transparent
       animationType="fade"
-      onRequestClose={onClose}
+      onRequestClose={close}
       onShow={() => inputRef.current?.focus()}
     >
       <KeyboardAvoidingView
@@ -49,7 +72,7 @@ function EditTaskModal({
         >
           <View
             accessibilityViewIsModal
-            onAccessibilityEscape={onClose}
+            onAccessibilityEscape={close}
             style={styles.card}
           >
             <Text accessibilityRole="header" style={styles.title}>
@@ -61,7 +84,8 @@ function EditTaskModal({
               <TextInput
                 ref={inputRef}
                 accessibilityLabel={t(($) => $.editForm.nameLabel)}
-                value={daftTitle}
+                editable={!isSaving}
+                value={draftTitle}
                 onChangeText={setDraftTitle}
                 placeholder={t(($) => $.editForm.placeholder)}
                 placeholderTextColor="#94A3B8"
@@ -75,7 +99,9 @@ function EditTaskModal({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                onPress={onClose}
+                accessibilityState={{ disabled: isSaving }}
+                disabled={isSaving}
+                onPress={close}
                 style={({ pressed }) => [
                   styles.button,
                   styles.cancelButton,
@@ -88,7 +114,7 @@ function EditTaskModal({
               </Pressable>
               <Pressable
                 accessibilityRole="button"
-                accessibilityState={{ disabled: !canSave }}
+                accessibilityState={{ disabled: !canSave, busy: isSaving }}
                 disabled={!canSave}
                 style={({ pressed }) => [
                   styles.button,
@@ -96,13 +122,15 @@ function EditTaskModal({
                   !canSave && styles.disabled,
                   pressed && styles.pressed,
                 ]}
-                onPress={() => {
-                  onSave(daftTitle);
-                }}
+                onPress={() => void save()}
               >
-                <Text style={styles.saveLabel}>
-                  {t(($) => $.editForm.save)}
-                </Text>
+                {isSaving ? (
+                  <ActivityIndicator color="#FFFFFF" />
+                ) : (
+                  <Text style={styles.saveLabel}>
+                    {t(($) => $.editForm.save)}
+                  </Text>
+                )}
               </Pressable>
             </View>
           </View>

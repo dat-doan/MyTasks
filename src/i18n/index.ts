@@ -1,5 +1,5 @@
 import { getLocales } from "expo-localization";
-import i18n from "i18next";
+import i18n, { use as registerPlugin } from "i18next";
 import { initReactI18next } from "react-i18next";
 
 import enCommon from "./locales/en/common.json";
@@ -25,7 +25,7 @@ const language =
     .map((e) => e.languageCode)
     .find((e) => e !== null && supportedLngs.includes(e)) ?? "vi";
 
-void i18n.use(initReactI18next).init({
+void registerPlugin(initReactI18next).init({
   resources,
   lng: language,
   supportedLngs,
