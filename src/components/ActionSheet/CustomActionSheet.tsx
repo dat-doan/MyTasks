@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   AccessibilityInfo,
   Animated,
@@ -26,15 +26,18 @@ export default function CustomActionSheet<Value extends string>({
   tintColor = "#007AFF",
 }: ActionSheetProps<Value>) {
   const insets = useSafeAreaInsets();
-  const [mounted, setMounted] = useState(visible);
   const [presented, setPresented] = useState(false);
   const [sheetHeight, setSheetHeight] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
-  const backdropProgress = useRef(new Animated.Value(0)).current;
-  const sheetProgress = useRef(new Animated.Value(0)).current;
+  const [backdropProgress] = useState(() => new Animated.Value(0));
+  const [sheetProgress] = useState(() => new Animated.Value(0));
   const visibleRef = useRef(visible);
   const closingRef = useRef(false);
-  visibleRef.current = visible;
+
+  useLayoutEffect(() => {
+    visibleRef.current = visible;
+    if (visible) closingRef.current = false;
+  }, [visible]);
 
   useEffect(() => {
     let active = true;
@@ -50,13 +53,6 @@ export default function CustomActionSheet<Value extends string>({
       subscription.remove();
     };
   }, []);
-
-  useEffect(() => {
-    if (visible) {
-      closingRef.current = false;
-      setMounted(true);
-    }
-  }, [visible]);
 
   useEffect(() => {
     // Wait for the native modal and the panel measurement before entering.
@@ -80,7 +76,6 @@ export default function CustomActionSheet<Value extends string>({
 
     animation.start(({ finished }) => {
       if (finished && !visibleRef.current) {
-        setMounted(false);
         setPresented(false);
       }
     });
@@ -106,13 +101,14 @@ export default function CustomActionSheet<Value extends string>({
 
   return (
     <Modal
-      visible={mounted}
+      // Keep the modal visible until the exit animation finishes.
+      visible={visible || presented}
       transparent
       animationType="none"
       aria-label={
         Platform.OS === "web" ? title ?? message ?? cancelLabel : undefined
       }
-      onShow={() => setPresented(true)}
+      onShow={() => setPresented(visibleRef.current)}
       onRequestClose={() => requestClose()}
     >
       <View
