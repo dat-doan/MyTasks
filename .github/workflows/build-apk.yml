@@ -31,6 +31,7 @@ jobs:
     env:
       CI: "true"
       EXPO_NO_TELEMETRY: "1"
+      EXPO_PUBLIC_PUSH_REGISTRATION_URL: ${{ vars.EXPO_PUBLIC_PUSH_REGISTRATION_URL }}
 
     steps:
       # 1. Checkout source code

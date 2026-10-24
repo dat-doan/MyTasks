@@ -9,14 +9,15 @@ export type TaskItemAction = "toggle" | "delete" | "edit";
 
 type TaskItemProps = {
   task: Task;
+  selected?: boolean;
   onAction: (action: TaskItemAction, id: string) => void;
   t: WithTranslation<"tasks">["t"];
 };
 
-function TaskItem({ task, onAction, t }: TaskItemProps) {
+function TaskItem({ task, selected = false, onAction, t }: TaskItemProps) {
   return (
     <>
-      <View style={styles.card}>
+      <View style={[styles.card, selected && styles.selectedCard]}>
         <View style={styles.mainContent}>
           <Pressable onPress={() => onAction("toggle", task.id)}>
             <SymbolView
@@ -71,6 +72,11 @@ const styles = StyleSheet.create({
     alignContent: "center",
     backgroundColor: "white",
     borderRadius: 10,
+  },
+  selectedCard: {
+    backgroundColor: "#EEF2FF",
+    borderColor: "#6366F1",
+    borderWidth: 1,
   },
   mainContent: {
     padding: 16,

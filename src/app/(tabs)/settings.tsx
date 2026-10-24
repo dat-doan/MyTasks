@@ -1,5 +1,6 @@
 import ActionSheet from "@/components/ActionSheet";
 import SettingsRow from "@/components/SettingsRow";
+import NotificationSettings from "@/features/notifications/NotificationSettings";
 import type { AppLanguage } from "@/i18n/language";
 import { setLanguage } from "@/i18n/language";
 import { useEffect, useState } from "react";
@@ -65,6 +66,7 @@ function Settings({ t, i18n }: WithTranslation<"common">) {
             onPress={() => setActiveSheet("theme")}
           />
         </View>
+        <NotificationSettings />
       </ScrollView>
       <ActionSheet
         visible={activeSheet === "language"}

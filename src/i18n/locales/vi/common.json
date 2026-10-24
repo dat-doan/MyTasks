@@ -24,6 +24,43 @@
       "options": "Sáng · Tối",
       "light": "Sáng",
       "dark": "Tối"
+    },
+    "notifications": {
+      "title": "Thông báo đẩy",
+      "description": "Nhận cập nhật và mở công việc liên quan từ thông báo.",
+      "permission": "Quyền trên thiết bị",
+      "registration": "Đăng ký nhận push",
+      "delivery": "Kết nối máy chủ",
+      "permissionUnknown": "Chưa kiểm tra",
+      "permissionGranted": "Đã cho phép",
+      "permissionProvisional": "Thông báo yên lặng",
+      "permissionDenied": "Chưa được cho phép",
+      "permissionUndetermined": "Chưa yêu cầu",
+      "permissionUnsupported": "Nền tảng chưa hỗ trợ",
+      "registrationIdle": "Đang tắt",
+      "registrationRegistering": "Đang đăng ký…",
+      "registrationRegistered": "Đã đăng ký trên thiết bị",
+      "registrationError": "Đăng ký thất bại",
+      "registrationUnsupported": "Chưa hỗ trợ",
+      "deliveryUnconfigured": "Chưa kết nối dịch vụ gửi thông báo. Thiết bị chưa thể nhận thông báo từ dịch vụ này.",
+      "deliveryPending": "Đang chờ đồng bộ với máy chủ",
+      "deliverySynced": "Đã kết nối",
+      "deliveryError": "Không thể đồng bộ với máy chủ",
+      "deliveryIdle": "Đang tắt",
+      "enable": "Bật thông báo",
+      "disable": "Tắt thông báo",
+      "retry": "Thử lại",
+      "openSettings": "Mở cài đặt thiết bị",
+      "busy": "Đang cập nhật…",
+      "error": "Không thể cập nhật thông báo. Vui lòng thử lại.",
+      "settingsError": "Không thể mở cài đặt thiết bị.",
+      "disabledHelp": "Khi tắt, ứng dụng ngừng đăng ký nhận push. Quyền thông báo được quản lý trong cài đặt hệ thống."
     }
+  },
+  "notifications": {
+    "title": "Thông báo mới",
+    "open": "Mở thông báo",
+    "dismiss": "Đóng thông báo",
+    "openError": "Không thể mở thông báo này. Vui lòng thử lại."
   }
 }
