@@ -227,7 +227,7 @@ jobs:
 
       - name: Upload APK to Firebase App Distribution
         env:
-          FIREBASE_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          FIREBASE_APP_ID: ${{ vars.FIREBASE_ANDROID_APP_ID }}
           FIREBASE_GROUPS: ${{ vars.FIREBASE_DISTRIBUTION_GROUPS }}
         run: |
           npx --yes firebase-tools@latest \
