@@ -5,6 +5,11 @@ on:
     branches: [main]
     types: [closed]
   workflow_dispatch:
+    inputs:
+      release_notes:
+        description: "Release Notes for Firebase"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -42,44 +47,74 @@ jobs:
           node-version: "24"
           cache: npm
 
-      # 3. Install Java
+      # 3. Bump app version before building; only tag merged PRs
+      - name: Bump app version and tag PR builds
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          WORKFLOW_RUN_ID: ${{ github.run_id }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            message="chore: bump app version for manual run #${WORKFLOW_RUN_ID}"
+          else
+            message="chore: bump app version for PR #${PR_NUMBER}"
+          fi
+          existing="$(git log --first-parent -1 --format=%H --grep="^${message}$")"
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if [ -n "$existing" ]; then
+            echo "Reusing version commit: $existing"
+            git checkout --detach "$existing"
+          else
+            node scripts/bump-version.cjs
+            git add app.json
+            git commit -m "$message"
+          fi
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            if [ -z "$existing" ]; then
+              git push origin HEAD:main
+            fi
+            exit 0
+          fi
+
+          version="$(node -p "require('./app.json').expo.version")"
+          tag="v${version}"
+          commit="$(git rev-parse HEAD)"
+
+          if git show-ref --verify --quiet "refs/tags/$tag"; then
+            if [ "$(git rev-parse "refs/tags/${tag}^{commit}")" != "$commit" ]; then
+              echo "::error::Tag $tag already points to a different commit"
+              exit 1
+            fi
+          else
+            git tag -a "$tag" -m "Release $tag" "$commit"
+          fi
+
+          if [ -n "$existing" ]; then
+            # A rerun may recover a missing tag without moving main backwards.
+            git push origin "refs/tags/$tag"
+          else
+            # Publish the version commit and its tag together, or neither.
+            git push --atomic origin HEAD:main "refs/tags/$tag"
+          fi
+
+      # 4. Install Java
       - name: Setup Java
         uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: "17"
 
-      # 4. Setup Android SDK
+      # 5. Setup Android SDK
       - name: Setup Android SDK
         uses: android-actions/setup-android@v4
 
-      # 5. Install dependencies
+      # 6. Install dependencies
       - name: Install dependencies
         run: npm ci
-
-      # 6. Bump build version
-      - name: Bump and commit app version
-        if: github.event_name == 'pull_request'
-        env:
-          PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          message="chore: bump app version for PR #${PR_NUMBER}"
-
-          existing="$(git log -1 --format=%H --grep="^${message}$")"
-
-          if [ -n "$existing" ]; then
-            echo "Version was already bumped for PR #${PR_NUMBER}"
-            exit 0
-          fi
-
-          node scripts/bump-version.cjs
-
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-          git add app.json
-          git commit -m "$message"
-          git push origin HEAD:main
 
       # 7. Generate native Android project
       - name: Expo Prebuild
@@ -125,3 +160,79 @@ jobs:
           path: android/app/build/outputs/apk/release/*.apk
           if-no-files-found: error
           retention-days: 10
+
+      # 13: Generate release note
+      - name: Generate Release Notes
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          MANUAL_NOTES: ${{ inputs.release_notes }}
+          BUILD_NUMBER: ${{ github.run_number }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if [[ "$EVENT_NAME" == "workflow_dispatch" \
+                && -n "${MANUAL_NOTES//[[:space:]]/}" ]]; then
+
+            # Use notes entered manually
+            printf '%s\n' "$MANUAL_NOTES" > release-notes.txt
+
+          else
+
+            # Automatically generate notes
+            COMMIT_SHA="$(git rev-parse HEAD)"
+            {
+              echo "Build #${BUILD_NUMBER}"
+              echo "Commit: ${COMMIT_SHA}"
+              echo ""
+              echo "Changes:"
+
+              if [[ "$EVENT_NAME" == "pull_request" ]]; then
+                printf -- '- %s (#%s)\n' "$PR_TITLE" "$PR_NUMBER"
+                if [[ -n "${PR_BODY//[[:space:]]/}" ]]; then
+                  printf '\n%s\n' "$PR_BODY"
+                fi
+              else
+                # For a manual build without notes, describe changes since the last tag.
+                previous_tag="$(git describe --tags --first-parent --match 'v[0-9]*' \
+                  --abbrev=0 HEAD^ 2>/dev/null || true)"
+                revision_range="HEAD"
+                if [[ -n "$previous_tag" ]]; then
+                  revision_range="${previous_tag}..HEAD"
+                fi
+
+                changes="$(git log "$revision_range" --no-merges --format='- %s' \
+                  --invert-grep \
+                  --grep='^chore: bump app version for PR #[0-9][0-9]*$' \
+                  --grep='^chore: bump app version for manual run #[0-9][0-9]*$')"
+                if [[ -n "$changes" ]]; then
+                  printf '%s\n' "$changes"
+                else
+                  printf -- '- No app changes in this build.\n'
+                fi
+              fi
+            } > release-notes.txt
+
+          fi
+
+          echo "Generated Release Notes:"
+          cat release-notes.txt
+
+      # 14. Google cloud auth and update to firebase app distribution
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: Upload APK to Firebase App Distribution
+        env:
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_ANDROID_APP_ID }}
+          FIREBASE_GROUPS: ${{ vars.FIREBASE_DISTRIBUTION_GROUPS }}
+        run: |
+          npx --yes firebase-tools@latest \
+            appdistribution:distribute \
+            android/app/build/outputs/apk/release/app-release.apk \
+            --app "$FIREBASE_APP_ID" \
+            --groups "$FIREBASE_GROUPS" \
+            --release-notes-file "./release-notes.txt"
