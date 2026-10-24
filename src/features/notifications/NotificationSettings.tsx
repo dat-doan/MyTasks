@@ -1,10 +1,12 @@
 import type { NotificationSnapshot } from "@/notifications/core/types";
 import { useNotifications } from "@/notifications/react/useNotifications";
-import { useState } from "react";
+import * as Clipboard from "expo-clipboard";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ActivityIndicator,
   Linking,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -16,6 +18,12 @@ export default function NotificationSettings() {
   const { t } = useTranslation("common");
   const [settingsFailed, setSettingsFailed] = useState(false);
   const [actionFailed, setActionFailed] = useState(false);
+  const fcmId = state.supported && state.enabled &&
+    state.registration === "registered" &&
+    state.endpoint?.provider === "fcm" && state.endpoint.kind === "fid" &&
+    state.endpoint.value.trim().length > 0
+    ? state.endpoint.value
+    : null;
 
   const permissionLabels: Record<NotificationSnapshot["permission"], string> = {
     unknown: t(($) => $.settings.notifications.permissionUnknown),
@@ -73,6 +81,7 @@ export default function NotificationSettings() {
             {t(($) => $.settings.notifications.registration)}:{" "}
             {registrationLabels[state.registration]}
           </Text>
+          {fcmId ? <FcmIdView key={fcmId} value={fcmId} /> : null}
           <Text style={styles.description}>
             {t(($) => $.settings.notifications.delivery)}:{" "}
             {backendLabels[state.backend]}
@@ -141,6 +150,70 @@ export default function NotificationSettings() {
   );
 }
 
+function FcmIdView({ value }: { value: string }) {
+  const { t } = useTranslation("common");
+  const [copyState, setCopyState] = useState<"idle" | "copying" | "copied" | "error">("idle");
+  const copyRequest = useRef(0);
+  const copying = copyState === "copying";
+
+  useEffect(() => () => {
+    copyRequest.current += 1;
+  }, []);
+
+  useEffect(() => {
+    if (copyState !== "copied") return;
+    const timeout = setTimeout(() => setCopyState("idle"), 2_000);
+    return () => clearTimeout(timeout);
+  }, [copyState]);
+
+  const copy = async () => {
+    const request = ++copyRequest.current;
+    setCopyState("copying");
+    try {
+      const copied = await Clipboard.setStringAsync(value);
+      if (request === copyRequest.current) {
+        setCopyState(copied ? "copied" : "error");
+      }
+    } catch {
+      if (request === copyRequest.current) setCopyState("error");
+    }
+  };
+
+  return (
+    <View style={styles.fcmIdCard}>
+      <View style={styles.fcmIdHeader}>
+        <Text style={styles.fcmIdLabel}>
+          {t(($) => $.settings.notifications.fcmId)}
+        </Text>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={t(($) => $.settings.notifications.copyFcmId)}
+          accessibilityState={{ disabled: copying, busy: copying }}
+          disabled={copying}
+          style={({ pressed }) => [
+            styles.secondaryButton,
+            styles.copyButton,
+            (pressed || copying) && styles.dimmed,
+          ]}
+          onPress={() => void copy()}
+        >
+          <Text accessibilityLiveRegion="polite" style={styles.secondaryLabel}>
+            {copyState === "copied"
+              ? t(($) => $.settings.notifications.fcmIdCopied)
+              : t(($) => $.settings.notifications.copyFcmId)}
+          </Text>
+        </Pressable>
+      </View>
+      <Text selectable style={styles.fcmIdValue}>{value}</Text>
+      {copyState === "error" ? (
+        <Text accessibilityRole="alert" style={styles.error}>
+          {t(($) => $.settings.notifications.fcmIdCopyError)}
+        </Text>
+      ) : null}
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   card: {
     marginTop: 20,
@@ -155,6 +228,30 @@ const styles = StyleSheet.create({
   description: { color: "#64748B", fontSize: 14, lineHeight: 21 },
   status: { color: "#334155", fontSize: 14, lineHeight: 21 },
   error: { color: "#B91C1C", fontSize: 14, lineHeight: 21 },
+  fcmIdCard: {
+    padding: 12,
+    gap: 8,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "#E2E8F0",
+    backgroundColor: "#F8FAFC",
+  },
+  fcmIdHeader: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  fcmIdLabel: { color: "#334155", fontSize: 14, fontWeight: "600" },
+  fcmIdValue: {
+    color: "#334155",
+    fontFamily: Platform.OS === "ios" ? "Menlo" : "monospace",
+    fontSize: 12,
+    lineHeight: 18,
+    flexShrink: 1,
+  },
+  copyButton: { borderRadius: 8, backgroundColor: "#EEF2FF" },
   actions: {
     flexDirection: "row",
     flexWrap: "wrap",
