@@ -24,6 +24,47 @@
       "options": "Light · Dark",
       "light": "Light",
       "dark": "Dark"
+    },
+    "notifications": {
+      "title": "Push notifications",
+      "description": "Receive updates and open the related task from a notification.",
+      "permission": "Device permission",
+      "registration": "Push registration",
+      "delivery": "Server connection",
+      "fcmId": "FCM ID (FID)",
+      "permissionUnknown": "Not checked",
+      "permissionGranted": "Allowed",
+      "permissionProvisional": "Quiet delivery",
+      "permissionDenied": "Not allowed",
+      "permissionUndetermined": "Not requested",
+      "permissionUnsupported": "Unavailable on this platform",
+      "registrationIdle": "Off",
+      "registrationRegistering": "Registering…",
+      "registrationRegistered": "Registered on this device",
+      "registrationError": "Registration failed",
+      "registrationUnsupported": "Unavailable",
+      "deliveryUnconfigured": "The notification service is not connected yet. This device cannot receive notifications from it.",
+      "deliveryPending": "Waiting to sync with the server",
+      "deliverySynced": "Connected",
+      "deliveryError": "Unable to sync with the server",
+      "deliveryIdle": "Off",
+      "enable": "Enable notifications",
+      "disable": "Disable notifications",
+      "retry": "Retry",
+      "openSettings": "Open device settings",
+      "copyFcmId": "Copy FCM ID",
+      "fcmIdCopied": "Copied",
+      "fcmIdCopyError": "Could not copy the FCM ID. Please try again.",
+      "busy": "Updating…",
+      "error": "Could not update notifications. Please try again.",
+      "settingsError": "Could not open device settings.",
+      "disabledHelp": "Turning this off stops push registration for this app. Device permission is managed in system settings."
     }
+  },
+  "notifications": {
+    "title": "New notification",
+    "open": "Open notification",
+    "dismiss": "Dismiss notification",
+    "openError": "Could not open this notification. Please try again."
   }
 }

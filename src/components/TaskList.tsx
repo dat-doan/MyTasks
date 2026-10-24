@@ -6,10 +6,11 @@ import TaskItem, { TaskItemAction } from "./TaskItem";
 
 type TaskListProps = {
   tasks: Task[];
+  selectedTaskId?: string;
   onAction: (action: TaskItemAction, id: string) => void;
 } & WithTranslation<"tasks">;
 
-function TaskList({ tasks, onAction, t }: TaskListProps) {
+function TaskList({ tasks, selectedTaskId, onAction, t }: TaskListProps) {
   if (tasks.length === 0)
     return <Text style={styles.empty}>{t(($) => $.emptyState)}</Text>;
   return (
@@ -21,10 +22,12 @@ function TaskList({ tasks, onAction, t }: TaskListProps) {
       renderItem={({ item }) => (
         <TaskItem
           task={item}
+          selected={item.id === selectedTaskId}
           onAction={onAction}
           t={t}
         />
       )}
+      extraData={selectedTaskId}
     />
   );
 }

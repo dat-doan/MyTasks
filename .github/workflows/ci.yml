@@ -41,6 +41,9 @@ jobs:
       - name: Run unit tests
         run: npm run test:ci
 
+      - name: Run notification adapter integration tests
+        run: npm run test:notifications:adapters
+
   build:
     name: EAS Build (${{ matrix.platform }})
     runs-on: ubuntu-latest

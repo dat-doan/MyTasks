@@ -9,10 +9,20 @@
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon",
-      "bundleIdentifier": "com.datdn.mytasks"
+      "bundleIdentifier": "com.datdn.mytasks",
+      "googleServicesFile": "./firebase/GoogleService-Info.plist",
+      "infoPlist": {
+        "UIBackgroundModes": [
+          "remote-notification"
+        ]
+      }
     },
     "android": {
       "package": "com.datdn.mytasks",
+      "googleServicesFile": "./firebase/google-services.json",
+      "permissions": [
+        "POST_NOTIFICATIONS"
+      ],
       "versionCode": 4,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
@@ -33,7 +43,29 @@
         }
       ],
       "expo-localization",
-      "expo-sqlite"
+      "expo-sqlite",
+      [
+        "expo-notifications",
+        {
+          "defaultChannel": "tasks",
+          "enableBackgroundRemoteNotifications": true
+        }
+      ],
+      "@react-native-firebase/app/app.plugin.js",
+      [
+        "@react-native-firebase/messaging/app.plugin.js",
+        {
+          "installationIdEnabled": true
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "dynamic"
+          }
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,

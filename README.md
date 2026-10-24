@@ -2,6 +2,9 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+Push registration, receive handling, configuration and backend contract are
+documented in [docs/push-notifications.md](docs/push-notifications.md).
+
 ## Get started
 
 1. Install dependencies

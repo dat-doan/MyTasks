@@ -33,5 +33,9 @@
     "errorTitle": "Không thể lưu",
     "saveError": "Không thể lưu thay đổi. Vui lòng thử lại.",
     "retry": "Thử lại"
+  },
+  "notification": {
+    "openedTask": "Công việc từ thông báo",
+    "dismiss": "Bỏ chọn"
   }
 }

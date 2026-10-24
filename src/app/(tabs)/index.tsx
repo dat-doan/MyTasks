@@ -5,6 +5,7 @@ import TaskList from "@/components/TaskList";
 import TaskSummary from "@/components/TaskSummary";
 import TaskTracking from "@/components/TaskTracking";
 import { useTasks } from "@/hooks/useTasks";
+import { router, useLocalSearchParams } from "expo-router";
 import { useCallback, useMemo, useState } from "react";
 import { withTranslation, type WithTranslation } from "react-i18next";
 import {
@@ -19,9 +20,19 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 function MyTasks({ t }: WithTranslation<"tasks">) {
   const { tasks, status, load, add, rename, toggle, remove } = useTasks();
+  const { taskId } = useLocalSearchParams<{ taskId?: string }>();
   const [editingTaskId, setEditingTaskId] = useState<string | null>(null);
 
   const editingTask = tasks.find((e) => e.id === editingTaskId);
+  const selectedTaskId =
+    typeof taskId === "string" && tasks.some((task) => task.id === taskId)
+      ? taskId
+      : undefined;
+  const visibleTasks = useMemo(() => {
+    if (!selectedTaskId) return tasks;
+    const selectedTask = tasks.find((task) => task.id === selectedTaskId)!;
+    return [selectedTask, ...tasks.filter((task) => task.id !== selectedTaskId)];
+  }, [tasks, selectedTaskId]);
 
   const completedCount = useMemo(
     () => tasks.reduce((count, task) => count + Number(task.complete), 0),
@@ -90,6 +101,18 @@ function MyTasks({ t }: WithTranslation<"tasks">) {
         onAdd={add}
         onError={showStorageError}
       />
+      {selectedTaskId && (
+        <View style={styles.notificationContext}>
+          <Text style={styles.statusText}>{t(($) => $.notification.openedTask)}</Text>
+          <Pressable
+            accessibilityRole="button"
+            onPress={() => router.setParams({ taskId: undefined })}
+            style={styles.dismissSelection}
+          >
+            <Text style={styles.selectionLabel}>{t(($) => $.notification.dismiss)}</Text>
+          </Pressable>
+        </View>
+      )}
       {status === "loading" ? (
         <View style={styles.status}>
           <ActivityIndicator color="#4F46E5" />
@@ -109,7 +132,11 @@ function MyTasks({ t }: WithTranslation<"tasks">) {
           </Pressable>
         </View>
       ) : (
-        <TaskList tasks={tasks} onAction={onTaskAction} />
+        <TaskList
+          tasks={visibleTasks}
+          selectedTaskId={selectedTaskId}
+          onAction={onTaskAction}
+        />
       )}
 
       {editingTask && (
@@ -141,6 +168,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     gap: 12,
+  },
+  notificationContext: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    gap: 8,
+  },
+  dismissSelection: {
+    minHeight: 44,
+    justifyContent: "center",
+    paddingHorizontal: 8,
+  },
+  selectionLabel: {
+    color: "#4F46E5",
+    fontWeight: "600",
   },
   statusText: {
     color: "#475569",

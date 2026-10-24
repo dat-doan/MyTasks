@@ -33,5 +33,9 @@
     "errorTitle": "Unable to save",
     "saveError": "Your changes could not be saved. Please try again.",
     "retry": "Try again"
+  },
+  "notification": {
+    "openedTask": "Task from notification",
+    "dismiss": "Clear selection"
   }
 }
